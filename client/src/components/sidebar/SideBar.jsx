@@ -3,7 +3,7 @@ import React from "react";
 const SideBar = () => {
     return (
         <div className="w-60 h-full px-10 pt-[4.2rem]">
-            <div>
+            <div className="fixed">
                 <h1 className="text-xl font-bold">Explore</h1>
 
                 <li className="list-none text-sm mt-6">

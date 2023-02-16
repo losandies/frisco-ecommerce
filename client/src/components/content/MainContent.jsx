@@ -21,13 +21,49 @@ const content = [
         price: "89.99",
         category: "shoes",
     },
+    {
+        name: "Fleece Fall Jacket",
+        brand: "Maroons",
+        price: "84.99",
+        category: "clothing",
+    },
+    {
+        name: "Vintage Graphic T",
+        brand: "Lewis Cupper",
+        price: "124.99",
+        category: "clothing",
+    },
+    {
+        name: "Air Force 1",
+        brand: "Nike",
+        price: "89.99",
+        category: "shoes",
+    },
+    {
+        name: "Fleece Fall Jacket",
+        brand: "Maroons",
+        price: "84.99",
+        category: "clothing",
+    },
+    {
+        name: "Vintage Graphic T",
+        brand: "Lewis Cupper",
+        price: "124.99",
+        category: "clothing",
+    },
+    {
+        name: "Air Force 1",
+        brand: "Nike",
+        price: "89.99",
+        category: "shoes",
+    },
 ];
 
 const MainContent = () => {
     return (
         <div className="h-full w-full px-10 pt-12">
             <FilterBar selectedPage={"⚡️ New In"} />
-            <div className="items-container flex flex-grow w-full h-full mt-6 pl-5">
+            <div className="items-container grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full h-full mt-6">
                 {content.map((item) => (
                     <Item
                         name={item.name}
