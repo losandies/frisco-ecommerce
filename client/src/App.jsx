@@ -8,7 +8,7 @@ function App() {
     const [count, setCount] = useState(0);
 
     return (
-        <div className="h-[100vh] w-full">
+        <div className="h-full w-full">
             <Homepage />
         </div>
     );

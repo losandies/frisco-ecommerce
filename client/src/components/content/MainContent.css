@@ -1,5 +1,0 @@
-.items-container {
-    @media (min-width: 1024px) and (max-width: 1400px) {
-        grid-col: 3;
-    }
-}

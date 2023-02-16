@@ -1,6 +1,7 @@
 import React from "react";
 import FilterBar from "./FilterBar";
 import Item from "./Item";
+import { images } from "./clothingImages";
 
 const content = [
     {
@@ -8,6 +9,7 @@ const content = [
         brand: "Maroons",
         price: "84.99",
         category: "clothing",
+        // imgUrl: images.wutangt,
     },
     {
         name: "Vintage Graphic T",
@@ -61,14 +63,15 @@ const content = [
 
 const MainContent = () => {
     return (
-        <div className="h-full w-full px-10 pt-12">
+        <div className="h-full w-full px-10 pt-12 relative">
             <FilterBar selectedPage={"⚡️ New In"} />
-            <div className="items-container grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full h-full mt-6">
+            <div className="items-container grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full h-full mt-10">
                 {content.map((item) => (
                     <Item
                         name={item.name}
                         brand={item.brand}
                         price={item.price}
+                        imgUrl="wutangshirt.png"
                     />
                 ))}
             </div>
