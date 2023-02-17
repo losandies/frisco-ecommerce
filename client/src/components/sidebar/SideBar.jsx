@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 
 const SideBar = () => {
+    const [scrollY, setScrollY] = useState(0);
+
+    const watchScroll = () => {
+        window.addEventListener("scroll", () => {
+            setScrollY(window.pageYOffset);
+        });
+    };
+
+    useEffect(() => {
+        watchScroll();
+    });
+
     return (
-        <div className="w-60 h-full px-10 pt-[4.2rem]">
+        <div
+            className={`sidebar w-60 h-full px-10 pt-[4.2rem] ${
+                scrollY > 70 ? "pt-[26vh]" : "pt-[4.2rem]"
+            }`}
+        >
             <div className="fixed">
                 <h1 className="text-xl font-bold">Explore</h1>
 
