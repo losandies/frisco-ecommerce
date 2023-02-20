@@ -16,7 +16,7 @@ const SideBar = () => {
 
     return (
         <div
-            className={`sidebar w-60 h-full px-10 pt-[4.2rem] ${
+            className={`sidebar relative w-60 h-full px-10 ${
                 scrollY > 70 ? "pt-[26vh]" : "pt-[4.2rem]"
             }`}
         >

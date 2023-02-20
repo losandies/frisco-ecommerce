@@ -1,15 +1,18 @@
 import { useState } from "react";
 import "./App.css";
-import NavBar from "./components/navbar/NavBar";
-import SideBar from "./components/sidebar/SideBar";
 import Homepage from "./pages/Homepage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
     const [count, setCount] = useState(0);
 
     return (
         <div className="h-full w-full">
-            <Homepage />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Homepage />} />
+                </Routes>
+            </BrowserRouter>
         </div>
     );
 }

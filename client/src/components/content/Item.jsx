@@ -1,11 +1,11 @@
 import React from "react";
 import wutang from "../../assets/wutangshirt.png";
 
-const Item = ({ name, brand, price, imgUrl }) => {
+const Item = ({ name, brand, price, imgPath }) => {
     return (
         <div className="max-w-72 max-h-[34rem] flex flex-col lg:ml-7 sm:ml-15 pl-10 md:pl-0 mb-10">
             <img
-                src={`../../src/assets/${imgUrl}`}
+                src={`../../src/assets/${imgPath}`}
                 className="item-photo w-72 h-68 bg-red-200 rounded-lg"
             ></img>
             <div className="item-description pl-3 pt-2 flex flex-col items-start">
