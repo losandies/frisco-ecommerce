@@ -2,7 +2,7 @@ import React from "react";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import logo from "../../assets/logo.jpeg";
 
-const NavBar = () => {
+const NavBar = ({ loggedIn }) => {
     return (
         <nav className="flex items-center h-16 w-full px-8">
             <div className="h-full w-full flex flex-row items-center justify-between mt-4">
@@ -26,14 +26,14 @@ const NavBar = () => {
                 <div className="nav-right flex items-center w-90">
                     <button className="flex justify-center items-center h-10 w-24 bg-slate-100 hover:bg-slate-200 text-sm text-neutral-700 rounded-lg mr-10">
                         <MdOutlineShoppingCart className="text-xl" />
-                        <h3>Cart: 2</h3>
+                        <h3>Cart: 0</h3>
                     </button>
                     <div className="text-neutral-700 font-normal">
-                        <a href="" className="underline">
+                        <a href="/login" className="underline">
                             Log In
                         </a>
                         <span> or </span>
-                        <a href="" className="underline">
+                        <a href="/register" className="underline">
                             Register
                         </a>
                     </div>
