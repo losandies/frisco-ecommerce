@@ -16,20 +16,32 @@ const SideBar = () => {
 
     return (
         <div
-            className={`sidebar relative w-60 h-full px-10 ${
+            className={`sidebar relative w-60 h-[100vh] pr-10 ${
                 scrollY > 70 ? "pt-[26vh]" : "pt-[4.2rem]"
             }`}
         >
             <div className="fixed">
-                <h1 className="text-xl font-bold">Explore</h1>
+                <h1 className="text-xl font-bold pl-10">Explore</h1>
 
-                <li className="list-none text-sm mt-6">
-                    <ul className="my-6">⚡️ New In</ul>
-                    <ul className="my-6">🧥 Clothing</ul>
-                    <ul className="my-6">👟 Shoes</ul>
-                    <ul className="my-6">👜 Accessories</ul>
-                    <ul className="my-6">🤸🏽‍♂️ Activewear</ul>
-                    <ul className="my-6">🎁 Gifts</ul>
+                <li className="list-none text-sm mt-4 w-60 cursor-pointer ">
+                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                        ⚡️ New In
+                    </ul>
+                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                        🧥 Clothing
+                    </ul>
+                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                        👟 Shoes
+                    </ul>
+                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                        👜 Accessories
+                    </ul>
+                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                        🤸🏽‍♂️ Activewear
+                    </ul>
+                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                        🎁 Gifts
+                    </ul>
                 </li>
             </div>
         </div>

@@ -23,7 +23,7 @@ const NavBar = ({ loggedIn }) => {
                     />
                 </div>
                 <div className="nav-right flex items-center w-90">
-                    <button className="flex justify-center items-center h-10 w-24 bg-slate-100 hover:bg-slate-200 text-sm text-neutral-700 rounded-lg mr-10">
+                    <button className="flex justify-center items-center h-10 w-24 bg-neutral-300 hover:bg-neutral-400 text-sm text-neutral-700 rounded-lg mr-10">
                         <MdOutlineShoppingCart className="text-xl" />
                         <h3>Cart: 0</h3>
                     </button>
