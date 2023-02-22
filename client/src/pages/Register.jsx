@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../components/navbar/NavBar";
-import loginImg from "../assets/login_img.jpeg";
+import registerImg from "../assets/login_img.jpeg";
 
 const Register = () => {
     return (
@@ -60,7 +60,7 @@ const Register = () => {
                         </h3>
                     </div>
                     <div className="w-1/2">
-                        <img src={loginImg} alt="login_image" />
+                        <img src={registerImg} alt="login_image" />
                     </div>
                 </div>
             </div>

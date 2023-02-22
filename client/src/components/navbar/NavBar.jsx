@@ -7,11 +7,10 @@ const NavBar = ({ loggedIn }) => {
         <nav className="flex items-center h-16 w-full px-8">
             <div className="h-full w-full flex flex-row items-center justify-between mt-4">
                 <div className="nav-left flex items-center w-3/5">
-                    <a href="" className="text-2xl">
+                    <a href="/" className="text-2xl">
                         <img
                             src={logo}
-                            alt=""
-                            srcset=""
+                            alt="logo"
                             className="max-w-[180px] h-[50px]"
                         />
                     </a>
