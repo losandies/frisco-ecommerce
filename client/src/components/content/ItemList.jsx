@@ -78,7 +78,7 @@ const content = [
     },
 ];
 
-const MainContent = () => {
+const ItemList = () => {
     return (
         <div className="h-full w-full px-10 pt-12">
             <FilterBar selectedPage={"⚡️ New In"} />
@@ -98,4 +98,4 @@ const MainContent = () => {
     );
 };
 
-export default MainContent;
+export default ItemList;
