@@ -1,6 +1,6 @@
 import React from "react";
 import ItemInfo from "../components/content/ItemInfo";
-import MainContent from "../components/content/MainContent";
+import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
 
@@ -12,6 +12,7 @@ const ItemListing = () => {
                 <SideBar />
                 <ItemInfo />
             </div>
+            <Footer />
         </div>
     );
 };
