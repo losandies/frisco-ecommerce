@@ -5,6 +5,7 @@ import wutangshirt from "../../assets/wutangshirt.png";
 
 const ItemInfo = () => {
     const [selectedQuantity, setSelectedQuantity] = useState(1);
+    const [selectedSize, setSelectedSize] = useState("sm");
 
     return (
         <div className="h-full w-full flex justify-center px-10 pt-16">
@@ -33,16 +34,44 @@ const ItemInfo = () => {
                         <div className="sizing mt-10">
                             <h1 className="mb-2">Choose Size</h1>
                             <div className="sizing-buttons flex">
-                                <button className="w-24 h-10 mr-2 rounded-lg border-[1px] focus:bg-black focus:text-white border-black">
+                                <button
+                                    className={`w-24 h-10 mr-2 rounded-lg border-[1px] ${
+                                        selectedSize === "sm"
+                                            ? "bg-black text-white"
+                                            : null
+                                    } border-black`}
+                                    onClick={() => setSelectedSize("sm")}
+                                >
                                     <span>SM</span>
                                 </button>
-                                <button className="w-24 h-10 mr-2 rounded-lg border-[1px] focus:bg-black focus:text-white border-black">
+                                <button
+                                    className={`w-24 h-10 mr-2 rounded-lg border-[1px] ${
+                                        selectedSize === "md"
+                                            ? "bg-black text-white"
+                                            : null
+                                    }  border-black`}
+                                    onClick={() => setSelectedSize("md")}
+                                >
                                     <span>MD</span>
                                 </button>
-                                <button className="w-24 h-10 mr-2 rounded-lg border-[1px] focus:bg-black focus:text-white border-black">
+                                <button
+                                    className={`w-24 h-10 mr-2 rounded-lg border-[1px] ${
+                                        selectedSize === "lg"
+                                            ? "bg-black text-white"
+                                            : null
+                                    } border-black`}
+                                    onClick={() => setSelectedSize("lg")}
+                                >
                                     <span>LG</span>
                                 </button>
-                                <button className="w-24 h-10 mr-2 rounded-lg border-[1px] focus:bg-black focus:text-white border-black">
+                                <button
+                                    className={`w-24 h-10 mr-2 rounded-lg border-[1px] ${
+                                        selectedSize === "xl"
+                                            ? "bg-black text-white"
+                                            : null
+                                    }  border-black`}
+                                    onClick={() => setSelectedSize("xl")}
+                                >
                                     <span>XL</span>
                                 </button>
                             </div>
