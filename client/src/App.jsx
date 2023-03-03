@@ -5,6 +5,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ItemListing from "./pages/ItemListing";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
     const [count, setCount] = useState(0);
@@ -19,6 +21,7 @@ function App() {
                     <Route path="/item/:id" element={<ItemListing />} />
                 </Routes>
             </BrowserRouter>
+            <ToastContainer />
         </div>
     );
 }
