@@ -1,8 +1,12 @@
 import React from "react";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { useSelector } from "react-redux";
 import logo from "../../assets/logo.jpeg";
+import aaliyah from "../../assets/aaliyah_t.jpeg";
 
 const NavBar = ({ loggedIn }) => {
+    const { user } = useSelector((state) => state.auth);
+
     return (
         <nav className="flex items-center h-16 w-full px-8">
             <div className="h-full w-full flex flex-row items-center justify-between mt-4">
@@ -27,15 +31,25 @@ const NavBar = ({ loggedIn }) => {
                         <MdOutlineShoppingCart className="text-xl" />
                         <h3>Cart: 0</h3>
                     </button>
-                    <div className="text-neutral-700 font-normal">
-                        <a href="/login" className="underline">
-                            Log In
-                        </a>
-                        <span> or </span>
-                        <a href="/register" className="underline">
-                            Register
-                        </a>
-                    </div>
+
+                    {user ? (
+                        <div className="avatar flex items-center">
+                            <div className="w-10 mask mask-squircle">
+                                <img src={aaliyah} />
+                            </div>
+                            <h1 className="ml-6">Hello {user.name}</h1>
+                        </div>
+                    ) : (
+                        <div className="text-neutral-700 font-normal">
+                            <a href="/login" className="underline">
+                                Log In
+                            </a>
+                            <span> or </span>
+                            <a href="/register" className="underline">
+                                Register
+                            </a>
+                        </div>
+                    )}
                 </div>
             </div>
         </nav>

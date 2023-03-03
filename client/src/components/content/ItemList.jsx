@@ -84,14 +84,13 @@ const ItemList = () => {
             <FilterBar selectedPage={"⚡️ New In"} />
             <div className="items-container grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full h-full mt-10">
                 {content.map((item) => (
-                    <Link to={`/item/${item.id}`}>
-                        <Item
-                            name={item.name}
-                            brand={item.brand}
-                            price={item.price}
-                            imgPath={item.imgPath}
-                        />
-                    </Link>
+                    <Item
+                        id={item.id}
+                        name={item.name}
+                        brand={item.brand}
+                        price={item.price}
+                        imgPath={item.imgPath}
+                    />
                 ))}
             </div>
         </div>

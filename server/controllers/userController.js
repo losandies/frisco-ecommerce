@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const registerUser = async (req, res) => {
+    console.log("route hit");
     const { name, email, password } = req.body;
 
     try {

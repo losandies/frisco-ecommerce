@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import ItemListing from "./pages/ItemListing";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Cart from "./pages/Cart";
 
 function App() {
     const [count, setCount] = useState(0);
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/item/:id" element={<ItemListing />} />
+                    <Route path="/cart" element={<Cart />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer />

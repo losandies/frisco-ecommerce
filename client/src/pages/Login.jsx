@@ -1,8 +1,59 @@
 import React from "react";
 import NavBar from "../components/navbar/NavBar";
 import loginImg from "../assets/login_img2.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { login } from "../redux/auth/authSlice";
+import { toast } from "react-toastify";
+import * as EmailValidator from "email-validator";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { isError, isLoading, user, isSuccess, message } = useSelector(
+        (state) => state.auth
+    );
+
+    useEffect(() => {
+        isError ? toast.error(message) : null;
+        isSuccess || user ? navigate("/") : null;
+    }, [user, isError, isSuccess, message, isLoading, navigate, dispatch]);
+
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    });
+
+    const { email, password } = formData;
+
+    const onChange = (e) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        const validEmail = EmailValidator.validate(email);
+
+        if (!validEmail) {
+            toast.error("Please enter a valid email address");
+        } else {
+            const userInfo = {
+                email,
+                password,
+            };
+            dispatch(login(userInfo));
+        }
+    };
+
+    useEffect(() => {
+        console.log(formData);
+    }, [formData]);
     return (
         <div className="flex flex-col h-full">
             <NavBar />
@@ -12,22 +63,29 @@ const Login = () => {
                     <div className="w-1/2">
                         <img src={loginImg} alt="login_image" />
                     </div>
-                    <div className="w-1/2 flex flex-col items-center justify-center">
+                    <form
+                        className="w-1/2 flex flex-col items-center justify-center"
+                        onSubmit={onSubmit}
+                    >
                         <h1 className="text-2xl mb-5">Welcome Back!</h1>
 
                         <div className="input-container">
                             <h1>Email:</h1>
                             <input
+                                onChange={onChange}
                                 type="text"
                                 name="email"
+                                value={email}
                                 className="mb-4 mt-1 border-2 p-1 w-72 rounded-sm outline-slate-300"
                             />
                         </div>
                         <div className="input-container">
                             <h1>Password:</h1>
                             <input
+                                onChange={onChange}
                                 type="password"
-                                name="email"
+                                name="password"
+                                value={password}
                                 className="mb-4 mt-1 border-2 p-1 w-72 rounded-sm outline-slate-300"
                             />
                         </div>
@@ -45,7 +103,7 @@ const Login = () => {
                                 here
                             </a>
                         </h3>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
