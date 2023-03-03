@@ -101,14 +101,9 @@ const deleteAllUsers = async () => {
     await prisma.user.deleteMany({});
 };
 
-const sayHello = (req, res) => {
-    res.status(200).json({ msg: "Hello World" });
-};
-
 module.exports = {
     registerUser,
     getUsers,
     deleteAllUsers,
     loginUser,
-    sayHello,
 };
