@@ -3,9 +3,12 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { useSelector } from "react-redux";
 import logo from "../../assets/logo.jpeg";
 import aaliyah from "../../assets/aaliyah_t.jpeg";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = ({ loggedIn }) => {
     const { user } = useSelector((state) => state.auth);
+
+    const navigate = useNavigate();
 
     return (
         <nav className="flex items-center h-16 w-full px-8">
@@ -27,10 +30,13 @@ const NavBar = ({ loggedIn }) => {
                     />
                 </div>
                 <div className="nav-right flex items-center w-90">
-                    <button className="flex justify-center items-center h-10 w-24 bg-neutral-200 hover:bg-neutral-300 text-sm text-neutral-700 rounded-lg mr-10">
+                    <Link
+                        to="/cart"
+                        className="flex justify-center items-center h-10 w-24 bg-neutral-200 hover:bg-neutral-300 text-sm text-neutral-700 rounded-lg mr-10"
+                    >
                         <MdOutlineShoppingCart className="text-xl" />
                         <h3>Cart: 0</h3>
-                    </button>
+                    </Link>
 
                     {user ? (
                         <div className="avatar flex items-center">

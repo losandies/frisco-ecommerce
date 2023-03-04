@@ -3,7 +3,7 @@ import NavBar from "../components/navbar/NavBar";
 import loginImg from "../assets/login_img2.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { login } from "../redux/auth/authSlice";
+import { login, reset } from "../redux/auth/authSlice";
 import { toast } from "react-toastify";
 import * as EmailValidator from "email-validator";
 import { useNavigate } from "react-router-dom";
@@ -17,9 +17,11 @@ const Login = () => {
     );
 
     useEffect(() => {
-        isError ? toast.error(message) : null;
+        isError ? toast.error(message.error) : null;
         isSuccess || user ? navigate("/") : null;
-    }, [user, isError, isSuccess, message, isLoading, navigate, dispatch]);
+
+        dispatch(reset());
+    }, [isError, isSuccess]);
 
     const [formData, setFormData] = useState({
         email: "",

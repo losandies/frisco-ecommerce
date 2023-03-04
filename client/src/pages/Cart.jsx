@@ -1,4 +1,5 @@
 import React from "react";
+import ShoppingCart from "../components/cart/ShoppingCart";
 import ItemList from "../components/content/ItemList";
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
@@ -10,6 +11,7 @@ const Cart = () => {
             <NavBar />
             <div className="h-full w-full flex">
                 <SideBar />
+                <ShoppingCart />
             </div>
             <Footer />
         </div>

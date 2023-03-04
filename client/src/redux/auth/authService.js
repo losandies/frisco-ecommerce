@@ -13,6 +13,7 @@ const register = async (userData) => {
 };
 
 const login = async (userData) => {
+    console.log("service hit");
     const res = await axios.post(`${API_URL}/login`, userData);
 
     if (res.data) {
