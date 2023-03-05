@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const NavBar = ({ loggedIn }) => {
     const { user } = useSelector((state) => state.auth);
+    const { cart } = useSelector((state) => state.cart);
 
     const navigate = useNavigate();
 
@@ -35,7 +36,7 @@ const NavBar = ({ loggedIn }) => {
                         className="flex justify-center items-center h-10 w-24 bg-neutral-200 hover:bg-neutral-300 text-sm text-neutral-700 rounded-lg mr-10"
                     >
                         <MdOutlineShoppingCart className="text-xl" />
-                        <h3>Cart: 0</h3>
+                        <h3>{cart.length}</h3>
                     </Link>
 
                     {user ? (

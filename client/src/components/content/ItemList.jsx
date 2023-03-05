@@ -1,7 +1,7 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import FilterBar from "./FilterBar";
 import Item from "./Item";
-import { Link } from "react-router-dom";
 
 const content = [
     {
@@ -79,18 +79,13 @@ const content = [
 ];
 
 const ItemList = () => {
+    const { items, isLoading } = useSelector((state) => state.items);
     return (
         <div className="h-full w-full px-10 pt-12">
             <FilterBar selectedPage={"⚡️ New In"} />
             <div className="items-container grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full h-full mt-10">
                 {content.map((item) => (
-                    <Item
-                        id={item.id}
-                        name={item.name}
-                        brand={item.brand}
-                        price={item.price}
-                        imgPath={item.imgPath}
-                    />
+                    <Item key={item.id} item={item} />
                 ))}
             </div>
         </div>

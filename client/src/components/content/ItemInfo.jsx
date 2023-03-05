@@ -1,11 +1,27 @@
 import React from "react";
-import { useEffect } from "react";
-import { useRef, useState } from "react";
-import wutangshirt from "../../assets/wutangshirt.png";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addToCart } from "../../redux/cart/cartSlice";
 
 const ItemInfo = () => {
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState("sm");
+
+    const { selectedItem } = useSelector((state) => state.items);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const gatherItemInfo = () => {
+        const itemInfo = {
+            ...selectedItem,
+            size: selectedSize,
+            quantity: selectedQuantity,
+        };
+
+        dispatch(addToCart(itemInfo));
+    };
 
     return (
         <div className="h-full w-full flex justify-center px-10 pt-16">
@@ -15,7 +31,7 @@ const ItemInfo = () => {
                     className="flex justify-center items-center w-[20%] min-w-[500px]"
                 >
                     <img
-                        src={wutangshirt}
+                        src={`../src/assets/${selectedItem.imgPath}`}
                         alt=""
                         className="h-[600px] w-[400px]"
                     />
@@ -23,13 +39,13 @@ const ItemInfo = () => {
                 <div className="h-[700px] w-[40%] min-w-[500px] flex flex-col justify-center ">
                     <div className="ml-10">
                         <div className="name">
-                            <h1 className="text-3xl">Vintage Wu-tang Shirt</h1>
+                            <h1 className="text-3xl">{selectedItem.name}</h1>
                             <h2 className="text-xl font-bold uppercase">
-                                Merwani
+                                {selectedItem.brand}
                             </h2>
                         </div>
                         <div className="price">
-                            <h3 className="text-md">$164.99</h3>
+                            <h3 className="text-md">${selectedItem.price}</h3>
                         </div>
                         <div className="sizing mt-10">
                             <h1 className="mb-2">Choose Size</h1>
@@ -101,7 +117,7 @@ const ItemInfo = () => {
                                     min="1"
                                     max="5"
                                     step="1"
-                                    readonly
+                                    readOnly
                                 />
                                 <button
                                     onClick={() =>
@@ -115,7 +131,10 @@ const ItemInfo = () => {
                                     +
                                 </button>
                             </div>
-                            <button className="uppercase text-xs w-72 bg-black text-white ml-5">
+                            <button
+                                className="uppercase text-xs w-72 bg-black text-white ml-5"
+                                onClick={gatherItemInfo}
+                            >
                                 add to bag
                             </button>
                         </div>
