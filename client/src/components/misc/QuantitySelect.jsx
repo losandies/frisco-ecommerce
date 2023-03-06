@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-const QuantitySelect = () => {
+const QuantitySelect = ({ item }) => {
     const [selectedQuantity, setSelectedQuantity] = useState(1);
 
     return (
@@ -19,7 +19,7 @@ const QuantitySelect = () => {
             <input
                 className="text-center caret-transparent cursor-default"
                 type="number"
-                value={selectedQuantity}
+                value={item ? item.quantity : selectedQuantity}
                 min="1"
                 max="5"
                 step="1"

@@ -11,6 +11,13 @@ const NavBar = ({ loggedIn }) => {
 
     const navigate = useNavigate();
 
+    const getCartTotal = () => {
+        const quantities = [];
+        cart.forEach((item) => quantities.push(item.quantity));
+
+        return quantities.reduce((acc, curr) => acc + curr, 0);
+    };
+
     return (
         <nav className="flex items-center h-16 w-full px-8">
             <div className="h-full w-full flex flex-row items-center justify-between mt-4">
@@ -36,7 +43,7 @@ const NavBar = ({ loggedIn }) => {
                         className="flex justify-center items-center h-10 w-24 bg-neutral-200 hover:bg-neutral-300 text-sm text-neutral-700 rounded-lg mr-10"
                     >
                         <MdOutlineShoppingCart className="text-xl" />
-                        <h3>{cart.length}</h3>
+                        <h3>{getCartTotal()}</h3>
                     </Link>
 
                     {user ? (

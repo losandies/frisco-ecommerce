@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import ItemDivider from "./ItemDivider";
 
 const ShoppingCart = () => {
+    const { cart } = useSelector((state) => state.cart);
     return (
         <div className="w-full h-full flex justify-center">
             <div className="mt-[3.8rem] w-[80%] max-w-[1300px] h-auto">
@@ -11,7 +13,9 @@ const ShoppingCart = () => {
                     <ItemDivider />
                 </div>
                 <div>
-                    <CartItem />
+                    {cart.map((item) => (
+                        <CartItem item={item} />
+                    ))}
                 </div>
             </div>
         </div>
