@@ -19,9 +19,15 @@ export const cartSlice = createSlice({
             );
             state.cart = items;
         },
+        getCartTotal: (state) => {
+            const quantities = [];
+            state.cart.forEach((item) => quantities.push(item.quantity));
+
+            state.total = quantities.reduce((acc, curr) => acc + curr, 0);
+        },
     },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, getCartTotal } = cartSlice.actions;
 
 export default cartSlice.reducer;

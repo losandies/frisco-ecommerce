@@ -1,22 +1,22 @@
 import React from "react";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import logo from "../../assets/logo.jpeg";
 import aaliyah from "../../assets/aaliyah_t.jpeg";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { getCartTotal } from "../../redux/cart/cartSlice";
 
 const NavBar = ({ loggedIn }) => {
     const { user } = useSelector((state) => state.auth);
-    const { cart } = useSelector((state) => state.cart);
+    const { cart, total } = useSelector((state) => state.cart);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const getCartTotal = () => {
-        const quantities = [];
-        cart.forEach((item) => quantities.push(item.quantity));
-
-        return quantities.reduce((acc, curr) => acc + curr, 0);
-    };
+    useEffect(() => {
+        dispatch(getCartTotal());
+    });
 
     return (
         <nav className="flex items-center h-16 w-full px-8">
@@ -43,7 +43,7 @@ const NavBar = ({ loggedIn }) => {
                         className="flex justify-center items-center h-10 w-24 bg-neutral-200 hover:bg-neutral-300 text-sm text-neutral-700 rounded-lg mr-10"
                     >
                         <MdOutlineShoppingCart className="text-xl" />
-                        <h3>{getCartTotal()}</h3>
+                        <h3>{total}</h3>
                     </Link>
 
                     {user ? (

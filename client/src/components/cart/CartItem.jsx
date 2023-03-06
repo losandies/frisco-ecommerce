@@ -39,8 +39,11 @@ const CartItem = ({ item }) => {
                     />
                     <button onClick={() => (item.quantity += 1)}>+</button>
                 </div>
-                <button onClick={() => dispatch(removeFromCart(item.id))}>
-                    X
+                <button
+                    className="h-10 w-12 rounded-sm bg-black text-white hover:text-red-500"
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                >
+                    ✕
                 </button>
             </div>
         </div>
