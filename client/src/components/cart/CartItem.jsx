@@ -1,7 +1,11 @@
 import React from "react";
 import aaliyah from "../../assets/aaliyah_t.jpeg";
 import QuantitySelect from "../misc/QuantitySelect";
-import { removeFromCart } from "../../redux/cart/cartSlice";
+import {
+    removeFromCart,
+    decreaseItemQuantity,
+    increaseItemQuantity,
+} from "../../redux/cart/cartSlice";
 import { useDispatch } from "react-redux";
 
 const CartItem = ({ item }) => {
@@ -25,7 +29,10 @@ const CartItem = ({ item }) => {
                     <h3 className="text-xs text-neutral-500">${item.price}</h3>
                 </div>
                 <div className="w-[6.25rem] h-10 border-black border-[1px] flex justify-around rounded-lg">
-                    <button className={item.quantity === 1 ? "disabled" : null}>
+                    <button
+                        className={item.quantity === 1 ? "disabled" : null}
+                        onClick={() => dispatch(decreaseItemQuantity(item))}
+                    >
                         -
                     </button>
                     <input
@@ -37,7 +44,11 @@ const CartItem = ({ item }) => {
                         step="1"
                         readonly
                     />
-                    <button onClick={() => (item.quantity += 1)}>+</button>
+                    <button
+                        onClick={() => dispatch(increaseItemQuantity(item))}
+                    >
+                        +
+                    </button>
                 </div>
                 <button
                     className="h-10 w-12 rounded-sm bg-black text-white hover:text-red-500"

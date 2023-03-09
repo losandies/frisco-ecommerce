@@ -20,6 +20,9 @@ const ItemInfo = () => {
             quantity: selectedQuantity,
         };
 
+        // for (let i = 0; i < selectedQuantity; i++) {
+        //     dispatch(addToCart(itemInfo));
+        // }
         dispatch(addToCart(itemInfo));
     };
 
@@ -121,11 +124,9 @@ const ItemInfo = () => {
                                 />
                                 <button
                                     onClick={() =>
-                                        selectedQuantity < 5
-                                            ? setSelectedQuantity(
-                                                  selectedQuantity + 1
-                                              )
-                                            : null
+                                        setSelectedQuantity(
+                                            selectedQuantity + 1
+                                        )
                                     }
                                 >
                                     +

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Homepage from "./pages/Homepage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -8,9 +8,17 @@ import ItemListing from "./pages/ItemListing";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cart from "./pages/Cart";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartTotal } from "./redux/cart/cartSlice";
 
 function App() {
     const [count, setCount] = useState(0);
+    const dispatch = useDispatch();
+    const { total } = useSelector((state) => state.cart);
+
+    useEffect(() => {
+        dispatch(getCartTotal());
+    }, [total]);
 
     return (
         <div className="h-full w-full">
