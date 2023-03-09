@@ -59,7 +59,7 @@ const CartItem = ({ item }) => {
                 </div>
                 <button
                     className="h-10 w-12 rounded-sm bg-black text-white hover:text-red-500"
-                    onClick={() => dispatch(removeFromCart(item.id))}
+                    onClick={() => dispatch(removeFromCart(item))}
                 >
                     ✕
                 </button>

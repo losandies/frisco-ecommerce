@@ -5,18 +5,18 @@ import logo from "../../assets/logo.jpeg";
 import aaliyah from "../../assets/aaliyah_t.jpeg";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { getCartTotal } from "../../redux/cart/cartSlice";
+import { getCartTotalItems } from "../../redux/cart/cartSlice";
 
 const NavBar = ({ loggedIn }) => {
     const { user } = useSelector((state) => state.auth);
-    const { cart, total } = useSelector((state) => state.cart);
+    const { cart, amountOfItems } = useSelector((state) => state.cart);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCartTotal());
-    });
+        dispatch(getCartTotalItems());
+    }, []);
 
     return (
         <nav className="flex items-center h-16 w-full px-8">
@@ -43,7 +43,7 @@ const NavBar = ({ loggedIn }) => {
                         className="flex justify-center items-center h-10 w-24 bg-neutral-200 hover:bg-neutral-300 text-sm text-neutral-700 rounded-lg mr-10"
                     >
                         <MdOutlineShoppingCart className="text-xl" />
-                        <h3>{total}</h3>
+                        <h3>{amountOfItems}</h3>
                     </Link>
 
                     {user ? (

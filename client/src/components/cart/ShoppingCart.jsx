@@ -4,7 +4,7 @@ import CartItem from "./CartItem";
 import ItemDivider from "./ItemDivider";
 
 const ShoppingCart = () => {
-    const { cart, total } = useSelector((state) => state.cart);
+    const { cart, amountOfItems } = useSelector((state) => state.cart);
 
     const increaseItemQuantity = (item) => {
         console.log(item.quantity + 1);
@@ -14,7 +14,7 @@ const ShoppingCart = () => {
             <div className="mt-[3.8rem] w-[80%] max-w-[1300px] h-auto">
                 <div className="title">
                     <h1 className="text-3xl font-bold">
-                        My Bag: {total} items
+                        My Bag: {amountOfItems} items
                     </h1>
                     <ItemDivider />
                 </div>

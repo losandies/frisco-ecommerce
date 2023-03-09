@@ -9,16 +9,16 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cart from "./pages/Cart";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartTotal } from "./redux/cart/cartSlice";
+import { getCartTotalItems, getCartTotalPrice } from "./redux/cart/cartSlice";
 
 function App() {
     const [count, setCount] = useState(0);
     const dispatch = useDispatch();
-    const { total } = useSelector((state) => state.cart);
+    const { amountOfItems, cart } = useSelector((state) => state.cart);
 
     useEffect(() => {
-        dispatch(getCartTotal());
-    }, [total]);
+        dispatch(getCartTotalItems());
+    }, [amountOfItems, cart]);
 
     return (
         <div className="h-full w-full">

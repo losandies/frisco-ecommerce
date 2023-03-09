@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     cart: [],
-    total: 0,
+    amountOfItems: 0,
+    totalPrice: 0,
     orderPlaced: false,
 };
 
@@ -13,7 +14,13 @@ export const cartSlice = createSlice({
         addToCart: (state, action) => {
             let alreadyAdded;
 
-            if (state.cart.some((item) => item.id === action.payload.id))
+            if (
+                state.cart.some(
+                    (item) =>
+                        item.id === action.payload.id &&
+                        item.size === action.payload.size
+                )
+            )
                 alreadyAdded = true;
 
             if (!alreadyAdded) {
@@ -29,16 +36,20 @@ export const cartSlice = createSlice({
         },
         removeFromCart: (state, action) => {
             const items = state.cart.filter(
-                (item) => item.id !== action.payload
+                (item) =>
+                    item.id !== action.payload.id ||
+                    item.size !== action.payload.size
             );
             state.cart = items;
         },
-        getCartTotal: (state) => {
-            // state.total = state.cart.length;
+        getCartTotalItems: (state) => {
             const quantities = [];
             state.cart.forEach((item) => quantities.push(item.quantity));
 
-            state.total = quantities.reduce((acc, curr) => acc + curr, 0);
+            state.amountOfItems = quantities.reduce(
+                (acc, curr) => acc + curr,
+                0
+            );
         },
         decreaseItemQuantity: (state, action) => {
             state.cart.forEach((item, index) => {
@@ -56,15 +67,24 @@ export const cartSlice = createSlice({
                 }
             });
         },
+        getCartTotalPrice: (state) => {
+            let prices = [];
+            state.cart.forEach((item) =>
+                prices.push(item.price * item.quantity)
+            );
+            const total = prices.reduce((acc, curr) => acc + curr, 0);
+            state.totalPrice = total.toFixed(2);
+        },
     },
 });
 
 export const {
     addToCart,
     removeFromCart,
-    getCartTotal,
+    getCartTotalItems,
     increaseItemQuantity,
     decreaseItemQuantity,
+    getCartTotalPrice,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
