@@ -26,7 +26,14 @@ const CartItem = ({ item }) => {
                     </div>
                 </div>
                 <div>
-                    <h3 className="text-xs text-neutral-500">${item.price}</h3>
+                    <h3 className="text-xs font-semibold uppercase">
+                        {item.size}
+                    </h3>
+                </div>
+                <div className="max-w-[100px]">
+                    <h3 className="text-xs text-neutral-500">
+                        ${(item.price * item.quantity).toFixed(2)}
+                    </h3>
                 </div>
                 <div className="w-[6.25rem] h-10 border-black border-[1px] flex justify-around rounded-lg">
                     <button
@@ -42,7 +49,7 @@ const CartItem = ({ item }) => {
                         min="1"
                         max="5"
                         step="1"
-                        readonly
+                        readOnly
                     />
                     <button
                         onClick={() => dispatch(increaseItemQuantity(item))}

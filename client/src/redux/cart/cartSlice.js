@@ -11,7 +11,21 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
-            state.cart.push(action.payload);
+            let alreadyAdded;
+
+            if (state.cart.some((item) => item.id === action.payload.id))
+                alreadyAdded = true;
+
+            if (!alreadyAdded) {
+                state.cart.push(action.payload);
+            } else {
+                state.cart.forEach((item, index) => {
+                    if (item.id === action.payload.id) {
+                        state.cart[index].quantity += action.payload.quantity;
+                        console.log(action.payload.quantity);
+                    }
+                });
+            }
         },
         removeFromCart: (state, action) => {
             const items = state.cart.filter(

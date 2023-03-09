@@ -20,7 +20,7 @@ const ShoppingCart = () => {
                 </div>
                 <div>
                     {cart.map((item) => (
-                        <CartItem item={item} increase={increaseItemQuantity} />
+                        <CartItem item={item} key={item.id} />
                     ))}
                 </div>
             </div>
