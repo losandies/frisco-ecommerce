@@ -26,6 +26,11 @@ const ItemInfo = () => {
         dispatch(addToCart(itemInfo));
     };
 
+    const selectNewSize = (size) => {
+        setSelectedSize(size);
+        setSelectedQuantity(1);
+    };
+
     return (
         <div className="h-full w-full flex justify-center px-10 pt-16">
             <div className="flex flex-col md:flex-row h-full w-[1100px]">
@@ -59,7 +64,7 @@ const ItemInfo = () => {
                                             ? "bg-black text-white"
                                             : null
                                     } border-black`}
-                                    onClick={() => setSelectedSize("sm")}
+                                    onClick={() => selectNewSize("sm")}
                                 >
                                     <span>SM</span>
                                 </button>
@@ -69,7 +74,7 @@ const ItemInfo = () => {
                                             ? "bg-black text-white"
                                             : null
                                     }  border-black`}
-                                    onClick={() => setSelectedSize("md")}
+                                    onClick={() => selectNewSize("md")}
                                 >
                                     <span>MD</span>
                                 </button>
@@ -79,7 +84,7 @@ const ItemInfo = () => {
                                             ? "bg-black text-white"
                                             : null
                                     } border-black`}
-                                    onClick={() => setSelectedSize("lg")}
+                                    onClick={() => selectNewSize("lg")}
                                 >
                                     <span>LG</span>
                                 </button>
@@ -89,7 +94,7 @@ const ItemInfo = () => {
                                             ? "bg-black text-white"
                                             : null
                                     }  border-black`}
-                                    onClick={() => setSelectedSize("xl")}
+                                    onClick={() => selectNewSize("xl")}
                                 >
                                     <span>XL</span>
                                 </button>

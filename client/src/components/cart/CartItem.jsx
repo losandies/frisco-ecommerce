@@ -7,13 +7,14 @@ import {
     increaseItemQuantity,
 } from "../../redux/cart/cartSlice";
 import { useDispatch } from "react-redux";
+import ItemDivider from "./ItemDivider";
 
 const CartItem = ({ item }) => {
     const dispatch = useDispatch();
 
     return (
-        <div className=" mt-6 px-4 h-auto w-full flex">
-            <div className="w-full flex items-center justify-between">
+        <div className=" mt-6  h-auto w-full flex flex-col">
+            <div className="w-full px-4 flex items-center justify-around">
                 <div className="name-pricing flex items-center justify-center">
                     <img
                         src={`../src/assets/${item.imgPath}`}
@@ -26,11 +27,11 @@ const CartItem = ({ item }) => {
                     </div>
                 </div>
                 <div>
-                    <h3 className="text-xs font-semibold uppercase">
+                    <h3 className="text-xs w-5 font-semibold uppercase">
                         {item.size}
                     </h3>
                 </div>
-                <div className="max-w-[100px]">
+                <div className="tabular-nums">
                     <h3 className="text-xs text-neutral-500">
                         ${(item.price * item.quantity).toFixed(2)}
                     </h3>
@@ -43,7 +44,7 @@ const CartItem = ({ item }) => {
                         -
                     </button>
                     <input
-                        className="text-center caret-transparent cursor-default"
+                        className="text-center caret-transparent cursor-default w-5"
                         type="number"
                         value={item ? item.quantity : selectedQuantity}
                         min="1"
@@ -64,6 +65,7 @@ const CartItem = ({ item }) => {
                     ✕
                 </button>
             </div>
+            <ItemDivider />
         </div>
     );
 };

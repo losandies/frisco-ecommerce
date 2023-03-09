@@ -75,6 +75,9 @@ export const cartSlice = createSlice({
             const total = prices.reduce((acc, curr) => acc + curr, 0);
             state.totalPrice = total.toFixed(2);
         },
+        clearCart: (state) => {
+            state.cart = [];
+        },
     },
 });
 
@@ -85,6 +88,7 @@ export const {
     increaseItemQuantity,
     decreaseItemQuantity,
     getCartTotalPrice,
+    clearCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
