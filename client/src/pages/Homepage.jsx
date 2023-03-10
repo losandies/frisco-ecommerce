@@ -10,6 +10,7 @@ import { getItems } from "../redux/items/itemsSlice";
 const Homepage = () => {
     const dispatch = useDispatch();
     const { items } = useSelector((state) => state.items);
+    const { currentPage } = useSelector((state) => state.nav);
 
     useEffect(() => {
         dispatch(getItems());
