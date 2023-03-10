@@ -12,6 +12,37 @@ model User {
   name String 
   email String
   password String
-  address String? 
+  address Address?
+  orders Order[]
+  createdAt DateTime @default(now())
+}
+
+model Address {
+  user User @relation(fields: [userId], references: [id])
+  userId String @unique
+  streetNumber String
+  streetName String
+  city String
+  state String
+  zipCode String
+}
+
+
+model Item {
+  id Int @id @default(autoincrement())
+  name String
+  brand String
+  category String
+  subcategory String
+  price String
+  imgPath String
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id String @id @default(uuid())
+  items String[]
+  user User @relation(fields: [userId], references: [id])
+  userId String
   createdAt DateTime @default(now())
 }
