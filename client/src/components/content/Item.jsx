@@ -8,7 +8,7 @@ const Item = ({ item }) => {
     const dispatch = useDispatch();
 
     return (
-        <div className="max-w-72 max-h-[34rem] flex flex-col lg:ml-7 sm:ml-15 pl-10 md:pl-0 mb-10">
+        <div className="max-w-[700px] flex flex-col lg:ml-7 sm:ml-15 pl-10 md:pl-0 mb-10">
             <div>
                 <Link
                     to={`/item/${item.id}`}
@@ -16,7 +16,7 @@ const Item = ({ item }) => {
                 >
                     <img
                         src={`../../src/assets/${item.imgPath}`}
-                        className="item-photo h-68 bg-red-200 rounded-lg"
+                        className="item-photo h-68 rounded-lg"
                     ></img>
                     <div className="item-description pl-3 pt-2 flex flex-col items-start">
                         <h1>{item.name}</h1>

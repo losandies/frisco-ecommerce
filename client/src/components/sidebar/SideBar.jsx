@@ -1,8 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import SideBarItem from "./SideBarItem";
 
 const SideBar = () => {
     const [scrollY, setScrollY] = useState(0);
+
+    const [clothingClicked, setClothingClicked] = useState(false);
+    const [shoesClicked, setShoesClicked] = useState(false);
+    const [accClicked, setAccClicked] = useState(false);
+    const [activeClicked, setActiveClicked] = useState(false);
 
     const watchScroll = () => {
         window.addEventListener("scroll", () => {
@@ -16,33 +22,67 @@ const SideBar = () => {
 
     return (
         <div
-            className={`sidebar relative w-60 h-[100vh] pr-10 ${
+            className={`sidebar relative w-60 h-full pr-10 ${
                 scrollY > 70 ? "pt-[26vh]" : "pt-[4.2rem]"
             }`}
         >
             <div className="fixed">
                 <h1 className="text-xl font-bold pl-10">Explore</h1>
 
-                <li className="list-none text-sm mt-4 w-60 cursor-pointer ">
-                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
-                        ⚡️ New In
-                    </ul>
-                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
-                        🧥 Clothing
-                    </ul>
-                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                <ul className="list-none text-sm mt-4 w-60 cursor-pointer ">
+                    <li className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                        <h1 className="uppercase">⚡️ New In</h1>
+                    </li>
+                    <SideBarItem
+                        category="🧥 Clothing"
+                        sub1="Shirts"
+                        sub2="Hoodies"
+                        sub3="Pants"
+                    />
+                    <SideBarItem
+                        category="👟 Shoes"
+                        sub1="Sneakers"
+                        sub2="Boots"
+                        sub3="Casual"
+                    />
+                    <SideBarItem
+                        category="👜 Accessories"
+                        sub1="Hats"
+                        sub2="Jewelry"
+                        sub3="Sunglasses"
+                    />
+                    <SideBarItem
+                        category="🤸🏽‍♂️ Activewear"
+                        sub1="Shirts"
+                        sub2="Hoodies"
+                        sub3="Pants"
+                    />
+
+                    {/* <li
+                        className="flex transition duration-300 ease-in flex-col h-10 justify-center hover:bg-neutral-300 pl-10 rounded-r-md hover:h-32 hover:pt-[10px] hover:justify-start"
+                        onMouseEnter={() => setClothingClicked(true)}
+                        onMouseLeave={() => setClothingClicked(false)}
+                    >
+                        <h1>🧥 Clothing</h1>
+                        <ul className={clothingClicked ? "block" : "hidden"}>
+                            <li>Shirts</li>
+                            <li>Hoodies</li>
+                            <li>Pants</li>
+                        </ul>
+                    </li>
+                    <li className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
                         👟 Shoes
-                    </ul>
-                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                    </li>
+                    <li className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
                         👜 Accessories
-                    </ul>
-                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                    </li>
+                    <li className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
                         🤸🏽‍♂️ Activewear
-                    </ul>
-                    <ul className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                    </li>
+                    <li className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
                         🎁 Gifts
-                    </ul>
-                </li>
+                    </li> */}
+                </ul>
             </div>
         </div>
     );

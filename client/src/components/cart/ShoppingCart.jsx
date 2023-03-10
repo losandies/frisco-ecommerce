@@ -4,6 +4,20 @@ import CartItem from "./CartItem";
 import ItemDivider from "./ItemDivider";
 import { clearCart } from "../../redux/cart/cartSlice";
 
+const showCartItems = (cartArray) => (
+    <div className="h-[50vh] overflow-scroll scrollbar-hide">
+        {cartArray.map((item) => (
+            <CartItem item={item} key={item.id} />
+        ))}
+    </div>
+);
+
+const noItemsYet = () => (
+    <div className="h-[50vh] max-h-auto w-full flex items-center justify-center">
+        <h2 className="text-3xl text-neutral-400">No Items Yet</h2>
+    </div>
+);
+
 const ShoppingCart = () => {
     const { cart, amountOfItems, totalPrice } = useSelector(
         (state) => state.cart
@@ -25,11 +39,7 @@ const ShoppingCart = () => {
                     </h1>
                     <ItemDivider />
                 </div>
-                <div>
-                    {cart.map((item) => (
-                        <CartItem item={item} key={item.id} />
-                    ))}
-                </div>
+                {cartIsEmpty ? noItemsYet() : showCartItems(cart)}
                 <div className="w-full h-32 flex justify-end">
                     <div className="mt-5 w-56 flex flex-col items-center">
                         <h1 className="text-2xl font-bold">
@@ -38,11 +48,15 @@ const ShoppingCart = () => {
                         </h1>
                         <button
                             className={`w-[80%] mt-3 h-12 bg-black text-white font-semibold rounded-sm ${
-                                cartIsEmpty ? "bg-neutral-300 " : null
+                                cartIsEmpty
+                                    ? "bg-neutral-300 cursor-default"
+                                    : null
                             }`}
-                            onClick={() => dispatch(clearCart())}
+                            onClick={() =>
+                                !cartIsEmpty ? dispatch(clearCart()) : null
+                            }
                         >
-                            {cartIsEmpty ? "No Items Yet" : "Check Out"}
+                            Check Out
                         </button>
                     </div>
                 </div>

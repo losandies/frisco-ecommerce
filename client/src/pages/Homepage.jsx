@@ -1,10 +1,20 @@
 import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ItemList from "../components/content/ItemList";
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
+import { getItems } from "../redux/items/itemsSlice";
 
 const Homepage = () => {
+    const dispatch = useDispatch();
+    const { items } = useSelector((state) => state.items);
+
+    useEffect(() => {
+        dispatch(getItems());
+    }, []);
+
     return (
         <div className="flex flex-col">
             <NavBar />

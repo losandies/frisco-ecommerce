@@ -18,9 +18,9 @@ const Cart = () => {
     }, [amountOfItems]);
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col h-full">
             <NavBar />
-            <div className="h-full w-full flex">
+            <div className="h-[80%] w-full flex">
                 <SideBar />
                 <ShoppingCart />
             </div>

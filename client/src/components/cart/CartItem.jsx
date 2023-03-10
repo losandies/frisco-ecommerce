@@ -19,7 +19,7 @@ const CartItem = ({ item }) => {
                     <img
                         src={`../src/assets/${item.imgPath}`}
                         alt=""
-                        className="w-28"
+                        className="w-28 rounded-sm"
                     />
                     <div className="ml-4 min-w-[180px]">
                         <h1 className="text-lg">{item.name}</h1>

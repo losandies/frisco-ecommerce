@@ -7,7 +7,7 @@ const content = [
     {
         name: "Fleece Fall Jacket",
         brand: "Maroons",
-        price: "84.99",
+        price: 84.99,
         category: "clothing",
         imgPath: "wutangshirt.png",
         id: 1,
@@ -84,7 +84,7 @@ const ItemList = () => {
         <div className="h-full w-full px-10 pt-12">
             <FilterBar selectedPage={"⚡️ New In"} />
             <div className="items-container grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full h-full mt-10">
-                {content.map((item) => (
+                {items.map((item) => (
                     <Item key={item.id} item={item} />
                 ))}
             </div>

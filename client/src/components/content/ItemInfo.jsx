@@ -33,7 +33,7 @@ const ItemInfo = () => {
 
     return (
         <div className="h-full w-full flex justify-center px-10 pt-16">
-            <div className="flex flex-col md:flex-row h-full w-[1100px]">
+            <div className="flex flex-col md:flex-row h-[700px] w-[1100px]">
                 <div
                     id="picture"
                     className="flex justify-center items-center w-[20%] min-w-[500px]"
@@ -41,7 +41,7 @@ const ItemInfo = () => {
                     <img
                         src={`../src/assets/${selectedItem.imgPath}`}
                         alt=""
-                        className="h-[600px] w-[400px]"
+                        className="h-[600px] w-[400px] rounded-lg"
                     />
                 </div>
                 <div className="h-[700px] w-[40%] min-w-[500px] flex flex-col justify-center ">
