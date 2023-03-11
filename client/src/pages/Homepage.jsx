@@ -17,7 +17,7 @@ const Homepage = () => {
     }, []);
 
     return (
-        <div className="flex flex-col h-auto relative">
+        <div className="flex flex-col h-full w-full">
             <NavBar />
             <div className="h-full w-full flex">
                 <SideBar />

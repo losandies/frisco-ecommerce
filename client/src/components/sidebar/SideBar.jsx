@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import SideBarItem from "./SideBarItem";
 
 const SideBar = () => {
     const [scrollY, setScrollY] = useState(0);
-
+    const { currentPage } = useSelector((state) => state.nav);
     const [clothingClicked, setClothingClicked] = useState(false);
     const [shoesClicked, setShoesClicked] = useState(false);
     const [accClicked, setAccClicked] = useState(false);
@@ -19,6 +20,10 @@ const SideBar = () => {
     useEffect(() => {
         watchScroll();
     });
+
+    useEffect(() => {
+        console.log(currentPage);
+    }, [currentPage]);
 
     return (
         <div
@@ -51,12 +56,12 @@ const SideBar = () => {
                         sub2="Jewelry"
                         sub3="Sunglasses"
                     />
-                    <SideBarItem
+                    {/* <SideBarItem
                         category="🤸🏽‍♂️ Activewear"
                         sub1="Shirts"
                         sub2="Hoodies"
-                        sub3="Pants"
-                    />
+                        sub3=""
+                    /> */}
 
                     {/* <li
                         className="flex transition duration-300 ease-in flex-col h-10 justify-center hover:bg-neutral-300 pl-10 rounded-r-md hover:h-32 hover:pt-[10px] hover:justify-start"
