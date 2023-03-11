@@ -7,7 +7,7 @@ import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
 import { getItems } from "../redux/items/itemsSlice";
 
-const Homepage = () => {
+const DisplayPage = () => {
     const dispatch = useDispatch();
     const { items } = useSelector((state) => state.items);
     const { currentPage } = useSelector((state) => state.nav);
@@ -28,4 +28,4 @@ const Homepage = () => {
     );
 };
 
-export default Homepage;
+export default DisplayPage;
