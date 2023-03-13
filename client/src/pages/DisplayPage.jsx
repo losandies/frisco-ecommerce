@@ -5,7 +5,7 @@ import ItemList from "../components/content/ItemList";
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
-import { getItems } from "../redux/items/itemsSlice";
+import { getItems, reset } from "../redux/items/itemsSlice";
 
 const DisplayPage = () => {
     const dispatch = useDispatch();
@@ -14,6 +14,7 @@ const DisplayPage = () => {
 
     useEffect(() => {
         dispatch(getItems());
+        dispatch(reset());
     }, []);
 
     return (

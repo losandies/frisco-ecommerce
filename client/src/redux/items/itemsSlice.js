@@ -4,7 +4,7 @@ import itemsService from "./itemsService";
 const initialState = {
     items: [],
     selectedItem: {},
-    sort: null,
+    sortDirection: null,
     isLoading: false,
     isSuccess: false,
     isError: false,
@@ -39,10 +39,11 @@ export const itemsSlice = createSlice({
             state.isError = false;
             state.isLoading = false;
             state.isSuccess = false;
+            state.sortDirection = null;
             state.message = "";
         },
-        sort: (state, action) => {
-            state.sort = action.payload;
+        changeSort: (state, action) => {
+            state.sortDirection = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -63,6 +64,6 @@ export const itemsSlice = createSlice({
     },
 });
 
-export const { selectItem, reset } = itemsSlice.actions;
+export const { selectItem, reset, changeSort } = itemsSlice.actions;
 
 export default itemsSlice.reducer;

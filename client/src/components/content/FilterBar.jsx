@@ -1,9 +1,12 @@
 import React from "react";
 import { FaSort } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeSort } from "../../redux/items/itemsSlice";
 
 const FilterBar = ({ selectedPage }) => {
     const { category, subcategory } = useSelector((state) => state.nav);
+
+    const dispatch = useDispatch();
 
     return (
         <div className="h-16 flex md:flex-row md:justify-between justify-start md:items-center">
@@ -26,11 +29,11 @@ const FilterBar = ({ selectedPage }) => {
                         tabIndex={0}
                         className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-36 mt-40 mr-[25px] text-xs"
                     >
-                        <li>
-                            <a>Price low to high</a>
+                        <li onClick={() => dispatch(changeSort("low"))}>
+                            <p>Price low to high</p>
                         </li>
-                        <li>
-                            <a>Price high to low</a>
+                        <li onClick={() => dispatch(changeSort("high"))}>
+                            <p>Price high to low</p>
                         </li>
                     </ul>
                 </button>
