@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaSort } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSort } from "../../redux/items/itemsSlice";
@@ -8,26 +8,35 @@ const FilterBar = ({ selectedPage }) => {
 
     const dispatch = useDispatch();
 
+    const [menuDisplay, setmenuDisplay] = useState(true);
+    const [displayMenuStyle, setdisplayMenuStyle] = useState("");
+
+    const showMenu = () => {
+        setmenuDisplay(!menuDisplay);
+        if (menuDisplay) {
+            setdisplayMenuStyle("");
+        } else {
+            setdisplayMenuStyle("none");
+        }
+        return menuDisplay;
+    };
+
     return (
         <div className="h-16 flex md:flex-row md:justify-between justify-start md:items-center">
             <div className="text-xl font-bold">
                 {category} ⌁ {subcategory}
             </div>
             <div className="toggles flex">
-                <div className="gender-select w-60 h-12 border-2 border-neutral-300 rounded-xl flex mr-6">
-                    <button className="flex items-center justify-center w-1/2 h-full bg-neutral-300 rounded-l-lg ">
-                        Women
-                    </button>
-                    <button className="flex items-center justify-center w-1/2 h-full">
-                        Men
-                    </button>
-                </div>
-                <button className="dropdown bg-neutral-300 w-[7.5rem] h-12 border-2v rounded-xl flex justify-center items-center">
+                <button
+                    onClick={showMenu}
+                    className="dropdown bg-neutral-800 text-white w-[7.5rem] h-12 border-2v rounded-xl flex justify-center items-center"
+                >
                     <label className="ml-1">Sort</label>
                     <FaSort className="ml-1" />
                     <ul
+                        style={{ display: displayMenuStyle }}
                         tabIndex={0}
-                        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-36 mt-40 mr-[25px] text-xs"
+                        className="dropdown-content bg-neutral-800 menu p-2 shadow rounded-box w-36 mt-40 mr-[25px] text-xs"
                     >
                         <li onClick={() => dispatch(changeSort("low"))}>
                             <p>Price low to high</p>
