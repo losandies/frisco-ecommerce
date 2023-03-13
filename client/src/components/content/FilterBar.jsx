@@ -1,10 +1,15 @@
 import React from "react";
 import { FaSort } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const FilterBar = ({ selectedPage }) => {
+    const { category, subcategory } = useSelector((state) => state.nav);
+
     return (
         <div className="h-16 flex md:flex-row md:justify-between justify-start md:items-center">
-            <div className="text-xl font-bold">{selectedPage}</div>
+            <div className="text-xl font-bold">
+                {category} ⌁ {subcategory}
+            </div>
             <div className="toggles flex">
                 <div className="gender-select w-60 h-12 border-2 border-neutral-300 rounded-xl flex mr-6">
                     <button className="flex items-center justify-center w-1/2 h-full bg-neutral-300 rounded-l-lg ">

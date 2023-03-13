@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Homepage from "./pages/Homepage";
+import DisplayPage from "./pages/DisplayPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Cart from "./pages/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartTotalItems, getCartTotalPrice } from "./redux/cart/cartSlice";
+import Home from "./pages/Home";
 
 function App() {
     const [count, setCount] = useState(0);
@@ -24,10 +25,17 @@ function App() {
         <div className="h-full w-full">
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Homepage />} />
+                    <Route path="/" element={<Home />}></Route>
+                    <Route
+                        path="/:category/:subcategory"
+                        element={<DisplayPage />}
+                    />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/item/:id" element={<ItemListing />} />
+                    <Route
+                        path="/:category/:subcategory/item/:id"
+                        element={<ItemListing />}
+                    />
                     <Route path="/cart" element={<Cart />} />
                 </Routes>
             </BrowserRouter>

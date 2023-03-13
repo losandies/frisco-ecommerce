@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    currentPage: "home",
+    category: "home",
+    subcategory: "",
 };
 
 export const navigationSlice = createSlice({
@@ -9,7 +10,9 @@ export const navigationSlice = createSlice({
     initialState,
     reducers: {
         switchPage: (state, action) => {
-            state.currentPage = action.payload;
+            const { category, subcategory } = action.payload;
+            state.category = category;
+            state.subcategory = subcategory;
         },
     },
 });

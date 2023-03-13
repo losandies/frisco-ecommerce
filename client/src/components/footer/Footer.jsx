@@ -3,7 +3,7 @@ import { BsTwitter, BsGithub, BsLinkedin } from "react-icons/bs";
 
 const Footer = () => {
     return (
-        <div className="absolute bottom-0 flex justify-center h-60 w-full bg-neutral-800">
+        <div className="absolute bottom-0 flex justify-center h-[200px] w-full bg-neutral-800">
             <div className="w-[60%] h-full flex justify-between pt-5 text-white">
                 <div>
                     <h1 className="font-bold">Built With</h1>

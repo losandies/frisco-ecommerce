@@ -1,18 +1,24 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import wutang from "../../assets/wutangshirt.png";
 import { selectItem } from "../../redux/items/itemsSlice";
 
 const Item = ({ item }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { category, subcategory } = useSelector((state) => state.nav);
 
+    const navigateToItem = (item, category, subcategory) => {
+        navigate(`/${category}/${subcategory}/item/${item.id}`);
+        dispatch(selectItem(item));
+    };
     return (
         <div className="max-w-[700px] flex flex-col lg:ml-7 sm:ml-15 pl-10 md:pl-0 mb-10">
             <div>
                 <Link
-                    to={`/item/${item.id}`}
-                    onClick={() => dispatch(selectItem(item))}
+                    to={`/${category}/${subcategory}/item/${item.id}`}
+                    onClick={() => navigateToItem(item, category, subcategory)}
                 >
                     <img
                         src={`../../src/assets/${item.imgPath}`}

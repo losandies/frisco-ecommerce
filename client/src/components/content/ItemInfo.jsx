@@ -31,6 +31,10 @@ const ItemInfo = () => {
         setSelectedQuantity(1);
     };
 
+    useEffect(() => {
+        console.log(selectedItem);
+    }, []);
+
     return (
         <div className="h-full w-full flex justify-center px-10 pt-16">
             <div className="flex flex-col md:flex-row h-[700px] w-[1100px]">
@@ -39,8 +43,8 @@ const ItemInfo = () => {
                     className="flex justify-center items-center w-[20%] min-w-[500px]"
                 >
                     <img
-                        src={`../src/assets/${selectedItem.imgPath}`}
-                        alt=""
+                        src={`/src/assets/${selectedItem.imgPath}`}
+                        alt={selectedItem.name}
                         className="h-[600px] w-[400px] rounded-lg"
                     />
                 </div>

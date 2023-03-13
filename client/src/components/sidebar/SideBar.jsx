@@ -36,33 +36,33 @@ const SideBar = () => {
 
                 <ul className="list-none text-sm mt-4 w-60 cursor-pointer ">
                     <li className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
-                        <h1 className="uppercase">⚡️ New In</h1>
+                        <h1 className="uppercase">New In</h1>
                     </li>
                     <SideBarItem
-                        category="🧥 Clothing"
+                        category="Clothing"
                         sub1="Shirts"
                         sub2="Hoodies"
                         sub3="Pants"
                     />
                     <SideBarItem
-                        category="👟 Shoes"
+                        category="Shoes"
                         sub1="Sneakers"
                         sub2="Boots"
                         sub3="Casual"
                     />
                     <SideBarItem
-                        category="👜 Accessories"
+                        category="Accessories"
                         sub1="Hats"
                         sub2="Jewelry"
                         sub3="Sunglasses"
                     />
+                    {/* ['👜','👟','🧥'] */}
                     {/* <SideBarItem
                         category="🤸🏽‍♂️ Activewear"
                         sub1="Shirts"
                         sub2="Hoodies"
                         sub3=""
                     /> */}
-
                     {/* <li
                         className="flex transition duration-300 ease-in flex-col h-10 justify-center hover:bg-neutral-300 pl-10 rounded-r-md hover:h-32 hover:pt-[10px] hover:justify-start"
                         onMouseEnter={() => setClothingClicked(true)}
