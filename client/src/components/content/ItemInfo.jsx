@@ -4,6 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../../redux/cart/cartSlice";
 
+const clothingSizes = ["sm", "md", "lg", "xl"];
+const shoeSizes = [7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13];
+const pantsSizes = [28, 30, 32, 34, 36, 38, 42, 44];
+const accessorySize = ["1SZ"];
+
 const ItemInfo = () => {
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState("sm");
@@ -61,47 +66,56 @@ const ItemInfo = () => {
                         </div>
                         <div className="sizing mt-10">
                             <h1 className="mb-2">Choose Size</h1>
-                            <div className="sizing-buttons flex">
-                                <button
-                                    className={`w-24 h-10 mr-2 rounded-lg border-[1px] ${
-                                        selectedSize === "sm"
-                                            ? "bg-black text-white"
-                                            : null
-                                    } border-black`}
-                                    onClick={() => selectNewSize("sm")}
-                                >
-                                    <span>SM</span>
-                                </button>
-                                <button
-                                    className={`w-24 h-10 mr-2 rounded-lg border-[1px] ${
-                                        selectedSize === "md"
-                                            ? "bg-black text-white"
-                                            : null
-                                    }  border-black`}
-                                    onClick={() => selectNewSize("md")}
-                                >
-                                    <span>MD</span>
-                                </button>
-                                <button
-                                    className={`w-24 h-10 mr-2 rounded-lg border-[1px] ${
-                                        selectedSize === "lg"
-                                            ? "bg-black text-white"
-                                            : null
-                                    } border-black`}
-                                    onClick={() => selectNewSize("lg")}
-                                >
-                                    <span>LG</span>
-                                </button>
-                                <button
-                                    className={`w-24 h-10 mr-2 rounded-lg border-[1px] ${
-                                        selectedSize === "xl"
-                                            ? "bg-black text-white"
-                                            : null
-                                    }  border-black`}
-                                    onClick={() => selectNewSize("xl")}
-                                >
-                                    <span>XL</span>
-                                </button>
+                            <div className="sizing-buttons flex flex-wrap">
+                                {selectedItem.subcategory === "shirts" ||
+                                selectedItem.subcategory === "hoodies" ? (
+                                    clothingSizes.map((size) => (
+                                        <button
+                                            className={`w-24 h-10 mr-2 rounded-lg border-[1px] ${
+                                                selectedSize === size
+                                                    ? "bg-black text-white"
+                                                    : null
+                                            }  border-black`}
+                                            onClick={() => selectNewSize(size)}
+                                        >
+                                            <span className="uppercase">
+                                                {size}
+                                            </span>
+                                        </button>
+                                    ))
+                                ) : selectedItem.category === "shoes" ? (
+                                    shoeSizes.map((size) => (
+                                        <button
+                                            className={`w-24 h-10 mr-2 rounded-lg border-[1px] my-2 ${
+                                                selectedSize === size
+                                                    ? "bg-black text-white"
+                                                    : null
+                                            }  border-black`}
+                                            onClick={() => selectNewSize(size)}
+                                        >
+                                            <span>{size}</span>
+                                        </button>
+                                    ))
+                                ) : selectedItem.subcategory === "pants" ? (
+                                    pantsSizes.map((size) => (
+                                        <button
+                                            className={`w-24 h-10 mr-2 rounded-lg border-[1px] my-2 ${
+                                                selectedSize === size
+                                                    ? "bg-black text-white"
+                                                    : null
+                                            }  border-black`}
+                                            onClick={() => selectNewSize(size)}
+                                        >
+                                            <span>{size}</span>
+                                        </button>
+                                    ))
+                                ) : selectedItem.category === "accessories" ? (
+                                    <button
+                                        className={`w-24 h-10 mr-2 rounded-lg border-[1px] my-2 bg-black text-white border-black`}
+                                    >
+                                        <span>1SZ</span>
+                                    </button>
+                                ) : null}
                             </div>
                         </div>
                         <div className="add-to-cart mt-10 flex">

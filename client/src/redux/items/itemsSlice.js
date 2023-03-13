@@ -4,6 +4,7 @@ import itemsService from "./itemsService";
 const initialState = {
     items: [],
     selectedItem: {},
+    sort: null,
     isLoading: false,
     isSuccess: false,
     isError: false,
@@ -39,6 +40,9 @@ export const itemsSlice = createSlice({
             state.isLoading = false;
             state.isSuccess = false;
             state.message = "";
+        },
+        sort: (state, action) => {
+            state.sort = action.payload;
         },
     },
     extraReducers: (builder) => {

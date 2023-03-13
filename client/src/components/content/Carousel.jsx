@@ -21,7 +21,7 @@ export default function Carousel() {
     const dispatch = useDispatch();
 
     return (
-        <div className="w-[1100px] my-10">
+        <div className="w-[1100px]">
             <Swiper
                 slidesPerView={5}
                 spaceBetween={40}

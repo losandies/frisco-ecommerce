@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import SideBarItem from "./SideBarItem";
 
 const SideBar = () => {
@@ -36,7 +37,9 @@ const SideBar = () => {
 
                 <ul className="list-none text-sm mt-4 w-60 cursor-pointer ">
                     <li className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
-                        <h1 className="uppercase">New In</h1>
+                        <Link to="/" className="uppercase">
+                            New In
+                        </Link>
                     </li>
                     <SideBarItem
                         category="Clothing"
