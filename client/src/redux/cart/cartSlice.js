@@ -5,6 +5,7 @@ const initialState = {
     amountOfItems: 0,
     totalPrice: 0,
     orderPlaced: false,
+    checkoutModalOpen: false,
 };
 
 export const cartSlice = createSlice({
@@ -78,6 +79,9 @@ export const cartSlice = createSlice({
         clearCart: (state) => {
             state.cart = [];
         },
+        toggleCheckoutModal: (state) => {
+            state.checkoutModalOpen = !state.checkoutModalOpen;
+        },
     },
 });
 
@@ -89,6 +93,7 @@ export const {
     decreaseItemQuantity,
     getCartTotalPrice,
     clearCart,
+    toggleCheckoutModal,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

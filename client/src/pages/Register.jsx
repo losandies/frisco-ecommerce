@@ -63,7 +63,7 @@ const Register = () => {
     }, [formData]);
 
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-[100vh]">
             <NavBar />
 
             <div className="flex items-center justify-center w-full h-full">

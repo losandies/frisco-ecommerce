@@ -57,10 +57,9 @@ const Login = () => {
         console.log(formData);
     }, [formData]);
     return (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-[100vh] w-full">
             <NavBar />
-
-            <div className="flex items-center justify-center w-full h-full">
+            <div className="flex items-center justify-center w-full h-[100%]">
                 <div className="w-[1100px] h-auto bg-gray-50 flex">
                     <div className="w-1/2">
                         <img src={loginImg} alt="login_image" />

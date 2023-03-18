@@ -28,7 +28,7 @@ export default function Carousel() {
                 loop={true}
                 navigation={true}
                 autoplay={{
-                    delay: 4000,
+                    delay: 2000,
                     pauseOnMouseEnter: true,
                     disableOnInteraction: false,
                 }}

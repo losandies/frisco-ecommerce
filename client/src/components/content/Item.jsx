@@ -17,7 +17,9 @@ const Item = ({ item }) => {
         <div className="max-w-[700px] flex flex-col lg:ml-7 sm:ml-15 pl-10 md:pl-0 mb-10">
             <div>
                 <Link
-                    to={`/${category}/${subcategory}/item/${item.id}`}
+                    to={`/${category.toLowerCase()}/${subcategory.toLowerCase()}/item/${
+                        item.id
+                    }`}
                     onClick={() => navigateToItem(item, category, subcategory)}
                 >
                     <img

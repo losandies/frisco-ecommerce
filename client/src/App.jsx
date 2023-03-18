@@ -11,6 +11,7 @@ import Cart from "./pages/Cart";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartTotalItems, getCartTotalPrice } from "./redux/cart/cartSlice";
 import Home from "./pages/Home";
+import CheckOut from "./pages/CheckOut";
 
 function App() {
     const [count, setCount] = useState(0);
@@ -37,6 +38,7 @@ function App() {
                         element={<ItemListing />}
                     />
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/checkout" element={<CheckOut />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer />

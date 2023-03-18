@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CheckOutModal from "../components/cart/CheckOutModal";
 import ShoppingCart from "../components/cart/ShoppingCart";
 import ItemList from "../components/content/ItemList";
 import Footer from "../components/footer/Footer";
@@ -11,7 +12,9 @@ import { getCartTotalPrice } from "../redux/cart/cartSlice";
 const Cart = () => {
     const dispatch = useDispatch();
 
-    const { totalPrice, amountOfItems } = useSelector((state) => state.cart);
+    const { totalPrice, amountOfItems, checkoutModalOpen } = useSelector(
+        (state) => state.cart
+    );
 
     useEffect(() => {
         dispatch(getCartTotalPrice());
@@ -25,6 +28,7 @@ const Cart = () => {
                 <ShoppingCart />
             </div>
             <Footer />
+            {/* {checkoutModalOpen ? <CheckOutModal /> : null} */}
         </div>
     );
 };
