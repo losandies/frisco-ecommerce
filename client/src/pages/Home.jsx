@@ -18,7 +18,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="flex flex-col min-h-[100vh] min-w-[1400px] w-full relative">
+        <div className="flex flex-col min-h-[100vh] w-full relative">
             <div className="content-wrap min-h-[100vh] pb-[195px]">
                 <NavBar />
                 <div className="h-full w-full flex">
