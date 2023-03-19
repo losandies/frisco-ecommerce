@@ -13,7 +13,7 @@ const CartItem = ({ item }) => {
     const dispatch = useDispatch();
 
     return (
-        <div className=" mt-6  h-auto w-full flex flex-col">
+        <div className="mt-6  h-auto w-full flex flex-col">
             <div className="w-full px-4 flex items-center justify-around">
                 <div className="name-pricing flex items-center justify-center">
                     <img
