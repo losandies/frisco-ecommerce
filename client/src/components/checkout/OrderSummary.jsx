@@ -3,10 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCartTotalPrice } from "../../redux/cart/cartSlice";
 import ItemDivider from "../cart/ItemDivider";
+import AccountReminder from "./AccountReminder";
+import { useMediaQuery } from "react-responsive";
+import { sizes } from "../../screenSizes";
 
 import CheckoutItem from "./CheckoutItem";
 
 const OrderSummary = () => {
+    const isMobile = useMediaQuery({ maxWidth: sizes.md });
+
+    const { user } = useSelector((state) => state.auth);
+
     const dispatch = useDispatch();
     const { cart, totalPrice, amountOfItems } = useSelector(
         (state) => state.cart
@@ -25,17 +32,11 @@ const OrderSummary = () => {
 
     return (
         <div className="h-full md:w-1/2 max-w-[600px] w-full">
-            <div className="w-full h-28 text-white flex flex-col justify-center px-5 bg-black">
-                <h2 className="text-2xl">Have an account already?</h2>
-                <span>
-                    <Link to="/login" className="underline">
-                        Log In
-                    </Link>
-                    {""} now to make managing your orders easier.
-                </span>
-            </div>
-            <div className="px-5 mt-8">
-                <h1 className="font-bold">Order Summary</h1>
+            {!isMobile && !user ? <AccountReminder /> : null}
+            <div className="px-2 md:px-5 mt-12">
+                <h1 className="font-bold text-2xl md:text-base">
+                    Order Summary
+                </h1>
                 <div className="flex justify-between mt-3">
                     <h1>Subtotal</h1>
                     <h1>${totalPrice}</h1>

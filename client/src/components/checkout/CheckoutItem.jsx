@@ -33,7 +33,7 @@ const CheckoutItem = ({ item }) => {
                 </div>
                 <div className="right">
                     <h2 className="text-xs tracking-tight p-3">
-                        ${item.price}
+                        ${(item.price * item.quantity).toFixed(2)}
                     </h2>
                 </div>
             </div>
