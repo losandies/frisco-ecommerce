@@ -20,6 +20,126 @@ const addItem = async (req, res) => {
         const newItems = await prisma.item.createMany({
             data: [
                 {
+                    name: "Aaliyah Graphic Tee",
+                    brand: "Lewis Cupper",
+                    price: "34.99",
+                    category: "clothing",
+                    subcategory: "shirts",
+                    imgPath: "aaliyah_t.jpeg",
+                },
+                {
+                    name: "Wu-Tang Graphic Tee",
+                    brand: "DA WU",
+                    price: "44.99",
+                    category: "clothing",
+                    subcategory: "shirts",
+                    imgPath: "wutangshirts.png",
+                },
+                {
+                    name: "Battleground Tour Tee",
+                    brand: "BG Merch",
+                    price: "49.99",
+                    category: "clothing",
+                    subcategory: "shirts",
+                    imgPath: "battleground_t.jpeg",
+                },
+                {
+                    name: "Budweiser Plain Text Thermal",
+                    brand: "Frisco X Budweiser",
+                    price: "79.99",
+                    category: "clothing",
+                    subcategory: "shirts",
+                    imgPath: "budweiser_thermal.jpeg",
+                },
+                {
+                    name: "Black Cargo Pants",
+                    brand: "8 Down",
+                    price: "119.99",
+                    category: "clothing",
+                    subcategory: "pants",
+                    imgPath: "cargo_pants_black.jpeg",
+                },
+                {
+                    name: "Columbia Scholar Tee",
+                    brand: "Graduate",
+                    price: "39.99",
+                    category: "clothing",
+                    subcategory: "shirts",
+                    imgPath: "columbia_t.jpeg",
+                },
+                {
+                    name: "Fenty Graffiti Tee",
+                    brand: "Super Bowl X Fenty",
+                    price: "59.99",
+                    category: "clothing",
+                    subcategory: "shirts",
+                    imgPath: "fenty_t.jpeg",
+                },
+                {
+                    name: "Black Flared Trousers",
+                    brand: "MWARNA",
+                    price: "139.99",
+                    category: "clothing",
+                    subcategory: "pants",
+                    imgPath: "flare_trousers_black.jpeg",
+                },
+                {
+                    name: "Fleece Sweats",
+                    brand: "Lewis Cupper",
+                    price: "59.99",
+                    category: "clothing",
+                    subcategory: "shirts",
+                    imgPath: "fleece_sweats.jpeg",
+                },
+                {
+                    name: "Harvard Scholar Tee",
+                    brand: "Graduate",
+                    price: "39.99",
+                    category: "clothing",
+                    subcategory: "shirts",
+                    imgPath: "harvard_t.jpeg",
+                },
+                {
+                    name: "Light Washed Bootcut Jeans",
+                    brand: "Klevi's",
+                    price: "59.99",
+                    category: "clothing",
+                    subcategory: "pants",
+                    imgPath: "lightwash_bootcut.jpeg",
+                },
+                {
+                    name: "Outkast Tour Tee",
+                    brand: "BG Merch",
+                    price: "49.99",
+                    category: "clothing",
+                    subcategory: "shirts",
+                    imgPath: "outkast_t.jpeg",
+                },
+                {
+                    name: "Vintage Pinks Graphic Tee",
+                    brand: "Pinks",
+                    price: "74.99",
+                    category: "clothing",
+                    subcategory: "shirts",
+                    imgPath: "pinks_t.jpeg",
+                },
+                {
+                    name: "Self Care Tee",
+                    brand: "Flower Pot",
+                    price: "39.99",
+                    category: "clothing",
+                    subcategory: "shirts",
+                    imgPath: "self_care_t.jpeg",
+                },
+                {
+                    name: "Olive Cargo Trousers",
+                    brand: "8 Down",
+                    price: "69.99",
+                    category: "clothing",
+                    subcategory: "pants",
+                    imgPath: "slim_cargo_olive.jpeg",
+                },
+                {
                     name: "1998 NBA Finals Hat",
                     brand: "Old Era",
                     price: "19.99",
@@ -265,7 +385,7 @@ const addItem = async (req, res) => {
                     price: "49.99",
                     category: "shoes",
                     subcategory: "casual",
-                    imgPath: "green_timberland.jpeg",
+                    imgPath: "textured_converse.jpeg",
                 },
                 {
                     name: "Timberland Boots",
@@ -274,6 +394,14 @@ const addItem = async (req, res) => {
                     category: "shoes",
                     subcategory: "boots",
                     imgPath: "timberland.jpeg",
+                },
+                {
+                    name: "Green Timberland Boots",
+                    brand: "Timberland",
+                    price: "199.99",
+                    category: "shoes",
+                    subcategory: "boots",
+                    imgPath: "green_timberland.jpeg",
                 },
                 {
                     name: "Prem Air Max 1",
@@ -294,7 +422,7 @@ const addItem = async (req, res) => {
             ],
         });
 
-        res.status(201).json({ newItems });
+        res.status(201).json(newItems);
     } catch (error) {
         res.status(400).json({ err: error });
     }
@@ -303,10 +431,10 @@ const addItem = async (req, res) => {
 const updateItem = async (req, res) => {
     const updatedItem = await prisma.item.updateMany({
         where: {
-            imgPath: "clarks.jpeg.jpeg",
+            name: "Fleece Sweats",
         },
         data: {
-            imgPath: "clarks.jpeg",
+            subcategory: "pants",
         },
     });
 

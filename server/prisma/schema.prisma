@@ -9,19 +9,20 @@ datasource db {
 
 model User {
   id  String  @id @default(uuid())
-  name String 
+  firstName String 
+  lastName String
   email String
   password String
   address Address?
   orders Order[]
+  isAdmin Boolean?
   createdAt DateTime @default(now())
 }
 
 model Address {
   user User @relation(fields: [userId], references: [id])
   userId String @unique
-  streetNumber String
-  streetName String
+  street String
   city String
   state String
   zipCode String
@@ -41,7 +42,8 @@ model Item {
 
 model Order {
   id String @id @default(uuid())
-  items String[]
+  items Json
+  total String
   user User @relation(fields: [userId], references: [id])
   userId String
   createdAt DateTime @default(now())

@@ -5,10 +5,10 @@ const bcrypt = require("bcrypt");
 
 const registerUser = async (req, res) => {
     console.log("route hit");
-    const { name, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     try {
-        if (!(name || email || password)) {
+        if (!(firstName || lastName || email || password)) {
             res.status(400).json({ error: "Missing Fields" });
         }
 
@@ -28,7 +28,8 @@ const registerUser = async (req, res) => {
 
         const newUser = await prisma.user.create({
             data: {
-                name,
+                firstName: firstName,
+                lastName: lastName,
                 email: email.toLowerCase(),
                 password: encryptedPassword,
             },
@@ -88,7 +89,7 @@ const getUsers = async (req, res) => {
     try {
         const allUsers = await prisma.user.findMany();
 
-        if (allUsers.length > 1) {
+        if (allUsers.length >= 1) {
             res.json(allUsers);
         } else if (allUsers.length < 1) {
             res.status(400).json({ msg: "No users found" });
