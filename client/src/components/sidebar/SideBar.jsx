@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
+import { sizes } from "../../screenSizes";
 import SideBarItem from "./SideBarItem";
 
 const SideBar = () => {
@@ -11,6 +13,8 @@ const SideBar = () => {
     const [shoesClicked, setShoesClicked] = useState(false);
     const [accClicked, setAccClicked] = useState(false);
     const [activeClicked, setActiveClicked] = useState(false);
+
+    const isMobile = useMediaQuery({ maxWidth: sizes.md });
 
     const watchScroll = () => {
         window.addEventListener("scroll", () => {
@@ -27,46 +31,50 @@ const SideBar = () => {
     }, [currentPage]);
 
     return (
-        <div
-            className={`sidebar relative w-60 h-full pr-10 ${
-                scrollY > 70 ? "pt-[30vh]" : "pt-[4.2rem]"
-            }`}
-        >
-            <div className="fixed">
-                <h1 className="text-xl font-bold pl-10">Explore</h1>
+        <>
+            {isMobile ? (
+                <div className="hidden"></div>
+            ) : (
+                <div
+                    className={`sidebar relative w-60 h-full pr-10 ${
+                        scrollY > 70 ? "pt-[30vh]" : "pt-[4.2rem]"
+                    }`}
+                >
+                    <div className="fixed">
+                        <h1 className="text-xl font-bold pl-10">Explore</h1>
 
-                <ul className="list-none text-sm mt-4 w-60 cursor-pointer">
-                    <li className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
-                        <Link to="/" className="uppercase">
-                            New In
-                        </Link>
-                    </li>
-                    <SideBarItem
-                        category="Clothing"
-                        sub1="Shirts"
-                        sub2="Hoodies"
-                        sub3="Pants"
-                    />
-                    <SideBarItem
-                        category="Shoes"
-                        sub1="Sneakers"
-                        sub2="Boots"
-                        sub3="Casual"
-                    />
-                    <SideBarItem
-                        category="Accessories"
-                        sub1="Hats"
-                        sub2="Jewelry"
-                        sub3="Sunglasses"
-                    />
-                    {/* ['👜','👟','🧥'] */}
-                    {/* <SideBarItem
+                        <ul className="list-none text-sm mt-4 w-60 cursor-pointer">
+                            <li className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
+                                <Link to="/" className="uppercase">
+                                    New In
+                                </Link>
+                            </li>
+                            <SideBarItem
+                                category="Clothing"
+                                sub1="Shirts"
+                                sub2="Hoodies"
+                                sub3="Pants"
+                            />
+                            <SideBarItem
+                                category="Shoes"
+                                sub1="Sneakers"
+                                sub2="Boots"
+                                sub3="Casual"
+                            />
+                            <SideBarItem
+                                category="Accessories"
+                                sub1="Hats"
+                                sub2="Jewelry"
+                                sub3="Sunglasses"
+                            />
+                            {/* ['👜','👟','🧥'] */}
+                            {/* <SideBarItem
                         category="🤸🏽‍♂️ Activewear"
                         sub1="Shirts"
                         sub2="Hoodies"
                         sub3=""
                     /> */}
-                    {/* <li
+                            {/* <li
                         className="flex transition duration-300 ease-in flex-col h-10 justify-center hover:bg-neutral-300 pl-10 rounded-r-md hover:h-32 hover:pt-[10px] hover:justify-start"
                         onMouseEnter={() => setClothingClicked(true)}
                         onMouseLeave={() => setClothingClicked(false)}
@@ -90,9 +98,11 @@ const SideBar = () => {
                     <li className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
                         🎁 Gifts
                     </li> */}
-                </ul>
-            </div>
-        </div>
+                        </ul>
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
 

@@ -22,14 +22,14 @@ const FilterBar = ({ selectedPage }) => {
     };
 
     return (
-        <div className="h-16 flex md:flex-row md:justify-between justify-start md:items-center">
-            <div className="text-xl font-bold">
+        <div className="h-16 flex md:flex-row justify-between items-center md:items-center">
+            <div className="text-md md:text-xl font-bold">
                 {category} ⌁ {subcategory}
             </div>
             <div className="toggles flex">
                 <button
                     onClick={showMenu}
-                    className="dropdown bg-neutral-800 text-white w-[7.5rem] h-12 border-2v rounded-xl flex justify-center items-center"
+                    className="dropdown bg-neutral-800 text-white h-10 w-20 md:w-[7.5rem] md:h-12 border-2 rounded-xl flex justify-center items-center"
                 >
                     <label className="ml-1">Sort</label>
                     <FaSort className="ml-1" />

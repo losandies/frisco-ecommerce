@@ -1,6 +1,8 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
+import { sizes } from "../../screenSizes";
 import Spinner from "../misc/Spinner";
 import FilterBar from "./FilterBar";
 import Item from "./Item";
