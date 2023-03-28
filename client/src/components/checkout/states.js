@@ -1,4 +1,4 @@
-export default STATES = [
+export const STATES = [
     "Alabama",
     "Alaska",
     "American Samoa",

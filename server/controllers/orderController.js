@@ -18,11 +18,28 @@ const createOrder = async (req, res) => {
         });
 
         if (newOrder) {
-            console.log("New Order Placed");
-            res.status(200).json({ newOrder });
+            console.log(`Order Placed By ${user.firstName}`);
         }
     } catch (err) {
         console.log(err);
+    }
+};
+
+const findOrdersByUserId = async (req, res) => {
+    const { id } = req.body;
+
+    const order = await prisma.order.findMany({
+        where: {
+            user: {
+                is: {
+                    id: id,
+                },
+            },
+        },
+    });
+
+    if (order) {
+        res.status(200).json(order);
     }
 };
 
@@ -37,4 +54,5 @@ const getAllOrders = async (req, res) => {
 module.exports = {
     createOrder,
     getAllOrders,
+    findOrdersByUserId,
 };

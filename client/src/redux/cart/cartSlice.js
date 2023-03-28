@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import cartService from "./cartService";
 
 const initialState = {
     cart: [],
@@ -7,6 +8,23 @@ const initialState = {
     orderPlaced: false,
     checkoutModalOpen: false,
 };
+
+export const placeOrder = createAsyncThunk(
+    "cart/placeOrder",
+    async (orderInfo, thunkAPI) => {
+        try {
+            return await cartService.placeOrder(orderInfo);
+        } catch (error) {
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
 
 export const cartSlice = createSlice({
     name: "cart",

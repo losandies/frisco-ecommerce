@@ -7,6 +7,7 @@ import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
 import { getItems } from "../redux/items/itemsSlice";
+import { reset } from "../redux/auth/authSlice";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -15,15 +16,22 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getItems());
+        dispatch(reset());
     }, []);
 
     return (
         <div className="flex flex-col min-h-[100vh] w-full relative">
             <div className="content-wrap min-h-[100vh] pb-[195px]">
                 <NavBar />
-                <div className="h-full w-full flex">
-                    <SideBar />
-                    <HomepageContent />
+                <div className="h-full w-full flex flex-row justify-between">
+                    <div>
+                        <SideBar />
+                    </div>
+
+                    <div>
+                        <HomepageContent />
+                    </div>
+                    <div></div>
                 </div>
                 <Footer />
             </div>

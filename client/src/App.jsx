@@ -26,7 +26,7 @@ function App() {
         <div className="h-full w-full">
             <BrowserRouter>
                 <Routes>
-                    <Route path="/home" element={<Home />}></Route>
+                    <Route path="/" element={<Home />}></Route>
                     <Route
                         path="/:category/:subcategory"
                         element={<DisplayPage />}

@@ -29,13 +29,13 @@ const SideBar = () => {
     return (
         <div
             className={`sidebar relative w-60 h-full pr-10 ${
-                scrollY > 70 ? "pt-[26vh]" : "pt-[4.2rem]"
+                scrollY > 70 ? "pt-[30vh]" : "pt-[4.2rem]"
             }`}
         >
             <div className="fixed">
                 <h1 className="text-xl font-bold pl-10">Explore</h1>
 
-                <ul className="list-none text-sm mt-4 w-60 cursor-pointer ">
+                <ul className="list-none text-sm mt-4 w-60 cursor-pointer">
                     <li className="h-10 flex transition ease-out items-center hover:bg-neutral-300 pl-10 rounded-r-md">
                         <Link to="/" className="uppercase">
                             New In

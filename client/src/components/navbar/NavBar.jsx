@@ -51,7 +51,7 @@ const NavBar = ({ loggedIn }) => {
                             <div className="w-10 mask mask-squircle">
                                 <img src={aaliyah} />
                             </div>
-                            <h1 className="ml-6">Hello {user.name}</h1>
+                            <h1 className="ml-6">Hello, {user.firstName}</h1>
                         </div>
                     ) : (
                         <div className="text-neutral-700 font-normal">

@@ -19,8 +19,6 @@ const Login = () => {
     useEffect(() => {
         isError ? toast.error(message.error) : null;
         isSuccess || user ? navigate("/") : null;
-
-        dispatch(reset());
     }, [isError, isSuccess]);
 
     const [formData, setFormData] = useState({

@@ -12,7 +12,7 @@ const CheckoutTopBar = () => {
             >
                 <IoIosArrowBack /> Back
             </Link>
-            <Link to="/home" className="w-1/3 flex justify-center">
+            <Link to="/" className="w-1/3 flex justify-center">
                 <img
                     src={logo}
                     alt="FRISCO"

@@ -8,7 +8,7 @@ const HomepageContent = () => {
                 <img
                     src="../../src/assets/hero2.jpeg"
                     alt=""
-                    className="min-w-[1100px] w-[500px] h-[500px] min-h-[100px]"
+                    className="w-[1000px] max-w-[2200px] max-h-[1000px] h-[400px]"
                 />
             </div>
             <div className="my-10">

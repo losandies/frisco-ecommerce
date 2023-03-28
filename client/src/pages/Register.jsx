@@ -22,13 +22,14 @@ const Register = () => {
     }, [user, isError, isSuccess, message, isLoading, navigate, dispatch]);
 
     const [formData, setFormData] = useState({
-        name: "",
+        firstName: "",
+        lastName: "",
         email: "",
         password: "",
         password2: "",
     });
 
-    const { name, email, password, password2 } = formData;
+    const { firstName, lastName, email, password, password2 } = formData;
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -50,7 +51,8 @@ const Register = () => {
             toast.error("Passwords do not match");
         } else {
             const userInfo = {
-                name,
+                firstName,
+                lastName,
                 email,
                 password,
             };
@@ -75,13 +77,23 @@ const Register = () => {
                         <h1 className="text-2xl mb-5">Register Now</h1>
 
                         <div className="input-container">
-                            <h1>Name:</h1>
+                            <h1>First Name:</h1>
                             <input
                                 type="text"
-                                name="name"
+                                name="firstName"
                                 className="mb-4 mt-1 border-2 p-1 w-72 rounded-sm outline-slate-300"
                                 onChange={onChange}
-                                value={name}
+                                value={firstName}
+                            />
+                        </div>
+                        <div className="input-container">
+                            <h1>Last Name:</h1>
+                            <input
+                                type="text"
+                                name="lastName"
+                                className="mb-4 mt-1 border-2 p-1 w-72 rounded-sm outline-slate-300"
+                                onChange={onChange}
+                                value={lastName}
                             />
                         </div>
                         <div className="input-container">

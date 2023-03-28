@@ -64,7 +64,7 @@ const OrderSummary = () => {
                 <ItemDivider />
                 <div className="mt-5">
                     <h2 className="font-bold">Shopping Bag({amountOfItems})</h2>
-                    <div className="h-96 overflow-scroll scrollbar-hide">
+                    <div className="max-h-[370px] overflow-scroll scrollbar-hide">
                         {cart.map((item) => (
                             <CheckoutItem item={item} key={item.id} />
                         ))}

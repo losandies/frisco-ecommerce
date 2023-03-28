@@ -8,9 +8,15 @@ import "swiper/css/autoplay";
 import "../../App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectItem } from "../../redux/items/itemsSlice";
+import { sizes } from "../../screenSizes";
+import { useMediaQuery } from "react-responsive";
 
 export default function Carousel() {
     const { items } = useSelector((state) => state.items);
+
+    const isXLScreen = useMediaQuery({ minWidth: sizes["2xl"] });
+    const isMedScreen = useMediaQuery({ minWidth: sizes.md });
+    const isSmScreen = useMediaQuery({ minWidth: sizes.sm });
 
     let shuffledItems = items
         .map((item) => ({ item, sort: Math.random() }))
@@ -21,10 +27,10 @@ export default function Carousel() {
     const dispatch = useDispatch();
 
     return (
-        <div className="w-[1100px]">
+        <div className="w-[1000px] md:w-[1000px] h-[400px] 2xl:w-[1000px]">
             <Swiper
                 slidesPerView={5}
-                spaceBetween={40}
+                spaceBetween={10}
                 loop={true}
                 navigation={true}
                 autoplay={{
@@ -37,7 +43,7 @@ export default function Carousel() {
             >
                 {shuffledItems.map((item) => (
                     <SwiperSlide
-                        className="cursor-pointer flex justify-center w-60 h-72"
+                        className="cursor-pointer flex justify-center max-w-60 max-h-72"
                         key={item.id}
                         onClick={() => {
                             dispatch(selectItem(item));

@@ -1,15 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ItemDivider from "../cart/ItemDivider";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../../screenSizes";
 import AccountReminder from "./AccountReminder";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { STATES } from "./states";
+import { placeOrder } from "../../redux/cart/cartSlice";
 
 // import states from "../components/checkout/states";
 
 const CheckoutForm = () => {
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
     const { user } = useSelector((state) => state.auth);
+    const { cart, totalPrice } = useSelector((state) => state.cart);
+
+    const dispatch = useDispatch();
+
+    const [formData, setFormData] = useState({
+        street: "",
+        city: "",
+        zip: "",
+        state: "",
+    });
+
+    const { street, city, zip } = formData;
+
+    const onChange = (e) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
+    const submitOrder = (e) => {
+        e.preventDefault();
+        const orderInfo = {
+            user: user,
+            items: cart,
+            total: totalPrice,
+        };
+        dispatch(placeOrder(orderInfo));
+    };
+
+    useEffect(() => {
+        console.log(formData);
+    }, [formData]);
 
     return (
         <div className="w-full md:w-1/2 max-w-[600px] md:justify-center">
@@ -17,6 +52,7 @@ const CheckoutForm = () => {
             <form
                 action=""
                 className="w-full h-full p-1 mt-5 md:mt-0 pb-4 md:p-5 md:pt-0"
+                onSubmit={submitOrder}
             >
                 <h2 className="text-2xl font-bold ml-1">Shipping Info</h2>
                 <div className="dual-input flex justify-between mt-5">
@@ -47,20 +83,13 @@ const CheckoutForm = () => {
                         <input
                             type="text"
                             className="w-[80%] outline-none absolute left-2"
+                            value={street}
+                            name="street"
+                            onChange={onChange}
                         />
                     </div>
                 </div>
-                <div className="single-input mt-3">
-                    <div className="w-full h-12 border-[1px] rounded-md border-black p-4 relative">
-                        <div className="absolute top-1 left-1">
-                            <p className="text-[10px]">Apt/Suite</p>
-                        </div>
-                        <input
-                            type="text"
-                            className="w-[80%] outline-none absolute left-2"
-                        />
-                    </div>
-                </div>
+
                 <div className="dual-input flex justify-between mt-3">
                     <div className="w-[49%] h-12 border-[1px] rounded-md border-black p-4 relative">
                         <div className="absolute top-1 left-1">
@@ -69,6 +98,9 @@ const CheckoutForm = () => {
                         <input
                             type="text"
                             className="w-[80%] outline-none absolute left-2"
+                            value={city}
+                            name="city"
+                            onChange={onChange}
                         />
                     </div>
                     <div className="w-[49%] h-12 border-[1px] rounded-md border-black p-4 relative">
@@ -78,6 +110,9 @@ const CheckoutForm = () => {
                         <input
                             type="text"
                             className="w-[80%] outline-none absolute left-2"
+                            value={zip}
+                            name="zip"
+                            onChange={onChange}
                         />
                     </div>
                 </div>
@@ -86,10 +121,16 @@ const CheckoutForm = () => {
                         <div className="absolute top-1 left-1">
                             <p className="text-[10px]">State</p>
                         </div>
-                        <input
+                        <select
                             type="text"
                             className="w-[80%] outline-none absolute left-2"
-                        />
+                            name="state"
+                            onChange={onChange}
+                        >
+                            {STATES.map((state) => (
+                                <option value={state}>{state}</option>
+                            ))}
+                        </select>
                     </div>
                 </div>
                 <div className="w-full h-5 mt-3 flex items-center justify-end">

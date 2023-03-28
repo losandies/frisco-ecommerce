@@ -6,17 +6,20 @@ import navigationReducer from "./nav/navigationSlice";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
+import autoMergeLevel1 from "redux-persist/es/stateReconciler/autoMergeLevel1";
+import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
 
 const persistConfig = {
     key: "root",
     storage,
+    blacklist: ["auth"],
 };
 
 const rootReducer = combineReducers({});
 
 export const store = configureStore({
     reducer: {
-        auth: persistReducer(persistConfig, authReducer),
+        auth: authReducer,
         items: persistReducer(persistConfig, itemsReducer),
         cart: persistReducer(persistConfig, cartReducer),
         nav: persistReducer(persistConfig, navigationReducer),
