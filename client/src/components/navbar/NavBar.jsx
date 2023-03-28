@@ -94,6 +94,7 @@ const NavBar = ({ loggedIn }) => {
                                         ? "text-center tracking-[.25em] flex w-full flex-col"
                                         : "hidden"
                                 }`}
+                                onClick={() => dispatch(toggleMenu())}
                             >
                                 new in
                             </Link>
@@ -115,6 +116,17 @@ const NavBar = ({ loggedIn }) => {
                                 sub2="sneakers"
                                 sub3="boots"
                             />
+                            <Link
+                                to="/cart"
+                                className={`${
+                                    menuOpen
+                                        ? "text-center tracking-[.25em] flex font-bold w-full flex-col"
+                                        : "hidden"
+                                }`}
+                                onClick={() => dispatch(toggleMenu())}
+                            >
+                                cart({amountOfItems})
+                            </Link>
                         </ul>
                     </div>
                 </nav>

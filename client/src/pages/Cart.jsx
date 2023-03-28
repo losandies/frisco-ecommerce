@@ -21,7 +21,7 @@ const Cart = () => {
     }, [amountOfItems]);
 
     return (
-        <div className="flex flex-col min-h-[100vh] w-full relative">
+        <div className="flex flex-col min-h-[100vh] w-full relative overflow-x-hidden">
             <div className="content-wrap pb-[195px]">
                 <NavBar />
                 <div className="h-[80%] w-full flex">

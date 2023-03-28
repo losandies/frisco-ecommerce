@@ -35,11 +35,11 @@ const ShoppingCart = () => {
     };
 
     return (
-        <div className="w-full h-full flex justify-center">
-            <div className="md:mt-[3.8rem] w-[80%] max-w-[1300px] h-auto">
+        <div className="w-full h-full flex justify-center overflow-x-hidden">
+            <div className="md:mt-[3.8rem] w-full md:w-[80%] max-w-[1300px] h-auto">
                 <div className="title">
-                    <h1 className="text-3xl font-bold">
-                        My Bag: {amountOfItems} items
+                    <h1 className="text-lg pl-2 md:text-left md:text-3xl md:font-bold">
+                        Your Bag: {amountOfItems} Items
                     </h1>
                     <ItemDivider />
                 </div>
