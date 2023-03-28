@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     category: "home",
     subcategory: "",
+    menuOpen: false,
 };
 
 export const navigationSlice = createSlice({
@@ -14,9 +15,12 @@ export const navigationSlice = createSlice({
             state.category = category;
             state.subcategory = subcategory;
         },
+        toggleMenu: (state) => {
+            state.menuOpen = !state.menuOpen;
+        },
     },
 });
 
-export const { switchPage } = navigationSlice.actions;
+export const { switchPage, toggleMenu } = navigationSlice.actions;
 
 export default navigationSlice.reducer;

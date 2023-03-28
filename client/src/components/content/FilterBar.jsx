@@ -31,8 +31,10 @@ const FilterBar = ({ selectedPage }) => {
                     onClick={showMenu}
                     className="dropdown bg-neutral-800 text-white h-10 w-20 md:w-[7.5rem] md:h-12 border-2 rounded-xl flex justify-center items-center"
                 >
-                    <label className="ml-1">Sort</label>
-                    <FaSort className="ml-1" />
+                    <label tabIndex={0} className="ml-1">
+                        Sort
+                    </label>
+                    <FaSort tabIndex={0} className="ml-1" />
                     <ul
                         style={{ display: displayMenuStyle }}
                         tabIndex={0}

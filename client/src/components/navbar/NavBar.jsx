@@ -8,10 +8,15 @@ import { useEffect } from "react";
 import { getCartTotalItems } from "../../redux/cart/cartSlice";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../../screenSizes";
+import { Spiral as Hamburger } from "hamburger-react";
+import { useState } from "react";
+import { toggleMenu } from "../../redux/nav/navigationSlice";
+import MenuItem from "./MenuItem.jsx";
 
 const NavBar = ({ loggedIn }) => {
     const { user } = useSelector((state) => state.auth);
     const { cart, amountOfItems } = useSelector((state) => state.cart);
+    const { menuOpen } = useSelector((state) => state.nav);
 
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
 
@@ -20,46 +25,97 @@ const NavBar = ({ loggedIn }) => {
 
     useEffect(() => {
         dispatch(getCartTotalItems());
-    }, []);
+        console.log(menuOpen);
+    }, [menuOpen]);
+
+    const switchCategories = (category, subcategory) => {
+        navigate(`/${category.toLowerCase()}/${subcategory.toLowerCase()}`);
+        dispatch(switchPage({ category, subcategory }));
+        dispatch(toggleMenu());
+    };
 
     return (
         <>
             {isMobile ? (
-                <nav className="flex items-center justify-center h-16 w-full px-3">
-                    <div className="nav-left flex items-center w-1/3">
-                        <a href="/">Hello</a>
-                        {/* Hamburger */}
-                    </div>
-                    <div className="flex justify-center w-1/3">
-                        <a href="/" className="text-2xl">
-                            <img
-                                src={logo}
-                                alt="logo"
-                                className="max-w-[80px] h-[30px]"
+                <nav
+                    className={`flex items-center flex-col justify-center w-full md:px-3`}
+                >
+                    <div className="flex flex-row justify-between w-full  h-16">
+                        <div className="nav-left flex items-center w-1/3">
+                            <Hamburger
+                                size={24}
+                                onToggle={() => dispatch(toggleMenu())}
                             />
-                        </a>
-                    </div>
-                    <div className="flex justify-end w-1/3">
-                        {user ? (
-                            <div className="avatar flex items-center">
-                                <div className="w-10 mask mask-squircle">
-                                    <img src={aaliyah} />
-                                </div>
-                                {/* <h1 className="ml-6">
+                        </div>
+                        <div className="flex justify-center items-center w-1/3">
+                            <a href="/" className="text-2xl">
+                                <img
+                                    src={logo}
+                                    alt="logo"
+                                    className="max-w-[80px] h-[30px]"
+                                />
+                            </a>
+                        </div>
+                        <div className="flex justify-end w-1/3 pr-3">
+                            {user ? (
+                                <div className="avatar flex items-center">
+                                    <div className="w-10 mask mask-squircle">
+                                        <img src={aaliyah} />
+                                    </div>
+                                    {/* <h1 className="ml-6">
                                     Hello, {user.firstName}
                                 </h1> */}
-                            </div>
-                        ) : (
-                            <div className="text-neutral-700 font-normal">
-                                <a href="/login" className="underline">
-                                    Log In
-                                </a>
-                                <span> or </span>
-                                <a href="/register" className="underline">
-                                    Register
-                                </a>
-                            </div>
-                        )}
+                                </div>
+                            ) : (
+                                <div className="text-neutral-700 font-normal">
+                                    <a href="/login" className="underline">
+                                        Log In
+                                    </a>
+                                    <span> or </span>
+                                    <a href="/register" className="underline">
+                                        Register
+                                    </a>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <div
+                        className={`flex justify-center pt-10 text-lg uppercase ${
+                            menuOpen
+                                ? "flex w-full h-[200px] text-black"
+                                : "opacity-0 h-[1px]"
+                        } ease-out duration-300`}
+                    >
+                        <ul className="w-full">
+                            <Link
+                                to="/"
+                                className={`${
+                                    menuOpen
+                                        ? "text-center tracking-[.25em] flex w-full flex-col"
+                                        : "hidden"
+                                }`}
+                            >
+                                new in
+                            </Link>
+                            <MenuItem
+                                category="Clothing"
+                                sub1="shirts"
+                                sub2="hoodies"
+                                sub3="pants"
+                            />
+                            <MenuItem
+                                category="Accessories"
+                                sub1="Jewelry"
+                                sub2="hats"
+                                sub3="sunglasses"
+                            />
+                            <MenuItem
+                                category="Shoes"
+                                sub1="casual"
+                                sub2="sneakers"
+                                sub3="boots"
+                            />
+                        </ul>
                     </div>
                 </nav>
             ) : (
