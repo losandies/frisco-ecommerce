@@ -21,7 +21,7 @@ const Home = () => {
 
     return (
         <div className="flex flex-col min-h-[100vh] w-full relative">
-            <div className="content-wrap min-h-[100vh] pb-[195px]">
+            <div className="content-wrap min-h-[100vh] md:pb-[195px]">
                 <NavBar />
                 <div className="h-full w-full flex flex-row justify-between">
                     <div>

@@ -36,7 +36,7 @@ const CartItem = ({ item }) => {
                         ${(item.price * item.quantity).toFixed(2)}
                     </h3>
                 </div>
-                <div className="w-1/5 flex justify-center">
+                <div className="w-1/5 md:w-1/8 flex justify-center">
                     <div className="w-[4rem] h-6 md:w-[6.25rem] md:h-10 border-black border-[1px] flex justify-around items-center rounded-lg">
                         <button
                             className={item.quantity === 1 ? "disabled" : null}
@@ -61,7 +61,7 @@ const CartItem = ({ item }) => {
                     </div>
                 </div>
 
-                <div className="w-1/5 flex justify-center">
+                <div className="w-1/5 md:w-1/8 flex justify-center">
                     <button
                         className="h-6 w-8 md:h-10 md:w-12 rounded-sm bg-black text-white hover:text-red-500"
                         onClick={() => dispatch(removeFromCart(item))}

@@ -25,7 +25,7 @@ const DisplayPage = () => {
         <div
             className={`flex flex-col min-h-[100vh] overflow-x-hidden w-full relative md:overflow-x-auto`}
         >
-            <div className="content-wrap pb-[195px]">
+            <div className="content-wrap md:pb-[195px]">
                 <NavBar />
                 <div className="h-full w-full flex">
                     <SideBar />

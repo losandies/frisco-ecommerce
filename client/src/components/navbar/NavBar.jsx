@@ -67,12 +67,20 @@ const NavBar = ({ loggedIn }) => {
                                 </h1> */}
                                 </div>
                             ) : (
-                                <div className="text-neutral-700 font-normal">
-                                    <a href="/login" className="underline">
+                                <div className="text-neutral-700 font-normal flex items-center justify-center">
+                                    <a
+                                        href="/login"
+                                        className="underline text-xs md:text-base mr-1"
+                                    >
                                         Log In
                                     </a>
-                                    <span> or </span>
-                                    <a href="/register" className="underline">
+                                    <span className="text-xs md:text-base">
+                                        or
+                                    </span>
+                                    <a
+                                        href="/register"
+                                        className="underline text-xs md:text-base ml-1"
+                                    >
                                         Register
                                     </a>
                                 </div>

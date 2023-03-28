@@ -16,7 +16,7 @@ export default function Carousel() {
 
     const isXLScreen = useMediaQuery({ minWidth: sizes["2xl"] });
     const isMedScreen = useMediaQuery({ minWidth: sizes.md });
-    const isSmScreen = useMediaQuery({ minWidth: sizes.sm });
+    const isMobile = useMediaQuery({ maxWidth: sizes.sm });
 
     let shuffledItems = items
         .map((item) => ({ item, sort: Math.random() }))
@@ -27,9 +27,9 @@ export default function Carousel() {
     const dispatch = useDispatch();
 
     return (
-        <div className="w-[1000px] md:w-[1000px] h-[400px] 2xl:w-[1000px]">
+        <div className="w-screen md:w-[1000px] md:h-[400px] 2xl:w-[1000px]">
             <Swiper
-                slidesPerView={5}
+                slidesPerView={isMobile ? 3 : 5}
                 spaceBetween={10}
                 loop={true}
                 navigation={true}

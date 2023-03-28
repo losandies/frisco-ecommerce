@@ -7,7 +7,7 @@ import CheckOutModal from "./CheckOutModal";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const showCartItems = (cartArray) => (
-    <div className="h-[50vh] overflow-scroll scrollbar-hide">
+    <div className="md:h-[50vh] h-[60vh] overflow-scroll scrollbar-hide">
         {cartArray.map((item) => (
             <CartItem item={item} key={item.id} />
         ))}
@@ -44,7 +44,7 @@ const ShoppingCart = () => {
                     <ItemDivider />
                 </div>
                 {cartIsEmpty ? noItemsYet() : showCartItems(cart)}
-                <div className="w-full h-32 flex justify-end">
+                <div className="w-full h-32 md:my-12 flex justify-end">
                     <div className="mt-5 w-56 flex flex-col items-center">
                         <h1 className="text-2xl font-bold">
                             Total:

@@ -22,9 +22,9 @@ const Cart = () => {
 
     return (
         <div className="flex flex-col min-h-[100vh] w-full relative overflow-x-hidden">
-            <div className="content-wrap pb-[195px]">
+            <div className="content-wrap md:pb-[195px]">
                 <NavBar />
-                <div className="h-[80%] w-full flex">
+                <div className="md:h-[80%] h-[100vh] w-full flex">
                     <SideBar />
                     <ShoppingCart />
                 </div>

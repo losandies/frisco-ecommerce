@@ -3,16 +3,18 @@ import Carousel from "./Carousel";
 
 const HomepageContent = () => {
     return (
-        <div className="w-full h-full flex flex-col justify-center items-center">
+        <div className="w-full h-full flex flex-col justify-center items-center pb-[105px] md:pb-0">
             <div className="h-full w-full pt-16 flex flex-col items-center">
                 <img
                     src="../../src/assets/hero2.jpeg"
                     alt=""
-                    className="w-[1000px] max-w-[2200px] max-h-[1000px] h-[400px]"
+                    className="w-screen md:w-[1000px] md:max-w-[2200px] md:max-h-[1000px] md:h-[400px]"
                 />
             </div>
             <div className="my-10">
-                <h1 className="mb-5 text-xl">SHOP OUR NEWEST COLLECTION</h1>
+                <h1 className="pl-2 md:pl-0 mb-5 text-xl">
+                    SHOP OUR NEWEST COLLECTION
+                </h1>
                 <Carousel />
             </div>
         </div>
