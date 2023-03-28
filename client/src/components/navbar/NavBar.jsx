@@ -40,7 +40,7 @@ const NavBar = ({ loggedIn }) => {
                 <nav
                     className={`flex items-center flex-col justify-center w-full md:px-3`}
                 >
-                    <div className="flex flex-row justify-between w-full  h-16">
+                    <div className="flex flex-row justify-between w-full h-16">
                         <div className="nav-left flex items-center w-1/3">
                             <Hamburger
                                 size={24}

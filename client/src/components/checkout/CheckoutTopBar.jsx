@@ -5,7 +5,7 @@ import { IoIosArrowBack } from "react-icons/io";
 
 const CheckoutTopBar = () => {
     return (
-        <div className="h-16 w-full flex items-center border-b-[1px]">
+        <div className="h-16 py-6 md:py-0 w-full flex items-center border-b-[1px]">
             <Link
                 to="/cart"
                 className="w-1/3 pl-5 flex items-center hover:underline"
@@ -16,7 +16,7 @@ const CheckoutTopBar = () => {
                 <img
                     src={logo}
                     alt="FRISCO"
-                    className="max-w-[180px] h-[50px]"
+                    className="max-w-[80px] h-[30px] md:max-w-[180px] md:h-[50px]"
                 />
             </Link>
         </div>
