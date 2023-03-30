@@ -118,12 +118,12 @@ const CheckoutForm = () => {
                 </div>
                 <div className="single-input mt-3">
                     <div className="w-full h-12 border-[1px] rounded-md border-black p-4 relative">
-                        <div className="absolute top-1 left-1">
+                        <div className="absolute top-1 left-1 z-50">
                             <p className="text-[10px]">State</p>
                         </div>
                         <select
                             type="text"
-                            className="w-[80%] outline-none absolute left-2"
+                            className="w-[95%] md:w-[80%] outline-none absolute left-2 bottom-1 bg-white z-10"
                             name="state"
                             onChange={onChange}
                         >
@@ -167,12 +167,12 @@ const CheckoutForm = () => {
                 </div>
                 <div className="dual-input flex justify-between mt-3">
                     <div className="w-[49%] h-12 border-[1px] rounded-md border-black p-4 relative">
-                        <div className="absolute top-1 left-1">
+                        <div className="absolute top-1 left-1 z-50">
                             <p className="text-[10px]">Exp. Month</p>
                         </div>
                         <select
                             type="text"
-                            className="w-[95%] outline-none absolute left-1 bottom-2"
+                            className="w-[95%] outline-none absolute left-1 md:bottom-2 bg-white"
                             defaultValue="03"
                             readOnly
                         >
@@ -191,12 +191,12 @@ const CheckoutForm = () => {
                         </select>
                     </div>
                     <div className="w-[49%] h-12 border-[1px] rounded-md border-black p-4 relative">
-                        <div className="absolute top-1 left-1">
+                        <div className="absolute top-1 left-1 z-50">
                             <p className="text-[10px]">Exp. Year</p>
                         </div>
                         <select
                             type="text"
-                            className="w-[95%] outline-none absolute left-1 bottom-2"
+                            className="w-[95%] outline-none absolute left-1 md:bottom-2 bg-white"
                             defaultValue="2025"
                             readOnly
                         >
