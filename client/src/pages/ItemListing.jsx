@@ -7,9 +7,9 @@ import SideBar from "../components/sidebar/SideBar";
 const ItemListing = () => {
     return (
         <div className="flex flex-col h-full min-h-[100vh] w-full relative">
-            <div className="content-wrap pb-[195px]">
+            <div className="content-wrap md:pb-[195px]">
                 <NavBar />
-                <div className="h-full w-full flex">
+                <div className="h-full w-full flex mb-[100px]">
                     <div>
                         <SideBar />
                     </div>

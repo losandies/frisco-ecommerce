@@ -21,7 +21,7 @@ const MenuItem = ({ category, sub1, sub2, sub3 }) => {
         <li
             className={`${
                 menuOpen
-                    ? "text-center tracking-[.25em] flex w-full flex-col ease-in duration-500"
+                    ? "text-center tracking-[.25em] flex w-full flex-col ease-in-out duration-500"
                     : "hidden"
             }`}
             onMouseEnter={() => setIsFocused(true)}

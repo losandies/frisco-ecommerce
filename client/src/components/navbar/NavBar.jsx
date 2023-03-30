@@ -62,9 +62,6 @@ const NavBar = ({ loggedIn }) => {
                                     <div className="w-10 mask mask-squircle">
                                         <img src={aaliyah} />
                                     </div>
-                                    {/* <h1 className="ml-6">
-                                    Hello, {user.firstName}
-                                </h1> */}
                                 </div>
                             ) : (
                                 <div className="text-neutral-700 font-normal flex items-center justify-center">
@@ -92,7 +89,7 @@ const NavBar = ({ loggedIn }) => {
                             menuOpen
                                 ? "flex w-full h-[200px] text-black"
                                 : "opacity-0 h-[1px]"
-                        } ease-out duration-300`}
+                        } ease-in-out duration-300`}
                     >
                         <ul className="w-full">
                             <Link
