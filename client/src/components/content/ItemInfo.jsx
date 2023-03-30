@@ -17,7 +17,6 @@ const ItemInfo = () => {
     const { selectedItem } = useSelector((state) => state.items);
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const gatherItemInfo = () => {
         if (selectedSize === "") return toast.error("Please Select Your Size");
@@ -28,20 +27,14 @@ const ItemInfo = () => {
             quantity: selectedQuantity,
         };
 
-        // for (let i = 0; i < selectedQuantity; i++) {
-        //     dispatch(addToCart(itemInfo));
-        // }
         dispatch(addToCart(itemInfo));
+        toast.success("Item Added To Cart");
     };
 
     const selectNewSize = (size) => {
         setSelectedSize(size);
         setSelectedQuantity(1);
     };
-
-    useEffect(() => {
-        console.log(selectedItem);
-    }, []);
 
     return (
         <div className="h-full w-full flex justify-center md:px-10 pt-5 md:pt-16 md:mb-[200px]">

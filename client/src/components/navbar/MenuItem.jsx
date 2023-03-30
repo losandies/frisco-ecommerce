@@ -52,49 +52,6 @@ const MenuItem = ({ category, sub1, sub2, sub3 }) => {
                 </li>
             </ul>
         </li>
-
-        // <li
-        //             className={`${
-        //                 menuOpen
-        //                     ? "text-center tracking-[.50em] flex flex-col"
-        //                     : "hidden"
-        //             }`}
-        //             onClick={() => setIsFocused(true)}
-        //         >
-        //             new in
-        //             <ul
-        //                 className={`${
-        //                     isFocused ? "block uppercase" : "hidden"
-        //                 }`}
-        //             ></ul>
-        //         </li>
-        //         <li
-        //             className={`${
-        //                 menuOpen
-        //                     ? "block text-center tracking-[.50em]"
-        //                     : "hidden"
-        //             }`}
-        //         >
-        //             Clothing
-        //         </li>
-        //         <li
-        //             className={`${
-        //                 menuOpen
-        //                     ? "block text-center tracking-[.50em]"
-        //                     : "hidden"
-        //             }`}
-        //         >
-        //             accessories
-        //         </li>
-        //         <li
-        //             className={`${
-        //                 menuOpen
-        //                     ? "block text-center tracking-[.50em]"
-        //                     : "hidden"
-        //             }`}
-        //         >
-        //             Shoes
-        //         </li>
     );
 };
 

@@ -9,7 +9,7 @@ const ItemListing = () => {
         <div className="flex flex-col h-full min-h-[100vh] w-full relative">
             <div className="content-wrap md:pb-[195px]">
                 <NavBar />
-                <div className="h-full w-full flex mb-[100px]">
+                <div className="h-full w-full flex mb-[150px]">
                     <div>
                         <SideBar />
                     </div>

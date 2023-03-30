@@ -14,8 +14,12 @@ const CheckOut = () => {
             <CheckoutTopBar />
             {isMobile ? (
                 <div className="w-full justify-center flex flex-col md:flex-row p-5 sm:p-10 mt-3">
-                    <OrderSummary />
-                    <CheckoutForm />
+                    <div>
+                        <OrderSummary />
+                    </div>
+                    <div className="mt-10">
+                        <CheckoutForm />
+                    </div>
                 </div>
             ) : (
                 <div className="w-full justify-center flex flex-col md:flex-row p-5 sm:p-10 mt-3">
