@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpeg";
 import { IoIosArrowBack } from "react-icons/io";
 
-const CheckoutTopBar = () => {
+const AltTopBar = () => {
+    const pagePath = window.location.href;
+
     return (
         <div className="h-16 py-6 md:py-0 w-full flex items-center border-b-[1px]">
             <Link
-                to="/cart"
+                to={`${
+                    pagePath.endsWith("checkout")
+                        ? "/cart"
+                        : pagePath.endsWith("account")
+                        ? "/"
+                        : null
+                }`}
                 className="w-1/3 pl-5 flex items-center hover:underline"
             >
                 <IoIosArrowBack /> Back
@@ -23,4 +31,4 @@ const CheckoutTopBar = () => {
     );
 };
 
-export default CheckoutTopBar;
+export default AltTopBar;

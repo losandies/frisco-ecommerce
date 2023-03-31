@@ -1,17 +1,18 @@
 import React from "react";
 
 import CheckoutForm from "../components/checkout/CheckoutForm";
-import CheckoutTopBar from "../components/checkout/CheckoutTopBar";
+import CheckoutTopBar from "../components/checkout/AltTopBar";
 import OrderSummary from "../components/checkout/OrderSummary";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../screenSizes";
+import AltTopBar from "../components/checkout/AltTopBar";
 
 const CheckOut = () => {
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
 
     return (
         <div className="w-screen h-screen flex flex-col overflow-x-hidden">
-            <CheckoutTopBar />
+            <AltTopBar />
             {isMobile ? (
                 <div className="w-full justify-center flex flex-col md:flex-row p-5 sm:p-10 mt-3">
                     <div>

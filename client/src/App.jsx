@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCartTotalItems, getCartTotalPrice } from "./redux/cart/cartSlice";
 import Home from "./pages/Home";
 import CheckOut from "./pages/CheckOut";
+import MyAccount from "./pages/MyAccount";
 
 function App() {
     const [count, setCount] = useState(0);
@@ -39,6 +40,7 @@ function App() {
                     />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/checkout" element={<CheckOut />} />
+                    <Route path="/account" element={<MyAccount />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer />

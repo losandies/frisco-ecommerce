@@ -64,7 +64,7 @@ const ItemInfo = () => {
                         </div>
                         <div className="sizing mt-5 md:mt-10">
                             <h1 className="mb-2">Choose Size</h1>
-                            <div className="sizing-buttons flex flex-wrap justify-between md:justify-start">
+                            <div className="sizing-buttons flex flex-wrap md:flex-nowrap justify-between md:justify-start">
                                 {selectedItem.subcategory === "shirts" ||
                                 selectedItem.subcategory === "hoodies" ? (
                                     clothingSizes.map((size) => (
@@ -123,7 +123,7 @@ const ItemInfo = () => {
                                 ) : null}
                             </div>
                         </div>
-                        <div className="add-to-cart mt-2 md:mt-10 flex flex-col md:flex-row">
+                        <div className="add-to-cart mt-2 md:mt-10 flex flex-col md:flex-row md:items-center">
                             <div className="w-full md:w-[6.25rem] h-10 border-black border-[1px] flex justify-around rounded-lg">
                                 <button
                                     className={
@@ -161,7 +161,7 @@ const ItemInfo = () => {
                                 </button>
                             </div>
                             <button
-                                className="uppercase text-xs w-full md:w-72 h-12 md:h-auto bg-black text-white mt-4 md:ml-5"
+                                className="uppercase text-xs w-full md:w-72 h-12 md:h-10 bg-black text-white mt-4 md:mt-0 md:ml-5"
                                 onClick={gatherItemInfo}
                             >
                                 add to bag

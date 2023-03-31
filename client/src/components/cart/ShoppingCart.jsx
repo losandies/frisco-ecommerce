@@ -7,7 +7,7 @@ import CheckOutModal from "./CheckOutModal";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const showCartItems = (cartArray) => (
-    <div className="md:h-[50vh] h-[50vh] overflow-scroll scrollbar-hide">
+    <div className="md:h-[50vh] h-[60vh] overflow-scroll scrollbar-hide">
         {cartArray.map((item) => (
             <CartItem item={item} key={item.id} />
         ))}
