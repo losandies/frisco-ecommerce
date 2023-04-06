@@ -6,6 +6,7 @@ import AccountReminder from "./AccountReminder";
 import { useDispatch, useSelector } from "react-redux";
 import { STATES } from "./states";
 import { placeOrder } from "../../redux/cart/cartSlice";
+import axios from "axios";
 
 // import states from "../components/checkout/states";
 
@@ -16,6 +17,8 @@ const CheckoutForm = () => {
 
     const dispatch = useDispatch();
 
+    const [checkboxChecked, setCheckboxChecked] = useState(false);
+
     const [formData, setFormData] = useState({
         street: "",
         city: "",
@@ -23,13 +26,19 @@ const CheckoutForm = () => {
         state: "",
     });
 
-    const { street, city, zip } = formData;
+    const { street, city, zip, state } = formData;
 
     const onChange = (e) => {
         setFormData((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }));
+    };
+
+    const saveAddress = () => {
+        if (checkboxChecked) {
+            console.log(formData);
+        }
     };
 
     const submitOrder = (e) => {
@@ -39,6 +48,9 @@ const CheckoutForm = () => {
             items: cart,
             total: totalPrice,
         };
+
+        saveAddress();
+
         dispatch(placeOrder(orderInfo));
     };
 
@@ -134,7 +146,11 @@ const CheckoutForm = () => {
                     </div>
                 </div>
                 <div className="w-full h-5 mt-3 flex items-center justify-end">
-                    <input type="checkbox" name="" id="" className="mr-2" />
+                    <input
+                        type="checkbox"
+                        className="mr-2"
+                        onClick={() => setCheckboxChecked(!checkboxChecked)}
+                    />
                     <h2>Save as default address?</h2>
                 </div>
 

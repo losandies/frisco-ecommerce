@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-const MyAccountNav = () => {
-    const [currentTab, setCurrentTab] = useState("profile");
+const MyAccountNav = ({ setCurrentTab, currentTab }) => {
     return (
         <div className="w-full justify-center items-center flex flex-col">
             <div className="h-12 w-full flex justify-center items-center border-b-[1px]">
