@@ -14,16 +14,17 @@ const CheckoutForm = () => {
     const { cart, totalPrice } = useSelector((state) => state.cart);
 
     const dispatch = useDispatch();
+    console.log(user.address);
 
     const [checkboxChecked, setCheckboxChecked] = useState(false);
 
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        street: "",
-        city: "",
-        zip: "",
-        state: "",
+        firstName: user ? user.firstName : "",
+        lastName: user ? user.lastName : "",
+        street: user.address.street ? user.address.street : "",
+        city: user.address.city ? user.address.city : "",
+        zip: user.address.zipCode ? user.address.zipCode : "",
+        state: user.address.state ? user.address.state : "",
     });
 
     const { street, city, zip, firstName, lastName, state } = formData;
