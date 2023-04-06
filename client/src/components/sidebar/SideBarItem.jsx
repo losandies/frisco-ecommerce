@@ -7,6 +7,7 @@ import { switchPage } from "../../redux/nav/navigationSlice";
 
 const SideBarItem = ({ category, sub1, sub2, sub3 }) => {
     const [isHovered, setIsHovered] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { currentPage } = useSelector((state) => state.nav);

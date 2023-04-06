@@ -7,14 +7,9 @@ import { sizes } from "../../screenSizes";
 import SideBarItem from "./SideBarItem";
 
 const SideBar = () => {
-    const [scrollY, setScrollY] = useState(0);
-    const { currentPage } = useSelector((state) => state.nav);
-    const [clothingClicked, setClothingClicked] = useState(false);
-    const [shoesClicked, setShoesClicked] = useState(false);
-    const [accClicked, setAccClicked] = useState(false);
-    const [activeClicked, setActiveClicked] = useState(false);
-
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
+
+    const [scrollY, setScrollY] = useState(0);
 
     const watchScroll = () => {
         window.addEventListener("scroll", () => {
@@ -25,10 +20,6 @@ const SideBar = () => {
     useEffect(() => {
         watchScroll();
     });
-
-    useEffect(() => {
-        console.log(currentPage);
-    }, [currentPage]);
 
     return (
         <>

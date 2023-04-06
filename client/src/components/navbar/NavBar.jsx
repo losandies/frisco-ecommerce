@@ -1,38 +1,31 @@
-import React from "react";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import logo from "../../assets/logo.jpeg";
-import aaliyah from "../../assets/aaliyah_t.jpeg";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { getCartTotalItems } from "../../redux/cart/cartSlice";
+import logo from "../../assets/logo.jpeg";
+import defaultAvatar from "../../assets/default-avatar.jpg";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../../screenSizes";
 import { Spiral as Hamburger } from "hamburger-react";
-import { useState } from "react";
+import { MdOutlineShoppingCart } from "react-icons/md";
 import { toggleMenu } from "../../redux/nav/navigationSlice";
+import { getCartTotalItems } from "../../redux/cart/cartSlice";
+
 import MenuItem from "./MenuItem.jsx";
+import AccountMenu from "./AccountMenu";
 
-const NavBar = ({ loggedIn }) => {
+const NavBar = () => {
     const { user } = useSelector((state) => state.auth);
-    const { cart, amountOfItems } = useSelector((state) => state.cart);
+    const { amountOfItems } = useSelector((state) => state.cart);
     const { menuOpen } = useSelector((state) => state.nav);
-
-    const isMobile = useMediaQuery({ maxWidth: sizes.md });
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const isMobile = useMediaQuery({ maxWidth: sizes.md });
+
     useEffect(() => {
         dispatch(getCartTotalItems());
-        console.log(menuOpen);
     }, [menuOpen]);
-
-    const switchCategories = (category, subcategory) => {
-        navigate(`/${category.toLowerCase()}/${subcategory.toLowerCase()}`);
-        dispatch(switchPage({ category, subcategory }));
-        dispatch(toggleMenu());
-    };
 
     return (
         <>
@@ -60,7 +53,7 @@ const NavBar = ({ loggedIn }) => {
                             {user ? (
                                 <div className="avatar flex items-center">
                                     <div className="w-10 mask mask-squircle">
-                                        <img src={aaliyah} />
+                                        <img src={defaultAvatar} />
                                     </div>
                                 </div>
                             ) : (
@@ -154,7 +147,7 @@ const NavBar = ({ loggedIn }) => {
                                 placeholder="Search for items and brands..."
                             />
                         </div>
-                        <div className="nav-right flex items-center w-90">
+                        <div className="nav-right flex h-12 w-90">
                             <Link
                                 to="/cart"
                                 className="flex justify-center items-center h-10 w-24 bg-neutral-200 hover:bg-neutral-300 text-sm text-neutral-700 rounded-lg mr-10"
@@ -164,14 +157,7 @@ const NavBar = ({ loggedIn }) => {
                             </Link>
 
                             {user ? (
-                                <div className="avatar flex items-center">
-                                    <div className="w-10 mask mask-squircle">
-                                        <img src={aaliyah} />
-                                    </div>
-                                    <h1 className="ml-6">
-                                        Hello, {user.firstName}
-                                    </h1>
-                                </div>
+                                <AccountMenu />
                             ) : (
                                 <div className="text-neutral-700 font-normal">
                                     <a href="/login" className="underline">
