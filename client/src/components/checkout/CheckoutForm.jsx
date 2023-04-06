@@ -35,9 +35,14 @@ const CheckoutForm = () => {
         }));
     };
 
-    const saveAddress = () => {
+    const saveAddress = async () => {
+        const addressInfo = {
+            id: user.id,
+            ...formData,
+        };
+
         if (checkboxChecked) {
-            console.log(formData);
+            await axios.post("api/users/addAddress", addressInfo);
         }
     };
 
@@ -53,10 +58,6 @@ const CheckoutForm = () => {
 
         dispatch(placeOrder(orderInfo));
     };
-
-    useEffect(() => {
-        console.log(formData);
-    }, [formData]);
 
     return (
         <div className="w-full md:w-1/2 max-w-[600px] md:justify-center">
@@ -135,7 +136,7 @@ const CheckoutForm = () => {
                         </div>
                         <select
                             type="text"
-                            className="w-[95%] md:w-[80%] outline-none absolute left-2 bottom-1 bg-white z-10"
+                            className="w-[97%] md:w-[97%] outline-none absolute left-2 bottom-2 bg-white z-10"
                             name="state"
                             onChange={onChange}
                         >
