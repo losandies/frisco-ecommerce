@@ -6,7 +6,7 @@ const initialState = {
     amountOfItems: 0,
     totalPrice: 0,
     orderPlaced: false,
-    checkoutModalOpen: false,
+    readyToCheckOut: false,
 };
 
 export const placeOrder = createAsyncThunk(
@@ -97,8 +97,8 @@ export const cartSlice = createSlice({
         clearCart: (state) => {
             state.cart = [];
         },
-        toggleCheckoutModal: (state) => {
-            state.checkoutModalOpen = !state.checkoutModalOpen;
+        toggleReadyToCheckOut: (state) => {
+            state.readyToCheckOut = !readyToCheckOut;
         },
     },
 });

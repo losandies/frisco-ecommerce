@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ItemDivider from "../cart/ItemDivider";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../../screenSizes";
 import AccountReminder from "./AccountReminder";
@@ -7,8 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { STATES } from "./states";
 import { placeOrder } from "../../redux/cart/cartSlice";
 import axios from "axios";
-
-// import states from "../components/checkout/states";
+import { toast } from "react-toastify";
 
 const CheckoutForm = () => {
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
@@ -26,7 +24,7 @@ const CheckoutForm = () => {
         state: "",
     });
 
-    const { street, city, zip, state } = formData;
+    const { street, city, zip } = formData;
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -48,15 +46,30 @@ const CheckoutForm = () => {
 
     const submitOrder = (e) => {
         e.preventDefault();
-        const orderInfo = {
-            user: user,
-            items: cart,
-            total: totalPrice,
-        };
 
-        saveAddress();
+        if (
+            !(
+                formData.street ||
+                formData.city ||
+                formData.zip ||
+                formData.state
+            )
+        ) {
+            toast.error("Please enter a valid address");
+            return;
+        }
 
-        dispatch(placeOrder(orderInfo));
+        if (user) {
+            const orderInfo = {
+                user: user,
+                items: cart,
+                total: totalPrice,
+            };
+            saveAddress();
+            dispatch(placeOrder(orderInfo));
+        } else {
+        }
+        toast.success("Order Placed");
     };
 
     return (
@@ -140,6 +153,7 @@ const CheckoutForm = () => {
                             name="state"
                             onChange={onChange}
                         >
+                            <option disabled selected value></option>
                             {STATES.map((state) => (
                                 <option value={state}>{state}</option>
                             ))}

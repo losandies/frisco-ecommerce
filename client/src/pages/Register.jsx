@@ -60,10 +60,6 @@ const Register = () => {
         }
     };
 
-    useEffect(() => {
-        console.log(formData);
-    }, [formData]);
-
     return (
         <div className="flex flex-col h-[100vh]">
             <NavBar />

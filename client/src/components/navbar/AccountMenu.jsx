@@ -1,16 +1,24 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../redux/auth/authSlice";
+import { clearCart } from "../../redux/cart/cartSlice";
 import defaultAvatar from "../../assets/default-avatar.jpg";
 
 const AccountMenu = () => {
     const { user } = useSelector((state) => state.auth);
     const [menuIsHovered, setMenuIsHovered] = useState(false);
 
+    const dispatch = useDispatch();
+
+    const logOutUser = () => {
+        dispatch(clearCart());
+        dispatch(logout());
+    };
+
     return (
         <div
-            className="flex flex-col bg-neutral-200 w-[10rem] h-10 hover:h-[7rem] px-2 rounded-lg cursor-default transform duration-[200ms] relative"
+            className="flex flex-col bg-neutral-200 w-[10rem] h-10 hover:h-[7rem] px-2 rounded-lg cursor-default transform duration-[200ms] relative z-50"
             onMouseEnter={() => setMenuIsHovered(true)}
             onMouseLeave={() => setMenuIsHovered(false)}
         >
@@ -44,10 +52,9 @@ const AccountMenu = () => {
                     className={`duration-[200ms] w-full ${
                         menuIsHovered ? "h-8" : "h-1"
                     } border-[2px] bg-black text-white flex items-center justify-center rounded-md cursor-pointer`}
+                    onClick={logOutUser}
                 >
-                    <h1 className="" onClick={() => dispatch(logout())}>
-                        Log Out
-                    </h1>
+                    <h1 className="">Log Out</h1>
                 </li>
             </ul>
         </div>
