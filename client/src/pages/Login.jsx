@@ -16,9 +16,11 @@ const Login = () => {
         (state) => state.auth
     );
 
+    const { readyToCheckOut } = useSelector((state) => state.cart);
+
     useEffect(() => {
         isError ? toast.error(message.error) : null;
-        isSuccess || user ? navigate("/") : null;
+        user ? navigate("/") : null;
     }, [isError, isSuccess]);
 
     const [formData, setFormData] = useState({
@@ -48,6 +50,10 @@ const Login = () => {
                 password,
             };
             dispatch(login(userInfo));
+
+            if (readyToCheckOut) {
+                setTimeout(() => navigate("/checkout"), [250]);
+            }
         }
     };
 

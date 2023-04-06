@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import ItemDivider from "./ItemDivider";
-import { clearCart, toggleCheckoutModal } from "../../redux/cart/cartSlice";
-import CheckOutModal from "./CheckOutModal";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const showCartItems = (cartArray) => (

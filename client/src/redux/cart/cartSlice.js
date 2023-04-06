@@ -97,8 +97,8 @@ export const cartSlice = createSlice({
         clearCart: (state) => {
             state.cart = [];
         },
-        toggleReadyToCheckOut: (state) => {
-            state.readyToCheckOut = !readyToCheckOut;
+        setReadyToCheckOut: (state, action) => {
+            state.readyToCheckOut = action.payload;
         },
     },
 });
@@ -111,7 +111,7 @@ export const {
     decreaseItemQuantity,
     getCartTotalPrice,
     clearCart,
-    toggleCheckoutModal,
+    setReadyToCheckOut,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -4,7 +4,7 @@ import { sizes } from "../../screenSizes";
 import AccountReminder from "./AccountReminder";
 import { useDispatch, useSelector } from "react-redux";
 import { STATES } from "./states";
-import { placeOrder } from "../../redux/cart/cartSlice";
+import { placeOrder, setReadyToCheckOut } from "../../redux/cart/cartSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -18,13 +18,15 @@ const CheckoutForm = () => {
     const [checkboxChecked, setCheckboxChecked] = useState(false);
 
     const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
         street: "",
         city: "",
         zip: "",
         state: "",
     });
 
-    const { street, city, zip } = formData;
+    const { street, city, zip, firstName, lastName, state } = formData;
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -47,14 +49,7 @@ const CheckoutForm = () => {
     const submitOrder = (e) => {
         e.preventDefault();
 
-        if (
-            !(
-                formData.street ||
-                formData.city ||
-                formData.zip ||
-                formData.state
-            )
-        ) {
+        if (Object.values(formData).some((x) => x === "")) {
             toast.error("Please enter a valid address");
             return;
         }
@@ -67,9 +62,9 @@ const CheckoutForm = () => {
             };
             saveAddress();
             dispatch(placeOrder(orderInfo));
-        } else {
         }
         toast.success("Order Placed");
+        dispatch(setReadyToCheckOut(false));
     };
 
     return (
@@ -88,7 +83,10 @@ const CheckoutForm = () => {
                         </div>
                         <input
                             type="text"
+                            name="firstName"
                             className="w-[80%] outline-none absolute left-2"
+                            value={firstName}
+                            onChange={onChange}
                         />
                     </div>
                     <div className="w-[49%] h-12 border-[1px] rounded-md border-black p-4 relative">
@@ -98,6 +96,9 @@ const CheckoutForm = () => {
                         <input
                             type="text"
                             className="w-[80%] outline-none absolute left-2"
+                            name="lastName"
+                            value={lastName}
+                            onChange={onChange}
                         />
                     </div>
                 </div>
@@ -160,14 +161,16 @@ const CheckoutForm = () => {
                         </select>
                     </div>
                 </div>
-                <div className="w-full h-5 mt-3 flex items-center justify-end">
-                    <input
-                        type="checkbox"
-                        className="mr-2"
-                        onClick={() => setCheckboxChecked(!checkboxChecked)}
-                    />
-                    <h2>Save as default address?</h2>
-                </div>
+                {user ? (
+                    <div className="w-full h-5 mt-3 flex items-center justify-end">
+                        <input
+                            type="checkbox"
+                            className="mr-2"
+                            onClick={() => setCheckboxChecked(!checkboxChecked)}
+                        />
+                        <h2>Save as default address?</h2>
+                    </div>
+                ) : null}
 
                 <h2 className="text-2xl font-bold ml-1 mt-5">Payment Method</h2>
                 <div className="single-input mt-5">
