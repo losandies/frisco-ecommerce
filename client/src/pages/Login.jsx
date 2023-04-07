@@ -53,6 +53,8 @@ const Login = () => {
 
             if (readyToCheckOut) {
                 setTimeout(() => navigate("/checkout"), [250]);
+            } else {
+                navigate("/");
             }
         }
     };

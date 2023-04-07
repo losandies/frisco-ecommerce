@@ -7,27 +7,36 @@ import { STATES } from "./states";
 import { placeOrder, setReadyToCheckOut } from "../../redux/cart/cartSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
+import {
+    getUserSavedAddress,
+    updateUserAddress,
+} from "../../redux/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
-    const { user } = useSelector((state) => state.auth);
+    const { user, address } = useSelector((state) => state.auth);
     const { cart, totalPrice } = useSelector((state) => state.cart);
 
-    const dispatch = useDispatch();
-    console.log(user.address);
+    const userId = user ? user.id : "";
 
-    const [checkboxChecked, setCheckboxChecked] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [userAddress, setUserAddress] = useState();
 
     const [formData, setFormData] = useState({
         firstName: user ? user.firstName : "",
         lastName: user ? user.lastName : "",
-        street: user.address.street ? user.address.street : "",
-        city: user.address.city ? user.address.city : "",
-        zip: user.address.zipCode ? user.address.zipCode : "",
-        state: user.address.state ? user.address.state : "",
+        street: user && address ? address.street : "",
+        city: user && address ? address.city : "",
+        zip: user && address ? address.zipCode : "",
+        state: user && address ? address.state : "",
     });
 
     const { street, city, zip, firstName, lastName, state } = formData;
+
+    const [checkboxChecked, setCheckboxChecked] = useState(false);
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -37,13 +46,10 @@ const CheckoutForm = () => {
     };
 
     const saveAddress = async () => {
-        const addressInfo = {
-            id: user.id,
-            ...formData,
-        };
-
         if (checkboxChecked) {
-            await axios.post("api/users/addAddress", addressInfo);
+            const id = user.id;
+            const newAddressInfo = { id, ...formData };
+            dispatch(updateUserAddress(newAddressInfo));
         }
     };
 
@@ -66,7 +72,25 @@ const CheckoutForm = () => {
         }
         toast.success("Order Placed");
         dispatch(setReadyToCheckOut(false));
+        // navigate("/");
+        // window.location.reload();
     };
+
+    useEffect(() => {
+        dispatch(getUserSavedAddress());
+        // if (address && user) {
+        //     setFormData({
+        //         firstName: user.firstName,
+        //         lastName: user.lastName,
+        //         street: address.street,
+        //         city: address.city,
+        //         zip: address.zipCode,
+        //         state: address.state,
+        //     });
+        // }
+
+        // console.log(address.state);
+    }, []);
 
     return (
         <div className="w-full md:w-1/2 max-w-[600px] md:justify-center">
@@ -154,6 +178,7 @@ const CheckoutForm = () => {
                             className="w-[97%] md:w-[97%] outline-none absolute left-2 bottom-2 bg-white z-10"
                             name="state"
                             onChange={onChange}
+                            defaultValue={user && address ? address.state : ""}
                         >
                             <option disabled selected value></option>
                             {STATES.map((state) => (
@@ -169,7 +194,11 @@ const CheckoutForm = () => {
                             className="mr-2"
                             onClick={() => setCheckboxChecked(!checkboxChecked)}
                         />
-                        <h2>Save as default address?</h2>
+                        {user.address ? (
+                            <h1>Set as new default address?</h1>
+                        ) : (
+                            <h1>Save as default address</h1>
+                        )}
                     </div>
                 ) : null}
 

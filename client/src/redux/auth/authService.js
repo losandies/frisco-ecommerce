@@ -13,12 +13,23 @@ const register = async (userData) => {
 };
 
 const login = async (userData) => {
-    console.log("service hit");
     const res = await axios.post(`${API_URL}/login`, userData);
 
     if (res.data) {
         localStorage.setItem("user", JSON.stringify(res.data));
     }
+
+    return res.data;
+};
+
+const getUserSavedAddress = async (userId) => {
+    const res = await axios.get(`${API_URL}/getUserAddress`);
+
+    return res.data;
+};
+
+const updateUserAddress = async (newAddressInfo) => {
+    const res = await axios.post("/api/users/updateAddress", newAddressInfo);
 
     return res.data;
 };
@@ -29,6 +40,8 @@ const authService = {
     register,
     login,
     logout,
+    getUserSavedAddress,
+    updateUserAddress,
 };
 
 export default authService;

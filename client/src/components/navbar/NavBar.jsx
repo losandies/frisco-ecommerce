@@ -159,7 +159,7 @@ const NavBar = () => {
                             {user ? (
                                 <AccountMenu />
                             ) : (
-                                <div className="text-neutral-700 font-normal">
+                                <div className="text-neutral-700 font-normal md:mt-1">
                                     <a href="/login" className="underline">
                                         Log In
                                     </a>

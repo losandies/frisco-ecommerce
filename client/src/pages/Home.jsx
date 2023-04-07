@@ -8,9 +8,11 @@ import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
 import { getItems } from "../redux/items/itemsSlice";
 import { reset } from "../redux/auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { items } = useSelector((state) => state.items);
     const { currentPage } = useSelector((state) => state.nav);
 
@@ -18,6 +20,8 @@ const Home = () => {
         dispatch(getItems());
         dispatch(reset());
     }, []);
+
+    // window.location.reload();
 
     return (
         <div className="flex flex-col min-h-[100vh] w-full relative">

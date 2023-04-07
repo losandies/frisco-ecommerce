@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import authService from "./authService";
 
 export const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
     user: user ? user : null,
+    address: null,
     isLoading: false,
     isSuccess: false,
     isError: false,
@@ -35,6 +37,28 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
         return thunkAPI.rejectWithValue(error.response.data);
     }
 });
+
+export const getUserSavedAddress = createAsyncThunk(
+    "auth/getUserSavedAddress",
+    async (userId, thunkAPI) => {
+        try {
+            return await authService.getUserSavedAddress(userId);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    }
+);
+
+export const updateUserAddress = createAsyncThunk(
+    "auth/updateUserAddress",
+    async (newAddressInfo, thunkAPI) => {
+        try {
+            return await authService.updateUserAddress(newAddressInfo);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
 
 export const logout = createAsyncThunk("auth/logout", async () => {
     authService.logout();
@@ -83,6 +107,18 @@ export const authSlice = createSlice({
             })
             .addCase(logout.fulfilled, (state) => {
                 state.user = null;
+            })
+            .addCase(getUserSavedAddress.rejected, (state, action) => {
+                state.message = action.payload;
+            })
+            .addCase(getUserSavedAddress.fulfilled, (state, action) => {
+                state.address = action.payload;
+            })
+            .addCase(updateUserAddress.rejected, (state, action) => {
+                state.message = action.payload;
+            })
+            .addCase(updateUserAddress.fulfilled, (state, action) => {
+                state.address = action.payload;
             });
     },
 });

@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCartTotalPrice } from "../../redux/cart/cartSlice";
+import {
+    getCartTotalItems,
+    getCartTotalPrice,
+} from "../../redux/cart/cartSlice";
 import ItemDivider from "../cart/ItemDivider";
 import AccountReminder from "./AccountReminder";
 import { useMediaQuery } from "react-responsive";
@@ -28,6 +31,7 @@ const OrderSummary = () => {
 
     useEffect(() => {
         dispatch(getCartTotalPrice());
+        dispatch(getCartTotalItems());
     }, [amountOfItems]);
 
     return (

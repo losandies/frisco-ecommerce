@@ -8,11 +8,12 @@ import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
 import autoMergeLevel1 from "redux-persist/es/stateReconciler/autoMergeLevel1";
 import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
+import hardSet from "redux-persist/es/stateReconciler/hardSet";
 
 const persistConfig = {
     key: "root",
     storage,
-    blacklist: ["auth"],
+    stateReconciler: hardSet,
 };
 
 const rootReducer = combineReducers({});
