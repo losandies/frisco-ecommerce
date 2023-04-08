@@ -4,7 +4,11 @@ import { sizes } from "../../screenSizes";
 import AccountReminder from "./AccountReminder";
 import { useDispatch, useSelector } from "react-redux";
 import { STATES } from "./states";
-import { placeOrder, setReadyToCheckOut } from "../../redux/cart/cartSlice";
+import {
+    clearCart,
+    placeOrder,
+    setReadyToCheckOut,
+} from "../../redux/cart/cartSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
 import {
@@ -72,24 +76,12 @@ const CheckoutForm = () => {
         }
         toast.success("Order Placed");
         dispatch(setReadyToCheckOut(false));
-        // navigate("/");
-        // window.location.reload();
+        dispatch(clearCart());
+        navigate("/");
     };
 
     useEffect(() => {
         dispatch(getUserSavedAddress());
-        // if (address && user) {
-        //     setFormData({
-        //         firstName: user.firstName,
-        //         lastName: user.lastName,
-        //         street: address.street,
-        //         city: address.city,
-        //         zip: address.zipCode,
-        //         state: address.state,
-        //     });
-        // }
-
-        // console.log(address.state);
     }, []);
 
     return (
