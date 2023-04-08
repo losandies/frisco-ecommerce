@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MyAccountNav from "../components/account/MyAccountNav";
+import MyAccountHeader from "../components/account/MyAccountHeader";
 import AltTopBar from "../components/checkout/AltTopBar";
 
 const MyAccount = () => {
@@ -11,6 +12,8 @@ const MyAccount = () => {
                 setCurrentTab={setCurrentTab}
                 currentTab={currentTab}
             />
+            <MyAccountHeader />
+            {currentTab === "profile" ? <div></div> : null}
         </div>
     );
 };
