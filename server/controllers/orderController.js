@@ -3,7 +3,6 @@ const prisma = new PrismaClient();
 
 const createOrder = async (req, res) => {
     const { items, total, user } = req.body;
-    // console.log({ items: items, total: total, user: user });
 
     if (!(items || total || user))
         res.status(401).json({ msg: "Something Went Wrong" });
@@ -25,24 +24,6 @@ const createOrder = async (req, res) => {
     }
 };
 
-const findOrdersByUserId = async (req, res) => {
-    const { id } = req.body;
-
-    const order = await prisma.order.findMany({
-        where: {
-            user: {
-                is: {
-                    id: id,
-                },
-            },
-        },
-    });
-
-    if (order) {
-        res.status(200).json(order);
-    }
-};
-
 const getAllOrders = async (req, res) => {
     const orders = await prisma.order.findMany();
 
@@ -54,5 +35,4 @@ const getAllOrders = async (req, res) => {
 module.exports = {
     createOrder,
     getAllOrders,
-    findOrdersByUserId,
 };

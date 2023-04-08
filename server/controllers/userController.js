@@ -59,6 +59,10 @@ const loginUser = async (req, res) => {
             where: {
                 email: email,
             },
+            include: {
+                address: true,
+                orders: true,
+            },
         });
 
         if (!foundUser) {
@@ -85,6 +89,24 @@ const loginUser = async (req, res) => {
     }
 };
 
+const getCurrentUser = async (req, res) => {
+    const { id } = req.body;
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: id,
+        },
+        include: {
+            address: true,
+            orders: true,
+        },
+    });
+
+    if (user) {
+        res.status(200).json(user);
+    }
+};
+
 const getUsers = async (req, res) => {
     try {
         const allUsers = await prisma.user.findMany();
@@ -103,9 +125,85 @@ const deleteAllUsers = async () => {
     await prisma.user.deleteMany({});
 };
 
+const getUserOrders = async (req, res) => {
+    const { id } = req.body;
+    const orders = await prisma.user.findUnique({
+        where: {
+            id: id,
+        },
+        select: {
+            orders: true,
+        },
+    });
+
+    res.json(orders);
+};
+
+const updateUserAddress = async (req, res) => {
+    const { id, street, city, zip, state } = req.body;
+
+    if (!(street || city || zip || state))
+        res.status(401).json({ msg: "Something Went Wrong" });
+
+    try {
+        const addressExists = await prisma.address.findFirst({
+            where: {
+                userId: id,
+            },
+        });
+
+        if (addressExists) {
+            await prisma.address.delete({
+                where: {
+                    userId: id,
+                },
+            });
+        }
+
+        const address = await prisma.address.create({
+            data: {
+                userId: id,
+                street: street,
+                city: city,
+                zipCode: zip,
+                state: state,
+            },
+        });
+
+        if (address) {
+            console.log("Address Added");
+            res.status(200).json(address);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+const getUserAddress = async (req, res) => {
+    const { id } = req.body;
+
+    try {
+        const address = await prisma.address.findFirst({
+            where: {
+                userId: id,
+            },
+        });
+
+        if (address) {
+            res.status(200).json(address);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 module.exports = {
     registerUser,
+    getCurrentUser,
     getUsers,
     deleteAllUsers,
     loginUser,
+    updateUserAddress,
+    getUserAddress,
+    getUserOrders,
 };
