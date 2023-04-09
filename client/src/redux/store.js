@@ -13,7 +13,6 @@ import hardSet from "redux-persist/es/stateReconciler/hardSet";
 const persistConfig = {
     key: "root",
     storage,
-    stateReconciler: hardSet,
 };
 
 const rootReducer = combineReducers({});

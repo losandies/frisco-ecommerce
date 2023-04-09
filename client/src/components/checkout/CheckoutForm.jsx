@@ -22,20 +22,16 @@ const CheckoutForm = () => {
     const { user, address } = useSelector((state) => state.auth);
     const { cart, totalPrice } = useSelector((state) => state.cart);
 
-    const userId = user ? user.id : "";
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const [userAddress, setUserAddress] = useState();
 
     const [formData, setFormData] = useState({
         firstName: user ? user.firstName : "",
         lastName: user ? user.lastName : "",
-        street: user && address ? address.street : "",
-        city: user && address ? address.city : "",
-        zip: user && address ? address.zipCode : "",
-        state: user && address ? address.state : "",
+        street: user && user.address ? user.address.street : "",
+        city: user && user.address ? user.address.city : "",
+        zip: user && user.address ? user.address.zipCode : "",
+        state: user && user.address ? user.address.state : "",
     });
 
     const { street, city, zip, firstName, lastName, state } = formData;
@@ -74,15 +70,18 @@ const CheckoutForm = () => {
             saveAddress();
             dispatch(placeOrder(orderInfo));
         }
-        toast.success("Order Placed");
-        dispatch(setReadyToCheckOut(false));
-        dispatch(clearCart());
-        navigate("/");
+
+        setTimeout(() => {
+            toast.success("Order Placed");
+            dispatch(setReadyToCheckOut(false));
+            dispatch(clearCart());
+            navigate("/");
+        }, 2000);
     };
 
-    useEffect(() => {
-        dispatch(getUserSavedAddress());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(getUserSavedAddress());
+    // }, []);
 
     return (
         <div className="w-full md:w-1/2 max-w-[600px] md:justify-center">

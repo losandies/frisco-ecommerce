@@ -22,6 +22,12 @@ const login = async (userData) => {
     return res.data;
 };
 
+const getCurrentUser = async (id) => {
+    const res = await axios.get(`${API_URL}/getCurrentUser`, id);
+
+    return res.data;
+};
+
 const getUserSavedAddress = async (userId) => {
     const res = await axios.get(`${API_URL}/getUserAddress`);
 
@@ -42,6 +48,7 @@ const authService = {
     logout,
     getUserSavedAddress,
     updateUserAddress,
+    getCurrentUser,
 };
 
 export default authService;

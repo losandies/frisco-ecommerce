@@ -13,7 +13,7 @@ import { getCartTotalItems, getCartTotalPrice } from "./redux/cart/cartSlice";
 import Home from "./pages/Home";
 import CheckOut from "./pages/CheckOut";
 import MyAccount from "./pages/MyAccount";
-import { getUserSavedAddress } from "./redux/auth/authSlice";
+import { getCurrentUser, getUserSavedAddress } from "./redux/auth/authSlice";
 import { MdAutoFixHigh } from "react-icons/md";
 
 function App() {
@@ -25,12 +25,6 @@ function App() {
     useEffect(() => {
         dispatch(getCartTotalItems());
     }, [amountOfItems, cart]);
-
-    useEffect(() => {
-        if (user) {
-            dispatch(getUserSavedAddress(user.id));
-        }
-    }, []);
 
     useEffect(() => {
         console.log(cart);

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+
 import authService from "./authService";
 
 export const user = JSON.parse(localStorage.getItem("user"));
@@ -37,6 +37,17 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
         return thunkAPI.rejectWithValue(error.response.data);
     }
 });
+
+export const getCurrentUser = createAsyncThunk(
+    "auth/currentUser",
+    async (user, thunkAPI) => {
+        try {
+            return await authService.getCurrentUser(user);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+    }
+);
 
 export const getUserSavedAddress = createAsyncThunk(
     "auth/getUserSavedAddress",
@@ -103,6 +114,12 @@ export const authSlice = createSlice({
                 state.isLoading = false;
                 state.isError = true;
                 state.user = null;
+                state.message = action.payload;
+            })
+            .addCase(getCurrentUser.fulfilled, (state, action) => {
+                state.user = action.payload;
+            })
+            .addCase(getCurrentUser.rejected, (state, action) => {
                 state.message = action.payload;
             })
             .addCase(logout.fulfilled, (state) => {

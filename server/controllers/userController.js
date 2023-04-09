@@ -92,7 +92,7 @@ const loginUser = async (req, res) => {
 const getCurrentUser = async (req, res) => {
     const { id } = req.body;
 
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
         where: {
             id: id,
         },

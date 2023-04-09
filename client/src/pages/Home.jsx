@@ -7,7 +7,7 @@ import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
 import { getItems } from "../redux/items/itemsSlice";
-import { reset } from "../redux/auth/authSlice";
+import { getCurrentUser, reset } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -15,10 +15,16 @@ const Home = () => {
     const navigate = useNavigate();
     const { items } = useSelector((state) => state.items);
     const { currentPage } = useSelector((state) => state.nav);
+    const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        dispatch(getItems());
         dispatch(reset());
+        if (!items) {
+            dispatch(getItems());
+        }
+        if (user) {
+            dispatch(getCurrentUser(user.id));
+        }
     }, []);
 
     // window.location.reload();
