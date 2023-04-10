@@ -129,7 +129,7 @@ export const authSlice = createSlice({
                 state.message = action.payload;
             })
             .addCase(getUserSavedAddress.fulfilled, (state, action) => {
-                state.address = action.payload;
+                state.state.address = action.payload;
             })
             .addCase(updateUserAddress.rejected, (state, action) => {
                 state.message = action.payload;

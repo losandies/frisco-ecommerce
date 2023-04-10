@@ -11,6 +11,7 @@
         "dev": "concurrently \"vite\" \"cd ../server && nodemon app.js\""
     },
     "dependencies": {
+        "@react-google-maps/api": "^2.18.1",
         "@reduxjs/toolkit": "^1.9.3",
         "axios": "^1.3.4",
         "concurrently": "^7.6.0",
@@ -18,10 +19,12 @@
         "email-validator": "^2.0.4",
         "flowbite": "^1.6.3",
         "flowbite-react": "^0.3.8",
+        "google-map-react": "^2.2.0",
         "hamburger-react": "^2.5.0",
         "nodemon": "^2.0.21",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-geocode": "^0.2.3",
         "react-icons": "^4.7.1",
         "react-redux": "^8.0.5",
         "react-responsive": "^9.0.2",

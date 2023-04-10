@@ -27,8 +27,10 @@ function App() {
     }, [amountOfItems, cart]);
 
     useEffect(() => {
-        console.log(cart);
-    }, [amountOfItems]);
+        if (user) {
+            dispatch(getCurrentUser(user.id));
+        }
+    }, []);
 
     return (
         <div className="h-full w-full">

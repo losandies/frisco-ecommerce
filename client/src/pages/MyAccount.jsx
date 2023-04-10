@@ -6,9 +6,35 @@ import ProfileDisplay from "../components/account/profile/ProfileDisplay";
 import OrdersDisplay from "../components/account/orders/OrdersDisplay";
 import AddressDisplay from "../components/account/address/AddressDisplay";
 import AccountInfoContainer from "../components/account/AccountInfoContainer";
+import { useEffect } from "react";
+import Geocode from "react-geocode";
+import { useSelector } from "react-redux";
 
 const MyAccount = () => {
+    const { user } = useSelector((state) => state.auth);
     const [currentTab, setCurrentTab] = useState("profile");
+
+    const [latitude, setLat] = useState();
+    const [longitude, setLng] = useState();
+
+    Geocode.setApiKey("AIzaSyCkwdNI8MIOXVsa0aNVOdjoOb5dQxEneQE");
+    Geocode.setLanguage("en");
+
+    useEffect(() => {
+        Geocode.fromAddress(
+            `${user.address.street}, ${user.address.city}, ${user.address.state}`
+        ).then(
+            (response) => {
+                const { lat, lng } = response.results[0].geometry.location;
+                setLat(lat), setLng(lng);
+                console.log(latitude, longitude);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }, []);
+
     return (
         <div>
             <AltTopBar />
@@ -23,7 +49,7 @@ const MyAccount = () => {
                 ) : currentTab === "orders" ? (
                     <OrdersDisplay />
                 ) : currentTab === "addresses" ? (
-                    <AddressDisplay />
+                    <AddressDisplay latitude={latitude} longitude={longitude} />
                 ) : null}
             </AccountInfoContainer>
         </div>

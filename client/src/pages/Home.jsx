@@ -12,9 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const { items } = useSelector((state) => state.items);
-    const { currentPage } = useSelector((state) => state.nav);
     const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
@@ -26,8 +24,6 @@ const Home = () => {
             dispatch(getCurrentUser(user.id));
         }
     }, []);
-
-    // window.location.reload();
 
     return (
         <div className="flex flex-col min-h-[100vh] w-full relative">
