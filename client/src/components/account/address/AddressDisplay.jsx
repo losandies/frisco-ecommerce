@@ -1,10 +1,17 @@
 import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Map from "./Map";
+import { STATES } from "../../checkout/states";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { updateUserAddress } from "../../../redux/auth/authSlice";
 
 const AddressDisplay = ({ latitude, longitude }) => {
     const { user } = useSelector((state) => state.auth);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({
         street: "",
@@ -13,9 +20,39 @@ const AddressDisplay = ({ latitude, longitude }) => {
         state: "",
     });
 
+    const { street, city, zip, state } = formData;
+
+    const onChange = (e) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
+    const saveAddress = async () => {
+        const id = user.id;
+        const newAddressInfo = { id, ...formData };
+        dispatch(updateUserAddress(newAddressInfo));
+    };
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        if (Object.values(formData).some((x) => x === "")) {
+            toast.error("Please enter a valid address");
+            return;
+        }
+        saveAddress();
+
+        setTimeout(() => {
+            toast.success("Address Updated");
+            navigate("/");
+        }, 2000);
+    };
+
     return (
-        <div className="mt-5 flex justify-between">
-            <div className="w-1/2 flex items-center flex-col">
+        <div className="mt-5 flex flex-col md:flex-row justify-between">
+            <div className="w-1/2 flex  flex-col">
                 <div className="flex flex-col">
                     <h1 className="text-2xl">Your Address</h1>
                     <div>
@@ -30,6 +67,63 @@ const AddressDisplay = ({ latitude, longitude }) => {
                             {user.address.zipCode}
                         </h1>
                     </div>
+                </div>
+                <div className="flex flex-col mt-5">
+                    <h1 className="text-sm text-neutral-500 my-2">
+                        Update Address
+                    </h1>
+                    <form
+                        action=""
+                        className="w-full  text-[#A4ACB7]"
+                        onSubmit={onSubmit}
+                    >
+                        <div className="mb-2 w-[210px]">
+                            <input
+                                type="text"
+                                className="w-full border-2 rounded-md pl-1"
+                                placeholder="Street"
+                                value={street}
+                                name="street"
+                                onChange={onChange}
+                            />
+                        </div>
+                        <div className="mb-2 w-[210px]">
+                            <input
+                                type="text"
+                                className="w-full border-2 rounded-md pl-1"
+                                placeholder="City"
+                                value={city}
+                                name="city"
+                                onChange={onChange}
+                            />
+                        </div>
+                        <div className="mb-2 w-[210px] flex justify-between">
+                            <select
+                                type="text"
+                                className="w-[60%] border-2 rounded-md bottom-2 px-1"
+                                name="state"
+                                onChange={onChange}
+                            >
+                                <option disabled selected value="State">
+                                    State
+                                </option>
+                                {STATES.map((state) => (
+                                    <option value={state}>{state}</option>
+                                ))}
+                            </select>
+                            <input
+                                type="text"
+                                className="w-[38%] border-2 rounded-md pl-1"
+                                placeholder="Zip"
+                                value={zip}
+                                name="zip"
+                                onChange={onChange}
+                            />
+                        </div>
+                        <div className="flex w-[210px] justify-start mt-4">
+                            <button className="btn btn-sm">Update</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div className="w-1/2 flex justify-center">
