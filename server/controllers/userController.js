@@ -92,18 +92,28 @@ const loginUser = async (req, res) => {
 const getCurrentUser = async (req, res) => {
     const { id } = req.body;
 
-    const user = await prisma.user.findFirst({
-        where: {
-            id: id,
-        },
-        include: {
-            address: true,
-            orders: true,
-        },
-    });
+    try {
+        const user = await prisma.user.findFirst({
+            where: {
+                id: id,
+            },
+            include: {
+                address: true,
+                orders: true,
+            },
+        });
 
-    if (user) {
-        res.status(200).json(user);
+        if (user) {
+            const token = jwt.sign({ id: user.id }, process.env.jwtSecret, {
+                expiresIn: "1hr",
+            });
+
+            user.token = token;
+
+            res.status(200).json(user);
+        }
+    } catch (error) {
+        res.json(error);
     }
 };
 

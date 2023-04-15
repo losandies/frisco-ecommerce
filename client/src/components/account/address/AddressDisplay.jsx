@@ -130,6 +130,14 @@ const AddressDisplay = ({ latitude, longitude }) => {
                 <Map latitude={latitude} longitude={longitude} />
             </div>
         </div>
+        // ) : (
+        //     <div className="mt-5 flex flex-col md:flex-row md:justify-between">
+        //         <div className="w-full md:w-1/2 flex  flex-col">
+        //             <h1 className="text-2xl">Your Address</h1>
+        //             <h1>You dont have an address saved currently</h1>
+        //         </div>
+        //     </div>
+        // );
     );
 };
 

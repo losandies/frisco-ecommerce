@@ -22,8 +22,9 @@ const login = async (userData) => {
     return res.data;
 };
 
-const getCurrentUser = async (id) => {
-    const res = await axios.get(`${API_URL}/getCurrentUser`, id);
+const getCurrentUser = async (user) => {
+    console.log(user.id);
+    const res = await axios.post(`${API_URL}/getCurrentUser`, user);
 
     return res.data;
 };

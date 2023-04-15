@@ -16,13 +16,14 @@ const Home = () => {
     const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        dispatch(reset());
+        if (user) {
+            dispatch(getCurrentUser(user));
+        }
+
         if (!items) {
             dispatch(getItems());
         }
-        if (user) {
-            dispatch(getCurrentUser(user.id));
-        }
+        dispatch(reset());
     }, []);
 
     return (

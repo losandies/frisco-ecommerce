@@ -83,7 +83,7 @@ const NavBar = () => {
                     <div
                         className={`flex justify-center pt-10 text-lg uppercase ${
                             menuOpen
-                                ? "flex w-full h-[200px] text-black"
+                                ? "flex w-full h-[200px] text-black z-50"
                                 : "opacity-0 h-[1px]"
                         } ease-in-out duration-300`}
                     >

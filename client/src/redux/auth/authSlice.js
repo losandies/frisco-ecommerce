@@ -41,6 +41,7 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
 export const getCurrentUser = createAsyncThunk(
     "auth/currentUser",
     async (user, thunkAPI) => {
+        console.log(user);
         try {
             return await authService.getCurrentUser(user);
         } catch (error) {
@@ -118,6 +119,9 @@ export const authSlice = createSlice({
             })
             .addCase(getCurrentUser.fulfilled, (state, action) => {
                 state.user = action.payload;
+            })
+            .addCase(getCurrentUser, (state) => {
+                state.isLoading = true;
             })
             .addCase(getCurrentUser.rejected, (state, action) => {
                 state.message = action.payload;

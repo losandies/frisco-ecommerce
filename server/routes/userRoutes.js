@@ -15,7 +15,7 @@ const auth = require("../middleware/auth");
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.get("/getCurrentUser", getCurrentUser);
+router.post("/getCurrentUser", getCurrentUser);
 router.get("/getUserAddress", getUserAddress);
 router.get("/allUsers", getUsers);
 router.delete("/delete", deleteAllUsers);

@@ -22,18 +22,20 @@ const MyAccount = () => {
     Geocode.setLanguage("en");
 
     useEffect(() => {
-        Geocode.fromAddress(
-            `${user.address.street}, ${user.address.city}, ${user.address.state}`
-        ).then(
-            (response) => {
-                const { lat, lng } = response.results[0].geometry.location;
-                setLat(lat), setLng(lng);
-                console.log(latitude, longitude);
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
+        if (user.address) {
+            Geocode.fromAddress(
+                `${user.address.street}, ${user.address.city}, ${user.address.state}`
+            ).then(
+                (response) => {
+                    const { lat, lng } = response.results[0].geometry.location;
+                    setLat(lat), setLng(lng);
+                    console.log(latitude, longitude);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+        }
     }, []);
 
     return (

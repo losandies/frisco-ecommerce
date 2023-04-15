@@ -26,12 +26,6 @@ function App() {
         dispatch(getCartTotalItems());
     }, [amountOfItems, cart]);
 
-    useEffect(() => {
-        if (user) {
-            dispatch(getCurrentUser(user.id));
-        }
-    }, []);
-
     return (
         <div className="h-full w-full">
             <BrowserRouter>
