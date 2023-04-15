@@ -12,6 +12,7 @@ import { getCartTotalItems } from "../../redux/cart/cartSlice";
 
 import MenuItem from "./MenuItem.jsx";
 import AccountMenu from "./AccountMenu";
+import { logout } from "../../redux/auth/authSlice";
 
 const NavBar = () => {
     const { user } = useSelector((state) => state.auth);
@@ -53,7 +54,9 @@ const NavBar = () => {
                             {user ? (
                                 <div className="avatar flex items-center">
                                     <div className="w-10 mask mask-squircle">
-                                        <img src={defaultAvatar} />
+                                        <Link to="/account">
+                                            <img src={defaultAvatar} />
+                                        </Link>
                                     </div>
                                 </div>
                             ) : (
@@ -125,6 +128,17 @@ const NavBar = () => {
                             >
                                 cart({amountOfItems})
                             </Link>
+                            <h1
+                                to="/cart"
+                                className={`${
+                                    menuOpen
+                                        ? "text-center tracking-[.25em] flex w-full flex-col"
+                                        : "hidden"
+                                }`}
+                                onClick={() => dispatch(logout())}
+                            >
+                                log out
+                            </h1>
                         </ul>
                     </div>
                 </nav>

@@ -18,7 +18,7 @@ const AccountMenu = () => {
 
     return (
         <div
-            className="flex flex-col bg-neutral-200 w-[10rem] h-10 hover:h-[7rem] px-2 rounded-lg cursor-default transform duration-[200ms] relative z-50"
+            className="flex flex-col bg-neutral-200 w-[10rem] h-10 hover:h-[7rem] px-1 md:px-2 rounded-lg cursor-default transform duration-[200ms] relative z-50"
             onMouseEnter={() => setMenuIsHovered(true)}
             onMouseLeave={() => setMenuIsHovered(false)}
         >
@@ -29,8 +29,8 @@ const AccountMenu = () => {
                         className="w-[40px] h-[30px] rounded-2xl"
                     />
                 </div>
-                <h1 className="mx-2 mt-[10px] text-sm">
-                    Hi, {user.firstName}{" "}
+                <h1 className="mx-2 mt-[10px] text-[10px] md:text-sm">
+                    Hi, {user.firstName}
                 </h1>
             </div>
             <ul

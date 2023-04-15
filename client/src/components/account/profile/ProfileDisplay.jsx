@@ -7,18 +7,16 @@ const ProfileDisplay = () => {
 
     const userSinceYear = user.createdAt.slice(0, 4);
     const numOfOrders = user.orders.length;
-    const totals = [];
 
     const totalMoneySpent = () => {
+        const totals = [];
         user.orders.forEach((order) => {
             totals.push(parseFloat(order.total));
         });
 
         return totals.reduce((acc, curr) => acc + curr, 0).toFixed(2);
     };
-    useEffect(() => {
-        console.log(userSinceYear);
-    });
+
     return (
         <div>
             <div>

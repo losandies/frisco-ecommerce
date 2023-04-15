@@ -51,8 +51,8 @@ const AddressDisplay = ({ latitude, longitude }) => {
     };
 
     return (
-        <div className="mt-5 flex flex-col md:flex-row justify-between">
-            <div className="w-1/2 flex  flex-col">
+        <div className="mt-5 flex flex-col md:flex-row md:justify-between">
+            <div className="w-full md:w-1/2 flex  flex-col">
                 <div className="flex flex-col">
                     <h1 className="text-2xl">Your Address</h1>
                     <div>
@@ -126,7 +126,7 @@ const AddressDisplay = ({ latitude, longitude }) => {
                     </form>
                 </div>
             </div>
-            <div className="w-1/2 flex justify-center">
+            <div className="w-full mt-3 md:w-1/2 flex justify-center">
                 <Map latitude={latitude} longitude={longitude} />
             </div>
         </div>
