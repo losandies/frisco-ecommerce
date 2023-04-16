@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 const Order = ({ order }) => {
-    useEffect(() => console.log(order.createdAt));
     return (
         <div className="w-full h-52 border-2 rounded-md border-neutral-200 p-3 mb-5">
             <div className="w-full h-auto flex justify-between">

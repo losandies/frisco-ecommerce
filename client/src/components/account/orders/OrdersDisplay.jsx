@@ -1,16 +1,23 @@
 import React from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Order from "./Order";
 
 const OrdersDisplay = () => {
     const { user } = useSelector((state) => state.auth);
 
+    const userOrders = [...user.orders];
+
+    const newestToOldestOrders = userOrders.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+
     return (
         <>
-            {user.orders.length > 0 ? (
+            {newestToOldestOrders.length > 0 ? (
                 <div className="mt-5">
                     <h1 className="text-2xl mb-8">Your Orders</h1>
-                    {user.orders.map((order) => (
+                    {newestToOldestOrders.map((order) => (
                         <Order order={order} />
                     ))}
                 </div>
