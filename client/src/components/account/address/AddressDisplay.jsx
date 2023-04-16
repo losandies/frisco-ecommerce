@@ -54,7 +54,7 @@ const AddressDisplay = ({ latitude, longitude }) => {
         <>
             {user.address !== null ? (
                 <div className="mt-5 flex flex-col md:flex-row md:justify-between">
-                    <div className="w-full md:w-1/2 flex  flex-col">
+                    <div className="w-full md:w-1/2 md:pl-32 flex flex-col">
                         <div className="flex flex-col">
                             <h1 className="text-2xl">Your Address</h1>
                             <div>
