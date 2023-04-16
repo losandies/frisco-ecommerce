@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const registerUser = async (req, res) => {
-    console.log("route hit");
     const { firstName, lastName, email, password } = req.body;
 
     try {
@@ -42,8 +41,8 @@ const registerUser = async (req, res) => {
         newUser.token = token;
 
         res.status(201).json(newUser);
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        res.json({ msg: err });
     }
 };
 
@@ -85,7 +84,7 @@ const loginUser = async (req, res) => {
 
         res.status(201).json(foundUser);
     } catch (err) {
-        console.log(err);
+        res.json({ msg: err });
     }
 };
 
@@ -127,7 +126,7 @@ const getUsers = async (req, res) => {
             res.status(400).json({ msg: "No users found" });
         }
     } catch (err) {
-        console.log(err);
+        res.json({ msg: err });
     }
 };
 
@@ -181,11 +180,10 @@ const updateUserAddress = async (req, res) => {
         });
 
         if (address) {
-            console.log("Address Added");
             res.status(200).json(address);
         }
     } catch (err) {
-        console.log(err);
+        res.json({ msg: err });
     }
 };
 
@@ -202,8 +200,8 @@ const getUserAddress = async (req, res) => {
         if (address) {
             res.status(200).json(address);
         }
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        res.json({ msg: err });
     }
 };
 

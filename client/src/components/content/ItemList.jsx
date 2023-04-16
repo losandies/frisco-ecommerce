@@ -1,9 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useMediaQuery } from "react-responsive";
-import { sizes } from "../../screenSizes";
-import Spinner from "../misc/Spinner";
+import { useSelector } from "react-redux";
 import FilterBar from "./FilterBar";
 import Item from "./Item";
 
@@ -15,7 +11,7 @@ const ItemList = () => {
         (item) => item.subcategory === subcategory.toLowerCase()
     );
 
-    const itemsToShow = (sortDirection) =>
+    const sortItems = (sortDirection) =>
         sortDirection === "high"
             ? selectedCategory
                   .sort((a, b) =>
@@ -36,7 +32,7 @@ const ItemList = () => {
         <div className="h-full w-full px-10 md:pt-12 mb-[100px]">
             <FilterBar />
             <div className="items-container grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full h-full mt-10 md:mb-[200px]">
-                {itemsToShow(sortDirection)}
+                {sortItems(sortDirection)}
             </div>
         </div>
     );

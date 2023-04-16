@@ -3,7 +3,7 @@ import NavBar from "../components/navbar/NavBar";
 import loginImg from "../assets/login_img2.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { login, reset } from "../redux/auth/authSlice";
+import { login } from "../redux/auth/authSlice";
 import { toast } from "react-toastify";
 import * as EmailValidator from "email-validator";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { isError, isLoading, user, isSuccess, message } = useSelector(
+    const { isError, user, isSuccess, message } = useSelector(
         (state) => state.auth
     );
 

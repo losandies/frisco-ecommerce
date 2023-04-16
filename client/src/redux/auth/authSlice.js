@@ -41,7 +41,6 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
 export const getCurrentUser = createAsyncThunk(
     "auth/currentUser",
     async (user, thunkAPI) => {
-        console.log(user);
         try {
             return await authService.getCurrentUser(user);
         } catch (error) {

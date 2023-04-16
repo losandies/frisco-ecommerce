@@ -1,20 +1,14 @@
 import React from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useMediaQuery } from "react-responsive";
+import { useDispatch } from "react-redux";
 import ItemList from "../components/content/ItemList";
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
 import { getItems, reset } from "../redux/items/itemsSlice";
-import { sizes } from "../screenSizes";
 
 const DisplayPage = () => {
     const dispatch = useDispatch();
-    const { items } = useSelector((state) => state.items);
-    const { currentPage } = useSelector((state) => state.nav);
-
-    const isMobile = useMediaQuery({ maxWidth: sizes.md });
 
     useEffect(() => {
         dispatch(getItems());

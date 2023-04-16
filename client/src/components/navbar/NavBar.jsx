@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpeg";
 import defaultAvatar from "../../assets/default-avatar.jpg";
 import { useMediaQuery } from "react-responsive";
@@ -19,7 +19,6 @@ const NavBar = () => {
     const { amountOfItems } = useSelector((state) => state.cart);
     const { menuOpen } = useSelector((state) => state.nav);
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const isMobile = useMediaQuery({ maxWidth: sizes.md });

@@ -3,7 +3,7 @@ import { FaSort } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSort } from "../../redux/items/itemsSlice";
 
-const FilterBar = ({ selectedPage }) => {
+const FilterBar = () => {
     const { category, subcategory } = useSelector((state) => state.nav);
 
     const dispatch = useDispatch();

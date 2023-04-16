@@ -23,7 +23,6 @@ const login = async (userData) => {
 };
 
 const getCurrentUser = async (user) => {
-    console.log(user.id);
     const res = await axios.post(`${API_URL}/getCurrentUser`, user);
 
     return res.data;

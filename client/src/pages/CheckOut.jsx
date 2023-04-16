@@ -1,19 +1,12 @@
 import React from "react";
-
 import CheckoutForm from "../components/checkout/CheckoutForm";
-import CheckoutTopBar from "../components/checkout/AltTopBar";
 import OrderSummary from "../components/checkout/OrderSummary";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../screenSizes";
 import AltTopBar from "../components/checkout/AltTopBar";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getCartTotalItems } from "../redux/cart/cartSlice";
 
 const CheckOut = () => {
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
-
-    const dispatch = useDispatch();
 
     return (
         <div className="w-screen h-screen flex flex-col overflow-x-hidden">

@@ -14,8 +14,6 @@ import { useMediaQuery } from "react-responsive";
 export default function Carousel() {
     const { items } = useSelector((state) => state.items);
 
-    const isXLScreen = useMediaQuery({ minWidth: sizes["2xl"] });
-    const isMedScreen = useMediaQuery({ minWidth: sizes.md });
     const isMobile = useMediaQuery({ maxWidth: sizes.sm });
 
     let shuffledItems = items

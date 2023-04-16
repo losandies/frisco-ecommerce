@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import wutang from "../../assets/wutangshirt.png";
 import { selectItem } from "../../redux/items/itemsSlice";
 
 const Item = ({ item }) => {
@@ -13,6 +12,7 @@ const Item = ({ item }) => {
         navigate(`/${category}/${subcategory}/item/${item.id}`);
         dispatch(selectItem(item));
     };
+
     return (
         <div className="max-w-[700px] flex flex-col lg:ml-7 sm:ml-15 md:pl-0 mb-10">
             <div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../../screenSizes";
 import AccountReminder from "./AccountReminder";
@@ -9,12 +9,9 @@ import {
     placeOrder,
     setReadyToCheckOut,
 } from "../../redux/cart/cartSlice";
-import axios from "axios";
+
 import { toast } from "react-toastify";
-import {
-    getUserSavedAddress,
-    updateUserAddress,
-} from "../../redux/auth/authSlice";
+import { updateUserAddress } from "../../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
@@ -76,12 +73,8 @@ const CheckoutForm = () => {
             dispatch(setReadyToCheckOut(false));
             dispatch(clearCart());
             navigate("/");
-        }, 2000);
+        }, 1000);
     };
-
-    // useEffect(() => {
-    //     dispatch(getUserSavedAddress());
-    // }, []);
 
     return (
         <div className="w-full md:w-1/2 max-w-[600px] md:justify-center">

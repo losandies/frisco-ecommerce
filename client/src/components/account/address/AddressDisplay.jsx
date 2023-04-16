@@ -6,7 +6,6 @@ import { STATES } from "../../checkout/states";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { updateUserAddress } from "../../../redux/auth/authSlice";
-import { useEffect } from "react";
 
 const AddressDisplay = ({ latitude, longitude }) => {
     const { user } = useSelector((state) => state.auth);
@@ -48,12 +47,8 @@ const AddressDisplay = ({ latitude, longitude }) => {
         setTimeout(() => {
             toast.success("Address Updated");
             navigate("/");
-        }, 2000);
+        }, 1000);
     };
-
-    useEffect(() => {
-        console.log(user);
-    });
 
     return (
         <>

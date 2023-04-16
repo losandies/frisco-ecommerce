@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import ItemDivider from "./ItemDivider";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const showCartItems = (cartArray) => (
     <div className="md:h-[50vh] h-[60vh] overflow-scroll scrollbar-hide">

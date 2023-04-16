@@ -1,13 +1,11 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { addToCart } from "../../redux/cart/cartSlice";
 import { toast } from "react-toastify";
 
 const clothingSizes = ["sm", "md", "lg", "xl"];
 const shoeSizes = [7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13];
-const pantsSizes = [28, 30, 32, 34, 36, 38, 42, 44];
+const pantsSizes = [28, 30, 32, 34, 36, 38, 42, 44, 46];
 const accessorySize = "1SZ";
 
 const ItemInfo = () => {
@@ -84,7 +82,7 @@ const ItemInfo = () => {
                                 ) : selectedItem.category === "shoes" ? (
                                     shoeSizes.map((size) => (
                                         <button
-                                            className={`w-[6.5rem] md:w-36 h-10 rounded-lg border-[1px] my-2 ${
+                                            className={`w-[6.93rem] md:w-36 h-10 rounded-lg border-[1px] my-2 ${
                                                 selectedSize === size
                                                     ? "bg-black text-white"
                                                     : null
@@ -97,7 +95,7 @@ const ItemInfo = () => {
                                 ) : selectedItem.subcategory === "pants" ? (
                                     pantsSizes.map((size) => (
                                         <button
-                                            className={`w-24 md:w-24 h-10 mr-2 rounded-lg border-[1px] my-2 ${
+                                            className={`w-24 md:w-24 h-10 md:mr-2 rounded-lg border-[1px] my-2 ${
                                                 selectedSize === size
                                                     ? "bg-black text-white"
                                                     : null

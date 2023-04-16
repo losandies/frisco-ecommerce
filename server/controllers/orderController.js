@@ -16,11 +16,9 @@ const createOrder = async (req, res) => {
             },
         });
 
-        if (newOrder) {
-            console.log(`Order Placed By ${user.firstName}`);
-        }
+        res.status(200).json(newOrder);
     } catch (err) {
-        console.log(err);
+        res.json({ msg: err });
     }
 };
 

@@ -1,6 +1,4 @@
 import React from "react";
-import aaliyah from "../../assets/aaliyah_t.jpeg";
-import QuantitySelect from "../misc/QuantitySelect";
 import {
     removeFromCart,
     decreaseItemQuantity,

@@ -2,13 +2,11 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HomepageContent from "../components/content/HomepageContent";
-import ItemList from "../components/content/ItemList";
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
 import { getItems } from "../redux/items/itemsSlice";
 import { getCurrentUser, reset } from "../redux/auth/authSlice";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const dispatch = useDispatch();

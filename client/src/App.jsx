@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import DisplayPage from "./pages/DisplayPage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -9,18 +9,14 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cart from "./pages/Cart";
 import { useDispatch, useSelector } from "react-redux";
-import { getCartTotalItems, getCartTotalPrice } from "./redux/cart/cartSlice";
+import { getCartTotalItems } from "./redux/cart/cartSlice";
 import Home from "./pages/Home";
 import CheckOut from "./pages/CheckOut";
 import MyAccount from "./pages/MyAccount";
-import { getCurrentUser, getUserSavedAddress } from "./redux/auth/authSlice";
-import { MdAutoFixHigh } from "react-icons/md";
 
 function App() {
-    const [count, setCount] = useState(0);
     const dispatch = useDispatch();
     const { amountOfItems, cart } = useSelector((state) => state.cart);
-    const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
         dispatch(getCartTotalItems());

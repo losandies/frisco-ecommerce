@@ -9,7 +9,6 @@ import AccountInfoContainer from "../components/account/AccountInfoContainer";
 import { useEffect } from "react";
 import Geocode from "react-geocode";
 import { useSelector } from "react-redux";
-import { useJsApiLoader } from "@react-google-maps/api";
 
 const MyAccount = () => {
     const { user } = useSelector((state) => state.auth);

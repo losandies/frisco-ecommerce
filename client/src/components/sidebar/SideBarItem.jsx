@@ -1,6 +1,4 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { switchPage } from "../../redux/nav/navigationSlice";
@@ -10,7 +8,6 @@ const SideBarItem = ({ category, sub1, sub2, sub3 }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { currentPage } = useSelector((state) => state.nav);
 
     const switchCategories = (category, subcategory) => {
         navigate(`/${category.toLowerCase()}/${subcategory.toLowerCase()}`);
