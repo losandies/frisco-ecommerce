@@ -9,7 +9,7 @@ const OrdersDisplay = () => {
         <>
             {user.orders.length > 0 ? (
                 <div className="mt-5">
-                    <h1 className="text-2xl">Your Orders</h1>
+                    <h1 className="text-2xl mb-8">Your Orders</h1>
                     {user.orders.map((order) => (
                         <Order order={order} />
                     ))}
