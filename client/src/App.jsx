@@ -13,6 +13,7 @@ import { getCartTotalItems } from "./redux/cart/cartSlice";
 import Home from "./pages/Home";
 import CheckOut from "./pages/CheckOut";
 import MyAccount from "./pages/MyAccount";
+import PrivateRoute from "./components/misc/PrivateRoute";
 
 function App() {
     const dispatch = useDispatch();
@@ -39,7 +40,9 @@ function App() {
                     />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/checkout" element={<CheckOut />} />
-                    <Route path="/account" element={<MyAccount />} />
+                    <Route path="/account" element={<PrivateRoute />}>
+                        <Route path="/account" element={<MyAccount />} />
+                    </Route>
                 </Routes>
             </BrowserRouter>
             <ToastContainer />

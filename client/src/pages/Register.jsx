@@ -7,8 +7,12 @@ import { toast } from "react-toastify";
 import * as EmailValidator from "email-validator";
 import { register } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import { sizes } from "../screenSizes";
 
 const Register = () => {
+    const isMobile = useMediaQuery({ maxWidth: sizes.md });
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -65,9 +69,11 @@ const Register = () => {
             <NavBar />
 
             <div className="flex items-center justify-center w-full h-full">
-                <div className="w-[1100px] h-auto bg-gray-50 flex">
+                <div className="md:w-[1100px] w-full md:h-auto h-[600px] mb-20 md:mb-0 bg-gray-50 flex">
                     <form
-                        className="w-1/2 flex flex-col items-center justify-center"
+                        className={`${
+                            isMobile ? "w-full" : "w-1/2"
+                        } flex flex-col items-center justify-center`}
                         onSubmit={onSubmit}
                     >
                         <h1 className="text-2xl mb-5">Register Now</h1>
@@ -137,9 +143,11 @@ const Register = () => {
                             </a>
                         </h3>
                     </form>
-                    <div className="w-1/2">
-                        <img src={registerImg} alt="login_image" />
-                    </div>
+                    {!isMobile ? (
+                        <div className="w-1/2">
+                            <img src={registerImg} alt="register_image" />
+                        </div>
+                    ) : null}
                 </div>
             </div>
         </div>

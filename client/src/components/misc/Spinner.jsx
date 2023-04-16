@@ -3,7 +3,13 @@ import spinnerGif from "../../assets/spinner.gif";
 
 const Spinner = () => {
     return (
-        <img src={spinnerGif} alt="spinner" className="h-68 max-w-[700px]" />
+        <div className="h-screen w-screen flex justify-center items-center">
+            <img
+                src={spinnerGif}
+                alt="spinner"
+                className="h-68 max-w-[700px]"
+            />
+        </div>
     );
 };
 

@@ -7,8 +7,12 @@ import { login } from "../redux/auth/authSlice";
 import { toast } from "react-toastify";
 import * as EmailValidator from "email-validator";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import { sizes } from "../screenSizes";
 
 const Login = () => {
+    const isMobile = useMediaQuery({ maxWidth: sizes.md });
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -37,6 +41,20 @@ const Login = () => {
         }));
     };
 
+    const guestLogIn = () => {
+        const guestInfo = {
+            email: "guest@gmail.com",
+            password: "guest1234",
+        };
+        dispatch(login(guestInfo));
+
+        if (readyToCheckOut) {
+            setTimeout(() => navigate("/checkout"), [250]);
+        } else {
+            navigate("/");
+        }
+    };
+
     const onSubmit = (e) => {
         e.preventDefault();
 
@@ -63,15 +81,20 @@ const Login = () => {
         <div className="flex flex-col h-[100vh] w-full">
             <NavBar />
             <div className="flex items-center justify-center w-full h-[100%]">
-                <div className="w-[1100px] h-auto bg-gray-50 flex">
-                    <div className="w-1/2">
-                        <img src={loginImg} alt="login_image" />
-                    </div>
+                <div className="md:w-[1100px] w-full h-[400px] mb-20 md:mb-0 md:h-auto bg-gray-50 flex">
+                    {!isMobile ? (
+                        <div className="w-1/2">
+                            <img src={loginImg} alt="login_image" />
+                        </div>
+                    ) : null}
+
                     <form
-                        className="w-1/2 flex flex-col items-center justify-center"
+                        className={`${
+                            isMobile ? "w-full" : "w-1/2"
+                        } flex flex-col items-center justify-center`}
                         onSubmit={onSubmit}
                     >
-                        <h1 className="text-2xl mb-5">Welcome Back!</h1>
+                        <h1 className="text-2xl mb-3 md:mb-5">Welcome Back!</h1>
 
                         <div className="input-container">
                             <h1>Email:</h1>
@@ -99,6 +122,13 @@ const Login = () => {
                             className="mt-5 w-72 p-3 bg-black rounded-sm text-white"
                         >
                             Log In
+                        </button>
+                        <button
+                            type="button"
+                            className="mt-2 w-72 p-3 bg-green-700 rounded-sm text-white"
+                            onClick={() => guestLogIn()}
+                        >
+                            Guest Log In
                         </button>
 
                         <h3 className="text-xs mt-2">

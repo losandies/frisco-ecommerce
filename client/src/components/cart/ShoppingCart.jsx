@@ -5,7 +5,7 @@ import ItemDivider from "./ItemDivider";
 import { useNavigate } from "react-router-dom";
 
 const showCartItems = (cartArray) => (
-    <div className="md:h-[50vh] h-[60vh] overflow-scroll scrollbar-hide">
+    <div className="md:h-[50vh] h-[50vh] overflow-scroll scrollbar-hide">
         {cartArray.map((item) => (
             <CartItem item={item} key={item.id} />
         ))}

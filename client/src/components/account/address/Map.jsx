@@ -1,6 +1,5 @@
 import React from "react";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
-import { useEffect } from "react";
 
 const Map = ({ latitude, longitude }) => {
     const { isLoaded } = useJsApiLoader({
@@ -12,11 +11,6 @@ const Map = ({ latitude, longitude }) => {
         lat: latitude,
         lng: longitude,
     };
-
-    useEffect(() => {
-        console.log(latitude, longitude);
-        console.log(center);
-    }, []);
 
     const containerStyle = {
         width: "500px",
