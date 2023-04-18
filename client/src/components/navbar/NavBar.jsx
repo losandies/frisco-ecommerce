@@ -21,7 +21,7 @@ const NavBar = () => {
 
     const dispatch = useDispatch();
 
-    const isMobile = useMediaQuery({ maxWidth: sizes.md });
+    const isMobile = useMediaQuery({ maxWidth: sizes.lg });
 
     useEffect(() => {
         dispatch(getCartTotalItems());
@@ -127,17 +127,18 @@ const NavBar = () => {
                             >
                                 cart({amountOfItems})
                             </Link>
-                            <h1
-                                to="/cart"
-                                className={`${
-                                    menuOpen
-                                        ? "text-center tracking-[.25em] flex w-full flex-col"
-                                        : "hidden"
-                                }`}
-                                onClick={() => dispatch(logout())}
-                            >
-                                log out
-                            </h1>
+                            {user ? (
+                                <h1
+                                    className={`${
+                                        menuOpen
+                                            ? "text-center tracking-[.25em] flex w-full flex-col"
+                                            : "hidden"
+                                    }`}
+                                    onClick={() => dispatch(logout())}
+                                >
+                                    log out
+                                </h1>
+                            ) : null}
                         </ul>
                     </div>
                 </nav>

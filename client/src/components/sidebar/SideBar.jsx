@@ -6,7 +6,7 @@ import { sizes } from "../../screenSizes";
 import SideBarItem from "./SideBarItem";
 
 const SideBar = () => {
-    const isMobile = useMediaQuery({ maxWidth: sizes.md });
+    const isMobile = useMediaQuery({ maxWidth: sizes.lg });
 
     const [scrollY, setScrollY] = useState(0);
 

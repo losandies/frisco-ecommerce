@@ -12,8 +12,8 @@ const CartItem = ({ item }) => {
 
     return (
         <div className="mt-6 h-auto w-full flex flex-col overflow-x-hidden">
-            <div className="w-full md:px-4 flex items-center justify-around">
-                <div className="name-pricing flex items-center justify-center">
+            <div className="w-full md:min-w-full md:px-8 flex items-center justify-around">
+                <div className="name-pricing md: pl-4 flex items-center justify-center">
                     <img
                         src={`../src/assets/${item.imgPath}`}
                         alt=""
