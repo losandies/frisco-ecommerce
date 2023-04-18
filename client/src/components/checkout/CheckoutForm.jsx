@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
-    const { user, address } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth);
     const { cart, totalPrice } = useSelector((state) => state.cart);
 
     const dispatch = useDispatch();
@@ -163,7 +163,9 @@ const CheckoutForm = () => {
                             className="w-[97%] md:w-[97%] outline-none absolute left-2 bottom-2 bg-white z-10"
                             name="state"
                             onChange={onChange}
-                            defaultValue
+                            defaultValue={
+                                user.address ? user.address.state : null
+                            }
                         >
                             <option disabled selected value></option>
                             {STATES.map((state) => (
