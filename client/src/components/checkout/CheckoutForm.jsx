@@ -11,7 +11,7 @@ import {
 } from "../../redux/cart/cartSlice";
 
 import { toast } from "react-toastify";
-import { updateUserAddress } from "../../redux/auth/authSlice";
+import { updateUserAddress } from "../../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {

@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import * as EmailValidator from "email-validator";
-import { register } from "../redux/auth/authSlice";
+import { register } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../screenSizes";

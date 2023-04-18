@@ -6,7 +6,7 @@ import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
 import { getItems } from "../redux/items/itemsSlice";
-import { getCurrentUser, reset } from "../redux/auth/authSlice";
+import { getCurrentUser, reset } from "../redux/user/userSlice";
 
 const Home = () => {
     const dispatch = useDispatch();

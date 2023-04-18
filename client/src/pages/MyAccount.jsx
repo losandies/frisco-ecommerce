@@ -28,10 +28,9 @@ const MyAccount = () => {
                 (response) => {
                     const { lat, lng } = response.results[0].geometry.location;
                     setLat(lat), setLng(lng);
-                    console.log(latitude, longitude);
                 },
                 (error) => {
-                    console.log(error);
+                    return error;
                 }
             );
         }

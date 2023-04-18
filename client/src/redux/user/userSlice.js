@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import authService from "./authService";
+import userService from "./userService";
 
 export const user = JSON.parse(localStorage.getItem("user"));
 
@@ -16,7 +16,7 @@ export const register = createAsyncThunk(
     "auth/register",
     async (user, thunkAPI) => {
         try {
-            return await authService.register(user);
+            return await userService.register(user);
         } catch (error) {
             const message =
                 (error.response &&
@@ -31,7 +31,7 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
     try {
-        return await authService.login(user);
+        return await userService.login(user);
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -41,7 +41,7 @@ export const getCurrentUser = createAsyncThunk(
     "auth/currentUser",
     async (token, thunkAPI) => {
         try {
-            return await authService.getCurrentUser(token);
+            return await userService.getCurrentUser(token);
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
         }
@@ -52,7 +52,7 @@ export const updateUserAddress = createAsyncThunk(
     "auth/updateUserAddress",
     async (addressInfo, thunkAPI) => {
         try {
-            return await authService.updateUserAddress(addressInfo);
+            return await userService.updateUserAddress(addressInfo);
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
@@ -60,10 +60,10 @@ export const updateUserAddress = createAsyncThunk(
 );
 
 export const logout = createAsyncThunk("auth/logout", async () => {
-    authService.logout();
+    userService.logout();
 });
 
-export const authSlice = createSlice({
+export const userSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
@@ -125,6 +125,6 @@ export const authSlice = createSlice({
     },
 });
 
-export const { reset } = authSlice.actions;
+export const { reset } = userSlice.actions;
 
-export default authSlice.reducer;
+export default userSlice.reducer;

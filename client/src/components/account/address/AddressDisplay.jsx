@@ -5,7 +5,7 @@ import Map from "./Map";
 import { STATES } from "../../checkout/states";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { updateUserAddress } from "../../../redux/auth/authSlice";
+import { updateUserAddress } from "../../../redux/user/userSlice";
 
 const AddressDisplay = ({ latitude, longitude }) => {
     const { user } = useSelector((state) => state.auth);

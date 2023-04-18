@@ -12,7 +12,7 @@ import { getCartTotalItems } from "../../redux/cart/cartSlice";
 
 import MenuItem from "./MenuItem.jsx";
 import AccountMenu from "./AccountMenu";
-import { logout } from "../../redux/auth/authSlice";
+import { logout } from "../../redux/user/userSlice";
 
 const NavBar = () => {
     const { user } = useSelector((state) => state.auth);
