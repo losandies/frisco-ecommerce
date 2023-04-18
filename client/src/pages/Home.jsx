@@ -15,7 +15,7 @@ const Home = () => {
 
     useEffect(() => {
         if (user) {
-            dispatch(getCurrentUser(user));
+            dispatch(getCurrentUser(user.token));
         }
 
         if (!items) {

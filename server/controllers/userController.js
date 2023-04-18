@@ -89,7 +89,7 @@ const loginUser = async (req, res) => {
 };
 
 const getCurrentUser = async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.user;
 
     try {
         const user = await prisma.user.findFirst({
@@ -108,9 +108,8 @@ const getCurrentUser = async (req, res) => {
             });
 
             user.token = token;
-
-            res.status(200).json(user);
         }
+        res.status(200).json(user);
     } catch (error) {
         res.json(error);
     }
@@ -135,7 +134,8 @@ const deleteAllUsers = async () => {
 };
 
 const getUserOrders = async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.user;
+
     const orders = await prisma.user.findUnique({
         where: {
             id: id,
@@ -149,10 +149,13 @@ const getUserOrders = async (req, res) => {
 };
 
 const updateUserAddress = async (req, res) => {
-    const { id, street, city, zip, state } = req.body;
+    const { id } = req.user;
+    const { street, city, zip, state } = req.body;
 
-    if (!(street || city || zip || state))
+    if (!(street || city || zip || state)) {
         res.status(401).json({ msg: "Something Went Wrong" });
+        return;
+    }
 
     try {
         const addressExists = await prisma.address.findFirst({
@@ -187,23 +190,23 @@ const updateUserAddress = async (req, res) => {
     }
 };
 
-const getUserAddress = async (req, res) => {
-    const { id } = req.body;
+// const getUserAddress = async (req, res) => {
+//     const { id } = req.user;
 
-    try {
-        const address = await prisma.address.findFirst({
-            where: {
-                userId: id,
-            },
-        });
+//     try {
+//         const address = await prisma.address.findFirst({
+//             where: {
+//                 userId: id,
+//             },
+//         });
 
-        if (address) {
-            res.status(200).json(address);
-        }
-    } catch (err) {
-        res.json({ msg: err });
-    }
-};
+//         if (address) {
+//             res.status(200).json(address);
+//         }
+//     } catch (err) {
+//         res.json({ msg: err });
+//     }
+// };
 
 module.exports = {
     registerUser,
@@ -212,6 +215,4 @@ module.exports = {
     deleteAllUsers,
     loginUser,
     updateUserAddress,
-    getUserAddress,
-    getUserOrders,
 };

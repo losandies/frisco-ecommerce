@@ -44,9 +44,10 @@ const CheckoutForm = () => {
 
     const saveAddress = async () => {
         if (checkboxChecked) {
-            const id = user.id;
-            const newAddressInfo = { id, ...formData };
-            dispatch(updateUserAddress(newAddressInfo));
+            const token = user.token;
+            const addressInfo = { token, ...formData };
+
+            dispatch(updateUserAddress(addressInfo));
         }
     };
 
@@ -162,11 +163,13 @@ const CheckoutForm = () => {
                             className="w-[97%] md:w-[97%] outline-none absolute left-2 bottom-2 bg-white z-10"
                             name="state"
                             onChange={onChange}
-                            defaultValue={user && address ? address.state : ""}
+                            defaultValue
                         >
                             <option disabled selected value></option>
                             {STATES.map((state) => (
-                                <option value={state}>{state}</option>
+                                <option value={state} key={state}>
+                                    {state}
+                                </option>
                             ))}
                         </select>
                     </div>

@@ -30,9 +30,9 @@ const AddressDisplay = ({ latitude, longitude }) => {
     };
 
     const saveAddress = async () => {
-        const id = user.id;
-        const newAddressInfo = { id, ...formData };
-        dispatch(updateUserAddress(newAddressInfo));
+        const token = user.token;
+        const newAddressInfo = formData;
+        dispatch(updateUserAddress(token, newAddressInfo));
     };
 
     const onSubmit = (e) => {

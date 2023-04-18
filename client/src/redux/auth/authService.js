@@ -22,20 +22,31 @@ const login = async (userData) => {
     return res.data;
 };
 
-const getCurrentUser = async (user) => {
-    const res = await axios.post(`${API_URL}/getCurrentUser`, user);
+const getCurrentUser = async (token) => {
+    console.log(token);
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const res = await axios.get(`${API_URL}/getCurrentUser`, config);
 
     return res.data;
 };
 
-const getUserSavedAddress = async (userId) => {
-    const res = await axios.get(`${API_URL}/getUserAddress`);
+const updateUserAddress = async (addressInfo) => {
+    const { token } = addressInfo;
 
-    return res.data;
-};
-
-const updateUserAddress = async (newAddressInfo) => {
-    const res = await axios.post("/api/users/updateAddress", newAddressInfo);
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+    const res = await axios.post(
+        "/api/users/updateAddress",
+        addressInfo,
+        config
+    );
 
     return res.data;
 };
@@ -46,7 +57,6 @@ const authService = {
     register,
     login,
     logout,
-    getUserSavedAddress,
     updateUserAddress,
     getCurrentUser,
 };

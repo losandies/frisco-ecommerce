@@ -6,7 +6,6 @@ export const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
     user: user ? user : null,
-    address: null,
     isLoading: false,
     isSuccess: false,
     isError: false,
@@ -40,20 +39,9 @@ export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
 
 export const getCurrentUser = createAsyncThunk(
     "auth/currentUser",
-    async (user, thunkAPI) => {
+    async (token, thunkAPI) => {
         try {
-            return await authService.getCurrentUser(user);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data);
-        }
-    }
-);
-
-export const getUserSavedAddress = createAsyncThunk(
-    "auth/getUserSavedAddress",
-    async (userId, thunkAPI) => {
-        try {
-            return await authService.getUserSavedAddress(userId);
+            return await authService.getCurrentUser(token);
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
         }
@@ -62,9 +50,9 @@ export const getUserSavedAddress = createAsyncThunk(
 
 export const updateUserAddress = createAsyncThunk(
     "auth/updateUserAddress",
-    async (newAddressInfo, thunkAPI) => {
+    async (addressInfo, thunkAPI) => {
         try {
-            return await authService.updateUserAddress(newAddressInfo);
+            return await authService.updateUserAddress(addressInfo);
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
@@ -119,7 +107,7 @@ export const authSlice = createSlice({
             .addCase(getCurrentUser.fulfilled, (state, action) => {
                 state.user = action.payload;
             })
-            .addCase(getCurrentUser, (state) => {
+            .addCase(getCurrentUser.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(getCurrentUser.rejected, (state, action) => {
@@ -127,12 +115,6 @@ export const authSlice = createSlice({
             })
             .addCase(logout.fulfilled, (state) => {
                 state.user = null;
-            })
-            .addCase(getUserSavedAddress.rejected, (state, action) => {
-                state.message = action.payload;
-            })
-            .addCase(getUserSavedAddress.fulfilled, (state, action) => {
-                state.state.address = action.payload;
             })
             .addCase(updateUserAddress.rejected, (state, action) => {
                 state.message = action.payload;
