@@ -133,21 +133,6 @@ const deleteAllUsers = async () => {
     await prisma.user.deleteMany({});
 };
 
-const getUserOrders = async (req, res) => {
-    const { id } = req.user;
-
-    const orders = await prisma.user.findUnique({
-        where: {
-            id: id,
-        },
-        select: {
-            orders: true,
-        },
-    });
-
-    res.json(orders);
-};
-
 const updateUserAddress = async (req, res) => {
     const { id } = req.user;
     const { street, city, zip, state } = req.body;
@@ -189,24 +174,6 @@ const updateUserAddress = async (req, res) => {
         res.json({ msg: err });
     }
 };
-
-// const getUserAddress = async (req, res) => {
-//     const { id } = req.user;
-
-//     try {
-//         const address = await prisma.address.findFirst({
-//             where: {
-//                 userId: id,
-//             },
-//         });
-
-//         if (address) {
-//             res.status(200).json(address);
-//         }
-//     } catch (err) {
-//         res.json({ msg: err });
-//     }
-// };
 
 module.exports = {
     registerUser,

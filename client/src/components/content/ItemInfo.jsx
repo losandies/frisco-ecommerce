@@ -48,7 +48,7 @@ const ItemInfo = () => {
                     />
                 </div>
                 <div className="w-full h-[400px] md:h-[700px] md:w-[50%] md:min-w-[500px] px-6 mt-8 md:mt-0 flex flex-col items-center md:items-start md:justify-center">
-                    <div className="w-full md:w-auto md:ml-10">
+                    <div className="w-full md:w-[400px] md:ml-10">
                         <div className="name">
                             <h1 className="text-xl md:text-3xl">
                                 {selectedItem.name}
@@ -62,7 +62,7 @@ const ItemInfo = () => {
                         </div>
                         <div className="sizing mt-5 md:mt-10">
                             <h1 className="mb-2">Choose Size</h1>
-                            <div className="sizing-buttons flex flex-wrap justify-between">
+                            <div className="sizing-buttons flex flex-wrap md:max-w-[85%] justify-between md:justify-start">
                                 {selectedItem.subcategory === "shirts" ||
                                 selectedItem.subcategory === "hoodies" ? (
                                     clothingSizes.map((size) => (
@@ -82,7 +82,7 @@ const ItemInfo = () => {
                                 ) : selectedItem.category === "shoes" ? (
                                     shoeSizes.map((size) => (
                                         <button
-                                            className={`w-[6.93rem] md:w-36 h-10 rounded-lg border-[1px] my-2 ${
+                                            className={`w-[6.93rem] md:w-24 md:mr-2 h-10 rounded-lg border-[1px] my-2 ${
                                                 selectedSize === size
                                                     ? "bg-black text-white"
                                                     : null
@@ -159,7 +159,7 @@ const ItemInfo = () => {
                                 </button>
                             </div>
                             <button
-                                className="uppercase text-xs w-full md:w-[92%] h-12 md:h-10 bg-black text-white mt-4 md:mt-0 md:ml-5"
+                                className="uppercase text-xs w-full md:w-[46%] h-12 md:h-10 bg-black text-white mt-4 md:mt-0 md:ml-5"
                                 onClick={gatherItemInfo}
                             >
                                 add to bag
