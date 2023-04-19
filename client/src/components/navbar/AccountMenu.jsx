@@ -6,8 +6,9 @@ import { clearCart } from "../../redux/cart/cartSlice";
 import defaultAvatar from "../../assets/default-avatar.jpg";
 
 const AccountMenu = () => {
-    const { user } = useSelector((state) => state.auth);
     const [menuIsHovered, setMenuIsHovered] = useState(false);
+
+    const { user } = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
 

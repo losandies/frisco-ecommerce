@@ -13,6 +13,7 @@ const Order = ({ order }) => {
                         src={`../../src/assets/${item.imgPath}`}
                         alt=""
                         className="w-24 pr-2"
+                        key={item.id}
                     />
                 ))}
             </div>

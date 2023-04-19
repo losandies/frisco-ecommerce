@@ -12,14 +12,13 @@ import { sizes } from "../../screenSizes";
 import CheckoutItem from "./CheckoutItem";
 
 const OrderSummary = () => {
-    const isMobile = useMediaQuery({ maxWidth: sizes.md });
-
     const { user } = useSelector((state) => state.auth);
-
-    const dispatch = useDispatch();
     const { cart, totalPrice, amountOfItems } = useSelector(
         (state) => state.cart
     );
+
+    const isMobile = useMediaQuery({ maxWidth: sizes.md });
+    const dispatch = useDispatch();
 
     const salesTax = (totalPrice * 0.06).toFixed(2);
     const shippingCost = 5;

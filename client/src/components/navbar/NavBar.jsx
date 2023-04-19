@@ -155,15 +155,8 @@ const NavBar = () => {
                                     className="max-w-[180px] h-[50px]"
                                 />
                             </a>
-                            <input
-                                type="search"
-                                name=""
-                                id=""
-                                className="rounded-lg w-[380px] h-10 p-3 ml-32 outline-slate-200"
-                                placeholder="Search for items and brands..."
-                            />
                         </div>
-                        <div className="nav-right flex h-12 w-90">
+                        <div className="nav-right flex h-12 w-90 2xl:mr-[4.2rem]">
                             <Link
                                 to="/cart"
                                 className="flex justify-center items-center h-10 w-24 bg-neutral-200 hover:bg-neutral-300 text-sm text-neutral-700 rounded-lg mr-10"

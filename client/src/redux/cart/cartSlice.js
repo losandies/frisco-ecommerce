@@ -39,8 +39,9 @@ export const cartSlice = createSlice({
                         item.id === action.payload.id &&
                         item.size === action.payload.size
                 )
-            )
+            ) {
                 alreadyAdded = true;
+            }
 
             if (!alreadyAdded) {
                 state.cart.push(action.payload);

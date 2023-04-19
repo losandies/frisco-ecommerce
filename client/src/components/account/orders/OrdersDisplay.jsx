@@ -18,7 +18,7 @@ const OrdersDisplay = () => {
                 <div className="mt-5">
                     <h1 className="text-2xl mb-8">Your Orders</h1>
                     {newestToOldestOrders.map((order) => (
-                        <Order order={order} />
+                        <Order order={order} key={order.id} />
                     ))}
                 </div>
             ) : (

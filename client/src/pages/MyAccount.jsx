@@ -11,13 +11,13 @@ import Geocode from "react-geocode";
 import { useSelector } from "react-redux";
 
 const MyAccount = () => {
-    const { user } = useSelector((state) => state.auth);
     const [currentTab, setCurrentTab] = useState("profile");
-
     const [latitude, setLat] = useState();
     const [longitude, setLng] = useState();
 
-    Geocode.setApiKey("AIzaSyCkwdNI8MIOXVsa0aNVOdjoOb5dQxEneQE");
+    const { user } = useSelector((state) => state.auth);
+
+    Geocode.setApiKey(import.meta.env.VITE_GOOGLE_API_KEY);
     Geocode.setLanguage("en");
 
     useEffect(() => {

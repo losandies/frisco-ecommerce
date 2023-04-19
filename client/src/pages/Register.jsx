@@ -9,21 +9,17 @@ import { register } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../screenSizes";
+import PageContainer from "../components/misc/PageContainer";
 
 const Register = () => {
-    const isMobile = useMediaQuery({ maxWidth: sizes.md });
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
     const { isError, isLoading, user, isSuccess, message } = useSelector(
         (state) => state.auth
     );
 
-    useEffect(() => {
-        isError ? toast.error(message) : null;
-        isSuccess || user ? navigate("/") : null;
-    }, [user, isError, isSuccess, message, isLoading, navigate, dispatch]);
+    const isMobile = useMediaQuery({ maxWidth: sizes.md });
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -64,11 +60,16 @@ const Register = () => {
         }
     };
 
+    useEffect(() => {
+        isError ? toast.error(message) : null;
+        user ? navigate("/") : null;
+    }, [isSuccess, isError]);
+
     return (
-        <div className="flex flex-col h-[100vh]">
+        <PageContainer>
             <NavBar />
 
-            <div className="flex items-center justify-center w-full h-full">
+            <div className="flex items-center justify-center w-full h-full md:h-screen">
                 <div className="md:w-[1100px] w-full md:h-auto h-[600px] mb-20 md:mb-0 bg-gray-50 flex">
                     <form
                         className={`${
@@ -150,7 +151,7 @@ const Register = () => {
                     ) : null}
                 </div>
             </div>
-        </div>
+        </PageContainer>
     );
 };
 

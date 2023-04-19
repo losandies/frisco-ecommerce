@@ -9,23 +9,18 @@ import * as EmailValidator from "email-validator";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../screenSizes";
+import PageContainer from "../components/misc/PageContainer";
 
 const Login = () => {
-    const isMobile = useMediaQuery({ maxWidth: sizes.md });
-
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
+    const { readyToCheckOut } = useSelector((state) => state.cart);
     const { isError, user, isSuccess, message } = useSelector(
         (state) => state.auth
     );
 
-    const { readyToCheckOut } = useSelector((state) => state.cart);
+    const isMobile = useMediaQuery({ maxWidth: sizes.md });
 
-    useEffect(() => {
-        isError ? toast.error(message.error) : null;
-        user ? navigate("/") : null;
-    }, [isError, isSuccess]);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: "",
@@ -77,10 +72,15 @@ const Login = () => {
         }
     };
 
+    useEffect(() => {
+        isError ? toast.error(message.error) : null;
+        user ? navigate("/") : null;
+    }, [isError, isSuccess]);
+
     return (
-        <div className="flex flex-col h-[100vh] w-full">
+        <PageContainer>
             <NavBar />
-            <div className="flex items-center justify-center w-full h-[100%]">
+            <div className="flex items-center justify-center w-full md:h-screen">
                 <div className="md:w-[1100px] w-full h-[400px] mb-20 md:mb-0 md:h-auto bg-gray-50 flex">
                     {!isMobile ? (
                         <div className="w-1/2">
@@ -140,7 +140,7 @@ const Login = () => {
                     </form>
                 </div>
             </div>
-        </div>
+        </PageContainer>
     );
 };
 

@@ -14,16 +14,15 @@ import { useMediaQuery } from "react-responsive";
 export default function Carousel() {
     const { items } = useSelector((state) => state.items);
 
-    const isTablet = useMediaQuery({ maxWidth: sizes.lg });
     const isMobile = useMediaQuery({ maxWidth: sizes.sm });
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     let shuffledItems = items
         .map((item) => ({ item, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ item }) => item);
-
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     return (
         <div className="w-screen md:w-[800px] lg:w-[1000px] md:h-[400px] 2xl:w-[1000px]">

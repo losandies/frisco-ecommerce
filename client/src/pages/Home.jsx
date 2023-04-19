@@ -10,9 +10,10 @@ import { getCurrentUser, reset } from "../redux/user/userSlice";
 import PageContainer from "../components/misc/PageContainer";
 
 const Home = () => {
-    const dispatch = useDispatch();
     const { items } = useSelector((state) => state.items);
     const { user } = useSelector((state) => state.auth);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (user) {

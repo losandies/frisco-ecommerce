@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
+
     const { user } = useSelector((state) => state.auth);
     const { cart, totalPrice } = useSelector((state) => state.cart);
 
@@ -31,7 +32,7 @@ const CheckoutForm = () => {
         state: user && user.address ? user.address.state : "",
     });
 
-    const { street, city, zip, firstName, lastName, state } = formData;
+    const { street, city, zip, firstName, lastName } = formData;
 
     const [checkboxChecked, setCheckboxChecked] = useState(false);
 

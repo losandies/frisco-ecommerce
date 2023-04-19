@@ -16,8 +16,9 @@ import MyAccount from "./pages/MyAccount";
 import PrivateRoute from "./components/misc/PrivateRoute";
 
 function App() {
-    const dispatch = useDispatch();
     const { amountOfItems, cart } = useSelector((state) => state.cart);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getCartTotalItems());

@@ -23,7 +23,6 @@ const ShoppingCart = () => {
         (state) => state.cart
     );
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     let cartIsEmpty = cart.length < 1;

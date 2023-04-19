@@ -16,7 +16,7 @@ const ItemInfo = () => {
 
     const dispatch = useDispatch();
 
-    const gatherItemInfo = () => {
+    const addItemToCart = () => {
         if (selectedSize === "") return toast.error("Please Select Your Size");
 
         const itemInfo = {
@@ -160,7 +160,7 @@ const ItemInfo = () => {
                             </div>
                             <button
                                 className="uppercase text-xs w-full md:w-[46%] h-12 md:h-10 bg-black text-white mt-4 md:mt-0 md:ml-5"
-                                onClick={gatherItemInfo}
+                                onClick={addItemToCart}
                             >
                                 add to bag
                             </button>

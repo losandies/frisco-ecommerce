@@ -20,7 +20,7 @@ const AddressDisplay = ({ latitude, longitude }) => {
         state: "",
     });
 
-    const { street, city, zip, state } = formData;
+    const { street, city, zip } = formData;
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -111,7 +111,7 @@ const AddressDisplay = ({ latitude, longitude }) => {
                                             State
                                         </option>
                                         {STATES.map((state) => (
-                                            <option value={state}>
+                                            <option value={state} key={state}>
                                                 {state}
                                             </option>
                                         ))}
@@ -180,11 +180,16 @@ const AddressDisplay = ({ latitude, longitude }) => {
                                         name="state"
                                         onChange={onChange}
                                     >
-                                        <option disabled selected value="State">
+                                        <option
+                                            disabled
+                                            selected
+                                            value="State"
+                                            defaultValue
+                                        >
                                             State
                                         </option>
                                         {STATES.map((state) => (
-                                            <option value={state}>
+                                            <option value={state} key={state}>
                                                 {state}
                                             </option>
                                         ))}

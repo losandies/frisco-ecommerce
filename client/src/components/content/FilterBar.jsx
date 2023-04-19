@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeSort } from "../../redux/items/itemsSlice";
 
 const FilterBar = () => {
+    const [menuDisplay, setmenuDisplay] = useState(true);
+    const [displayMenuStyle, setdisplayMenuStyle] = useState("");
+
     const { category, subcategory } = useSelector((state) => state.nav);
 
     const dispatch = useDispatch();
-
-    const [menuDisplay, setmenuDisplay] = useState(true);
-    const [displayMenuStyle, setdisplayMenuStyle] = useState("");
 
     const showMenu = () => {
         setmenuDisplay(!menuDisplay);
@@ -21,10 +21,17 @@ const FilterBar = () => {
         return menuDisplay;
     };
 
+    const capitalizeFirstLetter = (word) => {
+        const firstLetter = subcategory.charAt(0).toUpperCase();
+        const remainingLetters = word.slice(1);
+
+        return firstLetter + remainingLetters;
+    };
+
     return (
         <div className="h-16 flex md:flex-row justify-between items-center md:items-center">
             <div className="text-md md:text-xl font-bold">
-                {category} ⌁ {subcategory}
+                {category} ⌁ {capitalizeFirstLetter(subcategory)}
             </div>
             <div className="toggles flex">
                 <button

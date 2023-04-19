@@ -4,9 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { selectItem } from "../../redux/items/itemsSlice";
 
 const Item = ({ item }) => {
+    const { category, subcategory } = useSelector((state) => state.nav);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { category, subcategory } = useSelector((state) => state.nav);
 
     const navigateToItem = (item, category, subcategory) => {
         navigate(`/${category}/${subcategory}/item/${item.id}`);

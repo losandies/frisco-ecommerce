@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { setReadyToCheckOut } from "../../redux/cart/cartSlice";
 
 const AccountReminder = () => {
-    const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
+
+    const dispatch = useDispatch();
 
     return (
         <div

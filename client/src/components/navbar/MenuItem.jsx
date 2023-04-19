@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { switchPage, toggleMenu } from "../../redux/nav/navigationSlice";
 
 const MenuItem = ({ category, sub1, sub2, sub3 }) => {
-    const { menuOpen } = useSelector((state) => state.nav);
-
     const [isFocused, setIsFocused] = useState(false);
+
+    const { menuOpen } = useSelector((state) => state.nav);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
