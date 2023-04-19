@@ -164,7 +164,7 @@ const CheckoutForm = () => {
                             name="state"
                             onChange={onChange}
                             defaultValue={
-                                user.address ? user.address.state : null
+                                user && user.address ? user.address.state : null
                             }
                         >
                             <option disabled selected value></option>

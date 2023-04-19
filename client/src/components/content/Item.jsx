@@ -14,7 +14,7 @@ const Item = ({ item }) => {
     };
 
     return (
-        <div className="max-w-[700px] flex flex-col lg:ml-7 sm:ml-15 md:pl-0 mb-10">
+        <div className="max-w-[300px] md:max-w-[278.5px] flex flex-col lg:ml-7 sm:ml-15 md:pl-0 mb-10">
             <div>
                 <Link
                     to={`/${category.toLowerCase()}/${subcategory.toLowerCase()}/item/${

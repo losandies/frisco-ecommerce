@@ -29,9 +29,9 @@ const ItemList = () => {
               ));
 
     return (
-        <div className="h-full w-full px-10 md:pt-12 mb-[100px]">
+        <div className="h-full w-full flex flex-col justify-center px-10 md:pt-12 mb-[100px]">
             <FilterBar />
-            <div className="items-container grid 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full h-full mt-10 md:mb-[200px]">
+            <div className="items-container place-items-center grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full h-full mt-10 md:mb-[200px]">
                 {sortItems(sortDirection)}
             </div>
         </div>

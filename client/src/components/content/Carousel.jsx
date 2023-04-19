@@ -14,6 +14,7 @@ import { useMediaQuery } from "react-responsive";
 export default function Carousel() {
     const { items } = useSelector((state) => state.items);
 
+    const isTablet = useMediaQuery({ maxWidth: sizes.lg });
     const isMobile = useMediaQuery({ maxWidth: sizes.sm });
 
     let shuffledItems = items
@@ -25,7 +26,7 @@ export default function Carousel() {
     const dispatch = useDispatch();
 
     return (
-        <div className="w-screen md:w-[1000px] md:h-[400px] 2xl:w-[1000px]">
+        <div className="w-screen md:w-[800px] lg:w-[1000px] md:h-[400px] 2xl:w-[1000px]">
             <Swiper
                 slidesPerView={isMobile ? 3 : 5}
                 spaceBetween={10}

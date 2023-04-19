@@ -6,6 +6,7 @@ import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
 import { getItems, reset } from "../redux/items/itemsSlice";
+import PageContainer from "../components/misc/PageContainer";
 
 const DisplayPage = () => {
     const dispatch = useDispatch();
@@ -16,18 +17,15 @@ const DisplayPage = () => {
     }, []);
 
     return (
-        <div
-            className={`flex flex-col min-h-[100vh] overflow-x-hidden w-full relative md:overflow-x-auto`}
-        >
-            <div className="content-wrap md:pb-[195px]">
-                <NavBar />
-                <div className="h-full w-full flex">
+        <PageContainer>
+            <NavBar />
+            <div className="h-full w-full flex flex-row md:mb-[150px] justify-between">
+                <div className="lg:mr-5">
                     <SideBar />
-                    <ItemList />
                 </div>
-                <Footer />
+                <ItemList />
             </div>
-        </div>
+        </PageContainer>
     );
 };
 

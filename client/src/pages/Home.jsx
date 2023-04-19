@@ -7,6 +7,7 @@ import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
 import { getItems } from "../redux/items/itemsSlice";
 import { getCurrentUser, reset } from "../redux/user/userSlice";
+import PageContainer from "../components/misc/PageContainer";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -25,22 +26,19 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="flex flex-col min-h-[100vh] w-full relative">
-            <div className="content-wrap min-h-[100vh] md:pb-[195px]">
-                <NavBar />
-                <div className="h-full w-full flex flex-row md:mb-[150px] justify-between">
-                    <div>
-                        <SideBar />
-                    </div>
-
-                    <div>
-                        <HomepageContent />
-                    </div>
-                    <div></div>
+        <PageContainer>
+            <NavBar />
+            <div className="h-full w-full flex flex-row md:mb-[150px] justify-between">
+                <div className="lg:mr-5">
+                    <SideBar />
                 </div>
-                <Footer />
+
+                <div>
+                    <HomepageContent />
+                </div>
+                <div></div>
             </div>
-        </div>
+        </PageContainer>
     );
 };
 

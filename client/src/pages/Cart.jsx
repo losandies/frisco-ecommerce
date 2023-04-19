@@ -7,6 +7,7 @@ import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
 import { getCartTotalPrice } from "../redux/cart/cartSlice";
+import PageContainer from "../components/misc/PageContainer";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -18,16 +19,15 @@ const Cart = () => {
     }, [amountOfItems]);
 
     return (
-        <div className="flex flex-col min-h-[100vh] w-full relative overflow-x-hidden">
-            <div className="content-wrap md:pb-[195px]">
-                <NavBar />
-                <div className="md:h-[80%] h-[100vh] w-full flex">
+        <PageContainer>
+            <NavBar />
+            <div className="h-full w-full flex flex-row md:mb-[150px] justify-between">
+                <div>
                     <SideBar />
-                    <ShoppingCart />
                 </div>
-                <Footer />
+                <ShoppingCart />
             </div>
-        </div>
+        </PageContainer>
     );
 };
 

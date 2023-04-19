@@ -3,21 +3,19 @@ import ItemInfo from "../components/content/ItemInfo";
 import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
+import PageContainer from "../components/misc/PageContainer";
 
 const ItemListing = () => {
     return (
-        <div className="flex flex-col h-full min-h-[100vh] w-full relative">
-            <div className="content-wrap md:pb-[195px]">
-                <NavBar />
-                <div className="h-full w-full flex mb-[150px]">
-                    <div>
-                        <SideBar />
-                    </div>
-                    <ItemInfo />
+        <PageContainer>
+            <NavBar />
+            <div className="h-full w-full flex mb-[150px]">
+                <div>
+                    <SideBar />
                 </div>
-                <Footer />
+                <ItemInfo />
             </div>
-        </div>
+        </PageContainer>
     );
 };
 

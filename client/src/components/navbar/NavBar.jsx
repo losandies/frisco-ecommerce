@@ -82,7 +82,9 @@ const NavBar = () => {
                     <div
                         className={`flex justify-center pt-10 text-lg uppercase ${
                             menuOpen
-                                ? "flex w-full h-[250px] text-black z-50"
+                                ? `flex w-full ${
+                                      user ? "h-[250px]" : "h-[200px]"
+                                  } text-black z-50`
                                 : "opacity-0 h-[1px]"
                         } ease-in-out duration-300`}
                     >
@@ -143,9 +145,9 @@ const NavBar = () => {
                     </div>
                 </nav>
             ) : (
-                <nav className="flex items-center h-16 w-full px-8">
+                <nav className="flex items-center h-16 w-full px-8 2xl:px-0">
                     <div className="h-full w-full flex flex-row items-center justify-between mt-4">
-                        <div className="nav-left flex items-center w-3/5">
+                        <div className="nav-left flex items-center w-3/5 2xl:ml-8">
                             <a href="/" className="text-2xl">
                                 <img
                                     src={logo}
