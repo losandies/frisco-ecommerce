@@ -8,7 +8,8 @@
         "start": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "dev": "concurrently \"vite\" \"cd ../server && nodemon app.js\""
+        "dev": "concurrently \"vite\" \"cd ../server && nodemon app.js\"",
+        "prod": "concurrently \"vite\" \"cd ../server && node app.js\""
     },
     "dependencies": {
         "@react-google-maps/api": "^2.18.1",
