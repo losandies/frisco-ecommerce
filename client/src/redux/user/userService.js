@@ -18,8 +18,7 @@ const login = async (userData) => {
     if (res.data) {
         localStorage.setItem("user", JSON.stringify(res.data));
     }
-
-    return res.data;
+    console.log(res);
 };
 
 const getCurrentUser = async (token) => {

@@ -9,6 +9,7 @@ const registerUser = async (req, res) => {
     try {
         if (!(firstName || lastName || email || password)) {
             res.status(400).json({ error: "Missing Fields" });
+            return;
         }
 
         const userExists = await prisma.user.findFirst({
@@ -21,6 +22,7 @@ const registerUser = async (req, res) => {
             res.status(409).json({
                 error: "User Already Exists. Please Log In",
             });
+            return;
         }
 
         const encryptedPassword = await bcrypt.hash(password, 10);
@@ -74,6 +76,7 @@ const loginUser = async (req, res) => {
 
         if (!match) {
             res.status(401).json({ error: "Invalid Credentials" });
+            return;
         }
 
         const token = jwt.sign({ id: foundUser.id }, process.env.jwtSecret, {

@@ -27,14 +27,24 @@ const addItem = async (req, res) => {
 const updateItem = async (req, res) => {
     const updatedItem = await prisma.item.updateMany({
         where: {
-            name: "Fleece Sweats",
+            name: "Pearl Smiley Bracelet",
         },
         data: {
-            subcategory: "pants",
+            category: "accessories",
         },
     });
 
     res.status(200).json(updatedItem);
+};
+
+const getItem = async (req, res) => {
+    const item = await prisma.item.findFirst({
+        where: {
+            name: "Pearl Smiley Bracelet",
+        },
+    });
+
+    res.status(200).json(item);
 };
 
 const getAllItems = async (req, res) => {
@@ -51,4 +61,5 @@ module.exports = {
     addItem,
     getAllItems,
     updateItem,
+    getItem,
 };

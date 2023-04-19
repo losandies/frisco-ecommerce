@@ -38,15 +38,13 @@ const Login = () => {
 
     const guestLogIn = () => {
         const guestInfo = {
-            email: "guest@gmail.com",
+            email: "guest365@gmail.com",
             password: "guest1234",
         };
         dispatch(login(guestInfo));
 
         if (readyToCheckOut) {
             setTimeout(() => navigate("/checkout"), [250]);
-        } else {
-            navigate("/");
         }
     };
 
@@ -57,6 +55,8 @@ const Login = () => {
 
         if (!validEmail) {
             toast.error("Please enter a valid email address");
+        } else if (password === "") {
+            toast.error("Please enter a valid password");
         } else {
             const userInfo = {
                 email,
@@ -66,8 +66,6 @@ const Login = () => {
 
             if (readyToCheckOut) {
                 setTimeout(() => navigate("/checkout"), [250]);
-            } else {
-                navigate("/");
             }
         }
     };

@@ -29,7 +29,7 @@ const FilterBar = () => {
     };
 
     return (
-        <div className="h-16 flex md:flex-row justify-between items-center md:items-center">
+        <div className="h-16 flex md:flex-row 2xl:px-8 justify-between items-center md:items-center">
             <div className="text-md md:text-xl font-bold">
                 {category} ⌁ {capitalizeFirstLetter(subcategory)}
             </div>

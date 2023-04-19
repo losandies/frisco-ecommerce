@@ -43,10 +43,12 @@ const Register = () => {
 
         const validEmail = EmailValidator.validate(email);
 
-        if (formData.name === "") {
-            toast.error("Name field can not be empty");
+        if (formData.firstName === "" || formData.lastName === "") {
+            toast.error("Name fields can not be empty");
         } else if (!validEmail) {
             toast.error("Please enter a valid email address");
+        } else if (password === "" && password2 === "") {
+            toast.error("Password fields can not be empty");
         } else if (password != password2) {
             toast.error("Passwords do not match");
         } else {
