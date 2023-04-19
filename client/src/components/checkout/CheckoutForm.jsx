@@ -55,6 +55,11 @@ const CheckoutForm = () => {
     const submitOrder = (e) => {
         e.preventDefault();
 
+        if (!(firstName || lastName)) {
+            toast.error("Name fields can not be empty");
+            return;
+        }
+
         if (Object.values(formData).some((x) => x === "")) {
             toast.error("Please enter a valid address");
             return;
@@ -201,7 +206,7 @@ const CheckoutForm = () => {
                         <input
                             type="text"
                             className="w-[80%] outline-none absolute left-2"
-                            value="John Doe"
+                            value={`${user.firstName} ${user.lastName}`}
                             readOnly
                         />
                     </div>

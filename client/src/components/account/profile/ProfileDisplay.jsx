@@ -5,7 +5,7 @@ const ProfileDisplay = () => {
     const { user } = useSelector((state) => state.auth);
 
     const userSinceYear = user.createdAt.slice(0, 4);
-    const numOfOrders = user.orders.length;
+    const numOfOrders = user.orders ? user.orders.length : null;
 
     const totalMoneySpent = () => {
         const totals = [];

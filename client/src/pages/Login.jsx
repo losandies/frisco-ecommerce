@@ -72,8 +72,8 @@ const Login = () => {
 
     useEffect(() => {
         isError ? toast.error(message.error) : null;
-        user ? navigate("/") : null;
-    }, [isError, isSuccess]);
+        user || isSuccess ? navigate("/") : null;
+    }, [user, isError, isSuccess]);
 
     return (
         <PageContainer>
