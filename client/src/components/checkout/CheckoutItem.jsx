@@ -11,7 +11,7 @@ const CheckoutItem = ({ item }) => {
             <div className="left flex justify-between">
                 <div className="flex">
                     <img
-                        src={`../../src/assets/${item.imgPath}`}
+                        src={`/assets/${item.imgPath}`}
                         alt=""
                         className="w-20 h-32"
                     />

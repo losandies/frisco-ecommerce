@@ -15,7 +15,7 @@ const CartItem = ({ item }) => {
             <div className="w-full md:min-w-full md:px-8 flex items-center justify-around">
                 <div className="name-pricing w-2/5 flex items-center justify-center">
                     <img
-                        src={`../src/assets/${item.imgPath}`}
+                        src={`/assets/${item.imgPath}`}
                         alt=""
                         className="w-12 md:w-28 rounded-sm"
                     />
