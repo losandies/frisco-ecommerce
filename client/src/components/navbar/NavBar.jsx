@@ -105,18 +105,21 @@ const NavBar = () => {
                                 sub1="shirts"
                                 sub2="hoodies"
                                 sub3="pants"
+                                onClick={() => dispatch(toggleMenu())}
                             />
                             <MenuItem
                                 category="Accessories"
                                 sub1="Jewelry"
                                 sub2="hats"
                                 sub3="sunglasses"
+                                onClick={() => dispatch(toggleMenu())}
                             />
                             <MenuItem
                                 category="Shoes"
                                 sub1="casual"
                                 sub2="sneakers"
                                 sub3="boots"
+                                onClick={() => dispatch(toggleMenu())}
                             />
                             <Link
                                 to="/cart"

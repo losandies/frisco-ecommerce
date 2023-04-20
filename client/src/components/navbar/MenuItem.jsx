@@ -12,9 +12,9 @@ const MenuItem = ({ category, sub1, sub2, sub3 }) => {
     const dispatch = useDispatch();
 
     const switchCategories = (category, subcategory) => {
+        dispatch(toggleMenu());
         navigate(`/${category.toLowerCase()}/${subcategory.toLowerCase()}`);
         dispatch(switchPage({ category, subcategory }));
-        dispatch(toggleMenu());
     };
 
     return (
