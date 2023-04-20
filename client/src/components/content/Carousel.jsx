@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectItem } from "../../redux/items/itemsSlice";
 import { sizes } from "../../screenSizes";
 import { useMediaQuery } from "react-responsive";
+import { useEffect } from "react";
 
 export default function Carousel() {
     const { items } = useSelector((state) => state.items);
@@ -23,6 +24,12 @@ export default function Carousel() {
         .map((item) => ({ item, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
         .map(({ item }) => item);
+
+    useEffect(() => {
+        if (!items) {
+            dispatch(getItems());
+        }
+    }, []);
 
     return (
         <div className="w-screen md:w-[800px] lg:w-[1000px] md:h-[400px] 2xl:w-[1000px]">
