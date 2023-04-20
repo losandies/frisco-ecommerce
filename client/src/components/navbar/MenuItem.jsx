@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { switchPage, toggleMenu } from "../../redux/nav/navigationSlice";
+import {
+    resetMenu,
+    switchPage,
+    toggleMenu,
+} from "../../redux/nav/navigationSlice";
 
 const MenuItem = ({ category, sub1, sub2, sub3 }) => {
     const [isFocused, setIsFocused] = useState(false);
@@ -12,7 +16,6 @@ const MenuItem = ({ category, sub1, sub2, sub3 }) => {
     const dispatch = useDispatch();
 
     const switchCategories = (category, subcategory) => {
-        dispatch(toggleMenu());
         navigate(`/${category.toLowerCase()}/${subcategory.toLowerCase()}`);
         dispatch(switchPage({ category, subcategory }));
     };
@@ -21,7 +24,7 @@ const MenuItem = ({ category, sub1, sub2, sub3 }) => {
         <li
             className={`${
                 menuOpen
-                    ? "text-center tracking-[.25em] flex w-full flex-col ease-in-out duration-500"
+                    ? "text-center tracking-[.25em] flex w-full flex-col ease-in-out duration-500 justify-center"
                     : "hidden"
             }`}
             onMouseEnter={() => setIsFocused(true)}
@@ -35,20 +38,23 @@ const MenuItem = ({ category, sub1, sub2, sub3 }) => {
                         : "hidden"
                 }`}
             >
-                <li className="w-1/3">
-                    <h1 onClick={() => switchCategories(category, sub1)}>
-                        {sub1}
-                    </h1>
+                <li
+                    className="w-1/3"
+                    onClick={() => switchCategories(category, sub1)}
+                >
+                    <h1>{sub1}</h1>
                 </li>
-                <li className="w-1/3">
-                    <h1 onClick={() => switchCategories(category, sub2)}>
-                        {sub2}
-                    </h1>
+                <li
+                    className="w-1/3"
+                    onClick={() => switchCategories(category, sub2)}
+                >
+                    <h1>{sub2}</h1>
                 </li>
-                <li className="w-1/3">
-                    <h1 onClick={() => switchCategories(category, sub3)}>
-                        {sub3}
-                    </h1>
+                <li
+                    className="w-1/3"
+                    onClick={() => switchCategories(category, sub3)}
+                >
+                    <h1>{sub3}</h1>
                 </li>
             </ul>
         </li>

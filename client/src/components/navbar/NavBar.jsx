@@ -7,7 +7,7 @@ import { useMediaQuery } from "react-responsive";
 import { sizes } from "../../screenSizes";
 import { Spiral as Hamburger } from "hamburger-react";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { toggleMenu } from "../../redux/nav/navigationSlice";
+import { resetMenu, toggleMenu } from "../../redux/nav/navigationSlice";
 import { getCartTotalItems } from "../../redux/cart/cartSlice";
 
 import MenuItem from "./MenuItem.jsx";
@@ -25,7 +25,8 @@ const NavBar = () => {
 
     useEffect(() => {
         dispatch(getCartTotalItems());
-    }, [menuOpen]);
+        dispatch(resetMenu());
+    }, []);
 
     return (
         <>
@@ -80,7 +81,7 @@ const NavBar = () => {
                         </div>
                     </div>
                     <div
-                        className={`flex justify-center pt-10 text-lg uppercase ${
+                        className={`flex justify-center pt-4 text-lg uppercase ${
                             menuOpen
                                 ? `flex w-full ${
                                       user ? "h-[250px]" : "h-[200px]"
@@ -89,17 +90,6 @@ const NavBar = () => {
                         } ease-in-out duration-300`}
                     >
                         <ul className="w-full">
-                            <Link
-                                to="/"
-                                className={`${
-                                    menuOpen
-                                        ? "text-center tracking-[.25em] flex w-full flex-col"
-                                        : "hidden"
-                                }`}
-                                onClick={() => dispatch(toggleMenu())}
-                            >
-                                new in
-                            </Link>
                             <MenuItem
                                 category="Clothing"
                                 sub1="shirts"

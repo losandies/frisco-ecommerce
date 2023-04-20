@@ -18,9 +18,12 @@ export const navigationSlice = createSlice({
         toggleMenu: (state) => {
             state.menuOpen = !state.menuOpen;
         },
+        resetMenu: (state) => {
+            state.menuOpen = false;
+        },
     },
 });
 
-export const { switchPage, toggleMenu } = navigationSlice.actions;
+export const { switchPage, toggleMenu, resetMenu } = navigationSlice.actions;
 
 export default navigationSlice.reducer;
