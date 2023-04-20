@@ -18,7 +18,7 @@ const ProfileDisplay = () => {
     };
 
     return (
-        <div>
+        <div className="mt-5">
             <div>
                 <h1 className="text-2xl">Hi, {user.firstName} </h1>
                 <h1 className="text-base text-neutral-400">
