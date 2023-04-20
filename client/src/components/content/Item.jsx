@@ -24,7 +24,7 @@ const Item = ({ item }) => {
                     onClick={() => navigateToItem(item, category, subcategory)}
                 >
                     <img
-                        src={`../../src/assets/${item.imgPath}`}
+                        src={`/assets/${item.imgPath}`}
                         className="item-photo h-68 rounded-lg"
                     ></img>
                     <div className="item-description pl-3 pt-2 flex flex-col items-start">

@@ -42,7 +42,7 @@ const ItemInfo = () => {
                     className="flex justify-center items-center w-full md:w-[20%] md:min-w-[500px]"
                 >
                     <img
-                        src={`/src/assets/${selectedItem.imgPath}`}
+                        src={`assets/${selectedItem.imgPath}`}
                         alt={selectedItem.name}
                         className="h-[300px] w-[200px] md:h-[600px] md:w-[400px] rounded-lg"
                     />

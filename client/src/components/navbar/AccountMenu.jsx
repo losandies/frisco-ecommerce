@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../redux/user/userSlice";
 import { clearCart } from "../../redux/cart/cartSlice";
-import defaultAvatar from "../../assets/default-avatar.jpg";
+import defaultAvatar from "../../../src/assets/default-avatar.jpg";
 
 const AccountMenu = () => {
     const [menuIsHovered, setMenuIsHovered] = useState(false);

@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../components/navbar/NavBar";
-import registerImg from "../assets/login_img.jpeg";
+import registerImg from "../../public/assets/login_img.jpeg";
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";

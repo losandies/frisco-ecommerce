@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.jpeg";
-import defaultAvatar from "../../assets/default-avatar.jpg";
+import logo from "../../../public/assets/logo.jpeg";
+import defaultAvatar from "../../../public/assets/default-avatar.jpg";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../../screenSizes";
 import { Spiral as Hamburger } from "hamburger-react";

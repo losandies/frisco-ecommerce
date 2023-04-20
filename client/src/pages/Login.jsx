@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../components/navbar/NavBar";
-import loginImg from "../assets/login_img2.jpg";
+import loginImg from "../../public/assets/login_img2.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { login } from "../redux/user/userSlice";
