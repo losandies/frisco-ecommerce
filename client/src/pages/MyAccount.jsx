@@ -17,7 +17,9 @@ const MyAccount = () => {
 
     const { user } = useSelector((state) => state.auth);
 
-    Geocode.setApiKey(import.meta.env.VITE_GOOGLE_API_KEY);
+    Geocode.setApiKey(
+        import.meta.env.VITE_GOOGLE_API_KEY || process.env.VITE_GOOGLE_API_KEY
+    );
     Geocode.setLanguage("en");
 
     useEffect(() => {
