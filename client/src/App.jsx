@@ -14,6 +14,7 @@ import Home from "./pages/Home";
 import CheckOut from "./pages/CheckOut";
 import MyAccount from "./pages/MyAccount";
 import PrivateRoute from "./components/misc/PrivateRoute";
+import { getItems } from "./redux/items/itemsSlice";
 
 function App() {
     const { amountOfItems, cart } = useSelector((state) => state.cart);
@@ -22,6 +23,7 @@ function App() {
 
     useEffect(() => {
         dispatch(getCartTotalItems());
+        dispatch(getItems());
     }, [amountOfItems, cart]);
 
     return (

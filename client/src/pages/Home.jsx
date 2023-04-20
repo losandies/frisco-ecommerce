@@ -10,7 +10,6 @@ import { getCurrentUser, reset } from "../redux/user/userSlice";
 import PageContainer from "../components/misc/PageContainer";
 
 const Home = () => {
-    const { items } = useSelector((state) => state.items);
     const { user } = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
@@ -20,9 +19,6 @@ const Home = () => {
             dispatch(getCurrentUser(user.token));
         }
 
-        if (!items) {
-            dispatch(getItems());
-        }
         dispatch(reset());
     }, []);
 
