@@ -30,7 +30,9 @@ const getCurrentUser = async (token) => {
     };
     const res = await axios.get(`${API_URL}/getCurrentUser`, config);
 
-    return res.data;
+    if (res.data) {
+        return res.data;
+    }
 };
 
 const updateUserAddress = async (addressInfo) => {
@@ -52,7 +54,7 @@ const updateUserAddress = async (addressInfo) => {
 
 const logout = () => localStorage.removeItem("user");
 
-const authService = {
+const userService = {
     register,
     login,
     logout,
@@ -60,4 +62,4 @@ const authService = {
     getCurrentUser,
 };
 
-export default authService;
+export default userService;

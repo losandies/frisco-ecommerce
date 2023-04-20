@@ -15,16 +15,27 @@ import CheckOut from "./pages/CheckOut";
 import MyAccount from "./pages/MyAccount";
 import PrivateRoute from "./components/misc/PrivateRoute";
 import { getItems } from "./redux/items/itemsSlice";
+import { getCurrentUser } from "./redux/user/userSlice";
 
 function App() {
     const { amountOfItems, cart } = useSelector((state) => state.cart);
+    const { user } = useSelector((state) => state.user);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCartTotalItems());
         dispatch(getItems());
+    }, []);
+
+    useEffect(() => {
+        dispatch(getCartTotalItems());
     }, [amountOfItems, cart]);
+
+    useEffect(() => {
+        if (user) {
+            dispatch(getCurrentUser(user.token));
+        }
+    }, []);
 
     return (
         <div className="h-full w-full">

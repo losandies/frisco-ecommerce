@@ -8,7 +8,7 @@ import defaultAvatar from "../../../src/assets/default-avatar.jpg";
 const AccountMenu = () => {
     const [menuIsHovered, setMenuIsHovered] = useState(false);
 
-    const { user } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.user);
 
     const dispatch = useDispatch();
 

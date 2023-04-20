@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 const CheckoutForm = () => {
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
 
-    const { user } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.user);
     const { cart, totalPrice } = useSelector((state) => state.cart);
 
     const dispatch = useDispatch();

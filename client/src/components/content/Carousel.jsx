@@ -58,7 +58,7 @@ export default function Carousel() {
                         }}
                     >
                         <img
-                            src={`assets/${item.imgPath}`}
+                            src={`assets/${item.imgPath}` || ``}
                             alt="movie-img"
                             className=""
                         />

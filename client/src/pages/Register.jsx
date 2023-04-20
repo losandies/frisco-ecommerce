@@ -13,7 +13,7 @@ import PageContainer from "../components/misc/PageContainer";
 
 const Register = () => {
     const { isError, isLoading, user, isSuccess, message } = useSelector(
-        (state) => state.auth
+        (state) => state.user
     );
 
     const isMobile = useMediaQuery({ maxWidth: sizes.md });

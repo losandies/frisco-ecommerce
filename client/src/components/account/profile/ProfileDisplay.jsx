@@ -1,8 +1,9 @@
 import React from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const ProfileDisplay = () => {
-    const { user } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.user);
 
     const userSinceYear = user.createdAt.slice(0, 4);
     const numOfOrders = user.orders ? user.orders.length : null;

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Order from "./Order";
 
 const OrdersDisplay = () => {
-    const { user } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.user);
 
     const userOrders = [...user.orders];
 

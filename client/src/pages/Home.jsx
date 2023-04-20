@@ -2,23 +2,15 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import HomepageContent from "../components/content/HomepageContent";
-import Footer from "../components/footer/Footer";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
-import { getItems } from "../redux/items/itemsSlice";
-import { getCurrentUser, reset } from "../redux/user/userSlice";
+import { reset } from "../redux/user/userSlice";
 import PageContainer from "../components/misc/PageContainer";
 
 const Home = () => {
-    const { user } = useSelector((state) => state.auth);
-
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (user) {
-            dispatch(getCurrentUser(user.token));
-        }
-
         dispatch(reset());
     }, []);
 

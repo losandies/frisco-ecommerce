@@ -1,5 +1,5 @@
 import React from "react";
-import defaultAvatar from "../../../public/assets/default-avatar.jpg";
+import defaultAvatar from "/assets/default-avatar.jpg";
 
 const MyAccountHeader = () => {
     return (

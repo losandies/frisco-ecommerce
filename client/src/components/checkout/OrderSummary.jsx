@@ -12,7 +12,7 @@ import { sizes } from "../../screenSizes";
 import CheckoutItem from "./CheckoutItem";
 
 const OrderSummary = () => {
-    const { user } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.user);
     const { cart, totalPrice, amountOfItems } = useSelector(
         (state) => state.cart
     );

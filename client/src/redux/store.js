@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./user/userSlice";
+import userReducer from "./user/userSlice";
 import cartReducer from "./cart/cartSlice";
 import itemsReducer from "./items/itemsSlice";
 import navigationReducer from "./nav/navigationSlice";
@@ -14,7 +14,7 @@ const persistConfig = {
 
 export const store = configureStore({
     reducer: {
-        auth: authReducer,
+        user: userReducer,
         items: persistReducer(persistConfig, itemsReducer),
         cart: persistReducer(persistConfig, cartReducer),
         nav: persistReducer(persistConfig, navigationReducer),

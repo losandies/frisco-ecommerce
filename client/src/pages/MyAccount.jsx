@@ -15,7 +15,7 @@ const MyAccount = () => {
     const [latitude, setLat] = useState();
     const [longitude, setLng] = useState();
 
-    const { user } = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.user);
 
     Geocode.setApiKey(
         import.meta.env.VITE_GOOGLE_API_KEY || process.env.VITE_GOOGLE_API_KEY
