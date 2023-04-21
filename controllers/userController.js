@@ -37,14 +37,14 @@ const registerUser = async (req, res) => {
         });
 
         const token = jwt.sign({ id: newUser.id }, process.env.jwtSecret, {
-            expiresIn: "1hr",
+            expiresIn: "24hr",
         });
 
         newUser.token = token;
 
         res.status(201).json(newUser);
     } catch (err) {
-        res.json({ msg: err });
+        res.status(401).json(err);
     }
 };
 
@@ -80,14 +80,14 @@ const loginUser = async (req, res) => {
         }
 
         const token = jwt.sign({ id: foundUser.id }, process.env.jwtSecret, {
-            expiresIn: "1hr",
+            expiresIn: "24hr",
         });
 
         foundUser.token = token;
 
         res.status(201).json(foundUser);
     } catch (err) {
-        res.json({ msg: err });
+        res.status(401).json(err);
     }
 };
 
@@ -107,14 +107,15 @@ const getCurrentUser = async (req, res) => {
 
         if (user) {
             const token = jwt.sign({ id: user.id }, process.env.jwtSecret, {
-                expiresIn: "1hr",
+                expiresIn: "24hr",
             });
 
             user.token = token;
+
+            res.status(200).json(user);
         }
-        res.status(200).json(user);
-    } catch (error) {
-        res.json(error);
+    } catch (err) {
+        res.status(401).json(err);
     }
 };
 
@@ -128,7 +129,7 @@ const getUsers = async (req, res) => {
             res.status(400).json({ msg: "No users found" });
         }
     } catch (err) {
-        res.json({ msg: err });
+        res.status(401).json(err);
     }
 };
 
@@ -174,7 +175,7 @@ const updateUserAddress = async (req, res) => {
             res.status(200).json(address);
         }
     } catch (err) {
-        res.json({ msg: err });
+        res.status(401).json(err);
     }
 };
 

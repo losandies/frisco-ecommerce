@@ -24,8 +24,8 @@ const CheckoutForm = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        firstName: user ? user.firstName : "",
-        lastName: user ? user.lastName : "",
+        firstName: !user ? "" : user.firstName,
+        lastName: !user ? "" : user.lastName,
         street: user && user.address ? user.address.street : "",
         city: user && user.address ? user.address.city : "",
         zip: user && user.address ? user.address.zipCode : "",
@@ -206,7 +206,9 @@ const CheckoutForm = () => {
                         <input
                             type="text"
                             className="w-[80%] outline-none absolute left-2"
-                            value={`${user.firstName} ${user.lastName}`}
+                            value={`${user ? user.firstName : "John"} ${
+                                user ? user.lastName : "Doe"
+                            }`}
                             readOnly
                         />
                     </div>

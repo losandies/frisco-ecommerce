@@ -9,7 +9,9 @@ const register = async (userData) => {
         localStorage.setItem("user", JSON.stringify(res.data));
     }
 
-    return res.data;
+    if (res.data) {
+        return res.data;
+    }
 };
 
 const login = async (userData) => {
@@ -19,7 +21,9 @@ const login = async (userData) => {
         localStorage.setItem("user", JSON.stringify(res.data));
     }
 
-    return res.data;
+    if (res.data) {
+        return res.data;
+    }
 };
 
 const getCurrentUser = async (token) => {
@@ -48,8 +52,9 @@ const updateUserAddress = async (addressInfo) => {
         addressInfo,
         config
     );
-
-    return res.data;
+    if (res.data) {
+        return res.data;
+    }
 };
 
 const logout = () => localStorage.removeItem("user");

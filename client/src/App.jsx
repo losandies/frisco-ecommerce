@@ -35,6 +35,7 @@ function App() {
         if (user) {
             dispatch(getCurrentUser(user.token));
         }
+        console.log("hit");
     }, []);
 
     return (
