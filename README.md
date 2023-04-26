@@ -5,12 +5,10 @@ This is a ticketing system that I built called Strombo. Users can log into their
 
 You can find the live demo [here](www.frisco-clothing-dept.onrender.com).
 
+https://user-images.githubusercontent.com/20804531/234598513-30b15ddf-181f-41cf-bb79-06284717dbfc.mov
+
 	
-
-![19778E88-C07B-4351-96D1-92B9D69F51FF_1_105_c](https://user-images.githubusercontent.com/20804531/234597293-71d32c55-503d-4e1b-9705-6453e360d157.jpeg)
-![A76EE8C5-1C9E-4321-90D6-13A05EA0EC66_1_102_o](https://user-images.githubusercontent.com/20804531/234597346-660805e0-3a0f-4546-acd0-69a0ba8b0313.jpeg)
-
-
+https://user-images.githubusercontent.com/20804531/234598030-ab18168a-3376-4b5c-847c-3b6fdf03b1a2.mov
 
 
 ## Technology Used
