@@ -4,13 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import HomepageContent from "../components/content/HomepageContent";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
-import { reset } from "../redux/user/userSlice";
+import { getCurrentUser, reset } from "../redux/user/userSlice";
 import PageContainer from "../components/misc/PageContainer";
 
 const Home = () => {
     const dispatch = useDispatch();
 
+    const { user } = useSelector((state) => state.user);
+
     useEffect(() => {
+        if (user) {
+            dispatch(getCurrentUser(user.token));
+        }
         dispatch(reset());
     }, []);
 

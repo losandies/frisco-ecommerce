@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CheckoutForm from "../components/checkout/CheckoutForm";
 import OrderSummary from "../components/checkout/OrderSummary";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../screenSizes";
 import AltTopBar from "../components/checkout/AltTopBar";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser } from "../redux/user/userSlice";
 
 const CheckOut = () => {
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
+    const { user } = useSelector((state) => state.user);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (user) {
+            getCurrentUser(user.token);
+        }
+    }, []);
 
     return (
         <div className="w-screen h-screen flex flex-col overflow-x-hidden">
