@@ -1,22 +1,23 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react()],
     server: {
-        host: true,
+        host: "127.0.0.1",
+        strictPort: true,
         port: 5173,
         proxy: {
             "/api": {
-                target: "http://localhost:5000",
+                target: `http://127.0.0.1:${process.env.PORT || 5001}`,
                 changeOrigin: true,
                 secure: false,
             },
         },
     },
     build: {
-        rollupOptions: {
+        rolldownOptions: {
             output: {
                 chunkFileNames: "assets/js/[name]-[hash].js",
                 entryFileNames: "assets/js/[name]-[hash].js",

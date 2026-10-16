@@ -1,189 +1,41 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-
+const prisma = require('../lib/prisma');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const include = { address: true, orders: { orderBy: { createdAt: 'desc' } } };
+const serialize = ({ password, ...user }) => ({
+    ...user,
+    token: jwt.sign({ id: user.id }, process.env.JWT_SECRET || process.env.jwtSecret, { expiresIn: '24h' }),
+});
+const normalizeEmail = (email) => typeof email === 'string' ? email.trim().toLowerCase() : '';
 const registerUser = async (req, res) => {
-    const { firstName, lastName, email, password } = req.body;
-
-    try {
-        if (!(firstName || lastName || email || password)) {
-            res.status(400).json({ error: "Missing Fields" });
-            return;
-        }
-
-        const userExists = await prisma.user.findFirst({
-            where: {
-                email: email,
-            },
-        });
-
-        if (userExists) {
-            res.status(409).json({
-                error: "User Already Exists. Please Log In",
-            });
-            return;
-        }
-
-        const encryptedPassword = await bcrypt.hash(password, 10);
-
-        const newUser = await prisma.user.create({
-            data: {
-                firstName: firstName,
-                lastName: lastName,
-                email: email.toLowerCase(),
-                password: encryptedPassword,
-            },
-        });
-
-        const token = jwt.sign({ id: newUser.id }, process.env.jwtSecret, {
-            expiresIn: "24hr",
-        });
-
-        newUser.token = token;
-
-        res.status(201).json(newUser);
-    } catch (err) {
-        res.status(401).json(err);
+    const { firstName, lastName, password } = req.body;
+    const email = normalizeEmail(req.body.email);
+    if (![firstName, lastName, password].every(value => typeof value === 'string' && value.trim()) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return res.status(400).json({ error: 'Enter a name, valid email, and password' });
     }
+    if (password.length < 8 || Buffer.byteLength(password, 'utf8') > 72) return res.status(400).json({ error: 'Password must be at least 8 characters and at most 72 bytes' });
+    if (await prisma.user.findFirst({ where: { email } })) return res.status(409).json({ error: 'User already exists. Please log in' });
+    const user = await prisma.user.create({ data: { firstName: firstName.trim(), lastName: lastName.trim(), email, password: await bcrypt.hash(password, 10) }, include });
+    return res.status(201).json(serialize(user));
 };
-
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
-
-    if (!(email || password)) {
-        res.status(400).json({ error: "Missing Fields" });
-    }
-
-    try {
-        const foundUser = await prisma.user.findFirst({
-            where: {
-                email: email,
-            },
-            include: {
-                address: true,
-                orders: true,
-            },
-        });
-
-        if (!foundUser) {
-            res.status(400).json({
-                error: "User doesnt exist. Please register an account",
-            });
-        }
-
-        const match = await bcrypt.compare(password, foundUser.password);
-
-        if (!match) {
-            res.status(401).json({ error: "Invalid Credentials" });
-            return;
-        }
-
-        const token = jwt.sign({ id: foundUser.id }, process.env.jwtSecret, {
-            expiresIn: "24hr",
-        });
-
-        foundUser.token = token;
-
-        res.status(201).json(foundUser);
-    } catch (err) {
-        res.status(401).json(err);
-    }
+    const email = normalizeEmail(req.body.email);
+    const { password } = req.body;
+    if (!email || typeof password !== 'string' || !password) return res.status(400).json({ error: 'Email and password are required' });
+    const user = await prisma.user.findFirst({ where: { email }, include });
+    if (!user || !await bcrypt.compare(password, user.password)) return res.status(401).json({ error: 'Invalid email or password' });
+    return res.json(serialize(user));
 };
-
 const getCurrentUser = async (req, res) => {
-    const { id } = req.user;
-
-    try {
-        const user = await prisma.user.findFirst({
-            where: {
-                id: id,
-            },
-            include: {
-                address: true,
-                orders: true,
-            },
-        });
-
-        if (user) {
-            const token = jwt.sign({ id: user.id }, process.env.jwtSecret, {
-                expiresIn: "24hr",
-            });
-
-            user.token = token;
-
-            res.status(200).json(user);
-        }
-    } catch (err) {
-        res.status(401).json(err);
-    }
+    const user = await prisma.user.findUnique({ where: { id: req.user.id }, include });
+    if (!user) return res.status(401).json({ error: 'Please log in again' });
+    return res.json(serialize(user));
 };
-
-const getUsers = async (req, res) => {
-    try {
-        const allUsers = await prisma.user.findMany();
-
-        if (allUsers.length >= 1) {
-            res.json(allUsers);
-        } else if (allUsers.length < 1) {
-            res.status(400).json({ msg: "No users found" });
-        }
-    } catch (err) {
-        res.status(401).json(err);
-    }
-};
-
-const deleteAllUsers = async () => {
-    await prisma.user.deleteMany({});
-};
-
 const updateUserAddress = async (req, res) => {
-    const { id } = req.user;
     const { street, city, zip, state } = req.body;
-
-    if (!(street || city || zip || state)) {
-        res.status(401).json({ msg: "Something Went Wrong" });
-        return;
-    }
-
-    try {
-        const addressExists = await prisma.address.findFirst({
-            where: {
-                userId: id,
-            },
-        });
-
-        if (addressExists) {
-            await prisma.address.delete({
-                where: {
-                    userId: id,
-                },
-            });
-        }
-
-        const address = await prisma.address.create({
-            data: {
-                userId: id,
-                street: street,
-                city: city,
-                zipCode: zip,
-                state: state,
-            },
-        });
-
-        if (address) {
-            res.status(200).json(address);
-        }
-    } catch (err) {
-        res.status(401).json(err);
-    }
+    if (![street, city, zip, state].every(value => typeof value === 'string' && value.trim())) return res.status(400).json({ error: 'All address fields are required' });
+    const data = { street: street.trim(), city: city.trim(), zipCode: zip.trim(), state: state.trim() };
+    const address = await prisma.address.upsert({ where: { userId: req.user.id }, create: { userId: req.user.id, ...data }, update: data });
+    return res.json(address);
 };
-
-module.exports = {
-    registerUser,
-    getCurrentUser,
-    getUsers,
-    deleteAllUsers,
-    loginUser,
-    updateUserAddress,
-};
+module.exports = { registerUser, loginUser, getCurrentUser, updateUserAddress };

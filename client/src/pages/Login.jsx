@@ -3,7 +3,7 @@ import NavBar from "../components/navbar/NavBar";
 import loginImg from "/assets/login_img2.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { login } from "../redux/user/userSlice";
+import { login, register } from "../redux/user/userSlice";
 import { toast } from "react-toastify";
 import * as EmailValidator from "email-validator";
 import { useNavigate } from "react-router-dom";
@@ -37,15 +37,11 @@ const Login = () => {
     };
 
     const guestLogIn = () => {
-        const guestInfo = {
-            email: "guest365@gmail.com",
-            password: "guest1234",
-        };
-        dispatch(login(guestInfo));
-
-        if (readyToCheckOut) {
-            setTimeout(() => navigate("/checkout"), [250]);
-        }
+        dispatch(register({
+            firstName: "Guest", lastName: "Shopper",
+            email: `demo-${crypto.randomUUID()}@example.test`,
+            password: crypto.randomUUID(),
+        }));
     };
 
     const onSubmit = (e) => {
@@ -64,15 +60,12 @@ const Login = () => {
             };
             dispatch(login(userInfo));
 
-            if (readyToCheckOut) {
-                setTimeout(() => navigate("/checkout"), [250]);
-            }
         }
     };
 
     useEffect(() => {
-        isError ? toast.error(message.error) : null;
-        user || isSuccess ? navigate("/") : null;
+        isError ? toast.error(typeof message === "string" ? message : message?.error) : null;
+        user ? navigate(readyToCheckOut ? "/checkout" : "/") : null;
     }, [user, isError, isSuccess]);
 
     return (
@@ -126,7 +119,7 @@ const Login = () => {
                             className="mt-2 w-72 p-3 bg-green-700 rounded-sm text-white"
                             onClick={() => guestLogIn()}
                         >
-                            Guest Log In
+                            Try Demo Account
                         </button>
 
                         <h3 className="text-xs mt-2">

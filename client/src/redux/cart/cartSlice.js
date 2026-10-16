@@ -18,7 +18,7 @@ export const placeOrder = createAsyncThunk(
             const message =
                 (error.response &&
                     error.response.data &&
-                    error.response.data.message) ||
+                    error.response.data.error) ||
                 error.message ||
                 error.toString();
             return thunkAPI.rejectWithValue(message);
@@ -47,9 +47,8 @@ export const cartSlice = createSlice({
                 state.cart.push(action.payload);
             } else {
                 state.cart.forEach((item, index) => {
-                    if (item.id === action.payload.id) {
+                    if (item.id === action.payload.id && item.size === action.payload.size) {
                         state.cart[index].quantity += action.payload.quantity;
-                        console.log(action.payload.quantity);
                     }
                 });
             }
@@ -74,7 +73,7 @@ export const cartSlice = createSlice({
         decreaseItemQuantity: (state, action) => {
             state.cart.forEach((item, index) => {
                 if (item.quantity > 1) {
-                    if (item.id === action.payload.id) {
+                    if (item.id === action.payload.id && item.size === action.payload.size) {
                         state.cart[index].quantity -= 1;
                     }
                 }
@@ -82,7 +81,7 @@ export const cartSlice = createSlice({
         },
         increaseItemQuantity: (state, action) => {
             state.cart.forEach((item, index) => {
-                if (item.id === action.payload.id) {
+                if (item.id === action.payload.id && item.size === action.payload.size) {
                     state.cart[index].quantity += 1;
                 }
             });
@@ -97,6 +96,8 @@ export const cartSlice = createSlice({
         },
         clearCart: (state) => {
             state.cart = [];
+            state.amountOfItems = 0;
+            state.totalPrice = "0.00";
         },
         setReadyToCheckOut: (state, action) => {
             state.readyToCheckOut = action.payload;

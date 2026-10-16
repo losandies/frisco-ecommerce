@@ -1,11 +1,12 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import FilterBar from "./FilterBar";
 import Item from "./Item";
 
 const ItemList = () => {
     const { items, sortDirection } = useSelector((state) => state.items);
-    const { subcategory } = useSelector((state) => state.nav);
+    const { subcategory = "" } = useParams();
 
     const selectedCategory = items.filter(
         (item) => item.subcategory === subcategory.toLowerCase()
@@ -15,13 +16,13 @@ const ItemList = () => {
         sortDirection === "high"
             ? selectedCategory
                   .sort((a, b) =>
-                      parseInt(a.price) < parseInt(b.price) ? 1 : -1
+                      Number(a.price) < Number(b.price) ? 1 : -1
                   )
                   .map((item) => <Item key={item.id} item={item} />)
             : sortDirection === "low"
             ? selectedCategory
                   .sort((a, b) =>
-                      parseInt(a.price) > parseInt(b.price) ? 1 : -1
+                      Number(a.price) > Number(b.price) ? 1 : -1
                   )
                   .map((item) => <Item key={item.id} item={item} />)
             : selectedCategory.map((item) => (

@@ -1,5 +1,10 @@
-node_modules
-# Keep environment variables out of version control
+node_modules/
 .env
-
-prisma/migrations
+.env.*
+!.env.example
+client/dist/
+.local/
+.DS_Store
+*.log
+test-results/
+playwright-report/

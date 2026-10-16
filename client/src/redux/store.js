@@ -3,7 +3,11 @@ import userReducer from "./user/userSlice";
 import cartReducer from "./cart/cartSlice";
 import itemsReducer from "./items/itemsSlice";
 import navigationReducer from "./nav/navigationSlice";
-import storage from "redux-persist/lib/storage";
+const storage = {
+    getItem: key => Promise.resolve(localStorage.getItem(key)),
+    setItem: (key, value) => Promise.resolve(localStorage.setItem(key, value)),
+    removeItem: key => Promise.resolve(localStorage.removeItem(key)),
+};
 import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
 
@@ -15,9 +19,9 @@ const persistConfig = {
 export const store = configureStore({
     reducer: {
         user: userReducer,
-        items: persistReducer(persistConfig, itemsReducer),
-        cart: persistReducer(persistConfig, cartReducer),
-        nav: persistReducer(persistConfig, navigationReducer),
+        items: persistReducer({ ...persistConfig, key: "items" }, itemsReducer),
+        cart: persistReducer({ ...persistConfig, key: "cart" }, cartReducer),
+        nav: persistReducer({ ...persistConfig, key: "nav" }, navigationReducer),
     },
     middleware: [thunk],
 });

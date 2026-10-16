@@ -20,7 +20,8 @@ const OrderSummary = () => {
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
     const dispatch = useDispatch();
 
-    const salesTax = (totalPrice * 0.06).toFixed(2);
+    const subtotalCents = Math.round(Number(totalPrice) * 100);
+    const salesTax = (Math.round(subtotalCents * 0.06) / 100).toFixed(2);
     const shippingCost = 5;
 
     const getTotal = (subtotal, shipping, tax) => {
@@ -48,7 +49,7 @@ const OrderSummary = () => {
                     <h1>${shippingCost}.00</h1>
                 </div>
                 <div className="flex justify-between mt-1 mb-7">
-                    <h1>Sales Tax</h1>
+                    <h1>Demo Tax (6%)</h1>
                     <h1>${salesTax}</h1>
                 </div>
                 <ItemDivider />
@@ -68,7 +69,7 @@ const OrderSummary = () => {
                     <h2 className="font-bold">Shopping Bag({amountOfItems})</h2>
                     <div className="md:max-h-[370px] overflow-scroll scrollbar-hide">
                         {cart.map((item) => (
-                            <CheckoutItem item={item} key={item.id} />
+                            <CheckoutItem item={item} key={`${item.id}-${item.size}`} />
                         ))}
                     </div>
                 </div>

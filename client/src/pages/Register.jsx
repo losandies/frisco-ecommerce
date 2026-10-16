@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "../components/navbar/NavBar";
-import registerImg from "../../public/assets/login_img.jpeg";
+const registerImg = "/assets/login_img.jpeg";
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -49,6 +49,8 @@ const Register = () => {
             toast.error("Please enter a valid email address");
         } else if (password === "" && password2 === "") {
             toast.error("Password fields can not be empty");
+        } else if (password.length < 8) {
+            toast.error("Password must be at least 8 characters");
         } else if (password != password2) {
             toast.error("Passwords do not match");
         } else {

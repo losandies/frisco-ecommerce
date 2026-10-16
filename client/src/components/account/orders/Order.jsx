@@ -10,10 +10,10 @@ const Order = ({ order }) => {
             <div className="max-w-full overflow-x-auto flex h-32 mt-2">
                 {order.items.map((item) => (
                     <img
-                        src={`assets/${item.imgPath}`}
+                        src={`/assets/${item.imgPath}`}
                         alt=""
                         className="w-24 pr-2"
-                        key={item.id}
+                        key={`${item.id}-${item.size}`}
                     />
                 ))}
             </div>

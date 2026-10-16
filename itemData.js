@@ -13,7 +13,7 @@ const itemData = [
         price: "44.99",
         category: "clothing",
         subcategory: "shirts",
-        imgPath: "wutangshirts.png",
+        imgPath: "wutangshirt.png",
     },
     {
         name: "Battleground Tour Tee",
@@ -400,3 +400,5 @@ const itemData = [
         imgPath: "yankees_fitted.jpeg",
     },
 ];
+
+module.exports = itemData;

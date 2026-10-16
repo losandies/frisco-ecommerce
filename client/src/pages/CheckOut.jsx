@@ -15,12 +15,12 @@ const CheckOut = () => {
 
     useEffect(() => {
         if (user) {
-            getCurrentUser(user.token);
+            dispatch(getCurrentUser(user.token));
         }
     }, []);
 
     return (
-        <div className="w-screen h-screen flex flex-col overflow-x-hidden">
+        <div className="w-screen min-h-screen flex flex-col overflow-x-hidden">
             <AltTopBar />
             {isMobile ? (
                 <div className="w-full justify-center flex flex-col md:flex-row p-5 sm:p-10 mt-3">

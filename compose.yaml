@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: frisco
+      POSTGRES_PASSWORD: frisco_local
+      POSTGRES_DB: frisco
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - frisco_db:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U frisco -d frisco"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  frisco_db:

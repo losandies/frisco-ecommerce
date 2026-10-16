@@ -1,70 +1,33 @@
-import React from "react";
-import { Autoplay, Navigation } from "swiper";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { SwiperSlide, Swiper } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/autoplay";
-import "../../App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectItem } from "../../redux/items/itemsSlice";
-import { sizes } from "../../screenSizes";
-import { useMediaQuery } from "react-responsive";
-import { useEffect } from "react";
 
 export default function Carousel() {
-    const { items } = useSelector((state) => state.items);
-
-    const isMobile = useMediaQuery({ maxWidth: sizes.sm });
-
+    const { items, isLoading, isError } = useSelector((state) => state.items);
+    const track = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    let shuffledItems = items
-        .map((item) => ({ item, sort: Math.random() }))
-        .sort((a, b) => a.sort - b.sort)
-        .map(({ item }) => item);
-
-    useEffect(() => {
-        if (!items) {
-            dispatch(getItems());
-        }
-    }, []);
-
+    if (isLoading) return <p role="status">Loading collection…</p>;
+    if (isError) return <p role="alert">Unable to load the collection. Please refresh to try again.</p>;
     return (
-        <div className="w-screen md:w-[800px] lg:w-[1000px] md:h-[400px] 2xl:w-[1000px]">
-            <Swiper
-                slidesPerView={isMobile ? 3 : 5}
-                spaceBetween={10}
-                loop={true}
-                navigation={true}
-                autoplay={{
-                    delay: 2000,
-                    pauseOnMouseEnter: true,
-                    disableOnInteraction: false,
-                }}
-                modules={[Navigation, Autoplay]}
-                className="rounded-md flex"
-            >
-                {shuffledItems.map((item) => (
-                    <SwiperSlide
-                        className="cursor-pointer flex justify-center max-w-60 max-h-72"
-                        key={item.id}
-                        onClick={() => {
-                            dispatch(selectItem(item));
-                            navigate(
-                                `/${item.category}/${item.subcategory}/item/${item.id}`
-                            );
-                        }}
-                    >
-                        <img
-                            src={`assets/${item.imgPath}` || ``}
-                            alt="movie-img"
-                            className=""
-                        />
-                    </SwiperSlide>
+        <section aria-label="Newest collection" className="w-screen md:w-[800px] lg:w-[1000px] px-2">
+            <div className="flex justify-end gap-3 mb-3">
+                <button type="button" aria-label="Previous products" className="border rounded px-4 py-2" onClick={() => track.current?.scrollBy({ left: -400, behavior: 'smooth' })}>←</button>
+                <button type="button" aria-label="Next products" className="border rounded px-4 py-2" onClick={() => track.current?.scrollBy({ left: 400, behavior: 'smooth' })}>→</button>
+            </div>
+            <div ref={track} className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-4">
+                {items.map(item => (
+                    <button type="button" key={item.id} className="shrink-0 w-[30%] md:w-[19%] snap-start text-left" onClick={() => {
+                        dispatch(selectItem(item));
+                        navigate(`/${item.category}/${item.subcategory}/item/${item.id}`);
+                    }}>
+                        <img src={`/assets/${item.imgPath}`} alt={item.name} loading="lazy" className="w-full h-48 md:h-64 object-cover rounded-md" />
+                        <p className="text-sm mt-2">{item.name}</p>
+                        <p className="text-sm">${item.price}</p>
+                    </button>
                 ))}
-            </Swiper>
-        </div>
+            </div>
+        </section>
     );
 }

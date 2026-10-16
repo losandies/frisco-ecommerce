@@ -1,8 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const { createOrder, getAllOrders } = require("../controllers/orderController");
-
-router.post("/placeOrder", createOrder);
-router.get("/allOrders", getAllOrders);
-
+const router = require('express').Router();
+const { createOrder, getAllOrders } = require('../controllers/orderController');
+const handle = require('../lib/asyncHandler');
+router.use(require('../middleware/auth'));
+router.post('/placeOrder', handle(createOrder));
+router.get('/allOrders', handle(getAllOrders));
 module.exports = router;

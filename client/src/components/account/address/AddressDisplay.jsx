@@ -33,27 +33,27 @@ const AddressDisplay = ({ latitude, longitude }) => {
         const token = user.token;
         const addressInfo = { token, ...formData };
 
-        dispatch(updateUserAddress(addressInfo));
+        await dispatch(updateUserAddress(addressInfo)).unwrap();
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         if (Object.values(formData).some((x) => x === "")) {
             toast.error("Please enter a valid address");
             return;
         }
-        saveAddress();
-
-        setTimeout(() => {
-            toast.success("Address Updated");
-            navigate("/");
-        }, 1000);
+        try {
+            await saveAddress();
+            toast.success("Address updated");
+        } catch {
+            toast.error("Unable to save address. Please try again.");
+        }
     };
 
     return (
         <>
-            {user.address !== null ? (
+            {Boolean(user.address) ? (
                 <div className="mt-5 flex flex-col md:flex-row md:justify-between">
                     <div className="w-full md:w-1/2 flex flex-col">
                         <div className="flex flex-col">
@@ -105,9 +105,10 @@ const AddressDisplay = ({ latitude, longitude }) => {
                                         type="text"
                                         className="w-[60%] border-2 rounded-md bottom-2 px-1"
                                         name="state"
+                                        value={formData.state}
                                         onChange={onChange}
                                     >
-                                        <option disabled selected value="State">
+                                        <option disabled value="">
                                             State
                                         </option>
                                         {STATES.map((state) => (
@@ -178,13 +179,12 @@ const AddressDisplay = ({ latitude, longitude }) => {
                                         type="text"
                                         className="w-[60%] border-2 rounded-md bottom-2 px-1"
                                         name="state"
+                                        value={formData.state}
                                         onChange={onChange}
                                     >
                                         <option
                                             disabled
-                                            selected
-                                            value="State"
-                                            defaultValue
+                                            value=""
                                         >
                                             State
                                         </option>

@@ -1,21 +1,9 @@
-const express = require("express");
-const {
-    registerUser,
-    getUsers,
-    deleteAllUsers,
-    loginUser,
-    updateUserAddress,
-    getCurrentUser,
-} = require("../controllers/userController");
-const router = express.Router();
-
-const auth = require("../middleware/auth");
-
-router.post("/register", registerUser);
-router.post("/login", loginUser);
-router.get("/getCurrentUser", auth, getCurrentUser);
-router.post("/updateAddress", auth, updateUserAddress);
-router.get("/allUsers", getUsers);
-router.delete("/delete", deleteAllUsers);
-
+const router = require('express').Router();
+const controller = require('../controllers/userController');
+const auth = require('../middleware/auth');
+const handle = require('../lib/asyncHandler');
+router.post('/register', handle(controller.registerUser));
+router.post('/login', handle(controller.loginUser));
+router.get('/getCurrentUser', auth, handle(controller.getCurrentUser));
+router.post('/updateAddress', auth, handle(controller.updateUserAddress));
 module.exports = router;

@@ -34,6 +34,7 @@ const CheckoutForm = () => {
 
     const { street, city, zip, firstName, lastName } = formData;
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [checkboxChecked, setCheckboxChecked] = useState(false);
 
     const onChange = (e) => {
@@ -48,39 +49,35 @@ const CheckoutForm = () => {
             const token = user.token;
             const addressInfo = { token, ...formData };
 
-            dispatch(updateUserAddress(addressInfo));
+            await dispatch(updateUserAddress(addressInfo)).unwrap();
         }
     };
 
-    const submitOrder = (e) => {
+    const submitOrder = async (e) => {
         e.preventDefault();
-
-        if (!(firstName || lastName)) {
-            toast.error("Name fields can not be empty");
+        if (isSubmitting) return;
+        if (!user) {
+            toast.info("Please log in to place a demo order. Your cart is saved.");
+            navigate("/login");
             return;
         }
-
-        if (Object.values(formData).some((x) => x === "")) {
-            toast.error("Please enter a valid address");
-            return;
+        if (!cart.length) return toast.error("Your bag is empty");
+        if (Object.values(formData).some(value => !String(value || "").trim())) {
+            return toast.error("Please complete your name and shipping address");
         }
-
-        if (user) {
-            const orderInfo = {
-                user: user,
-                items: cart,
-                total: totalPrice,
-            };
-            saveAddress();
-            dispatch(placeOrder(orderInfo));
-        }
-
-        setTimeout(() => {
-            toast.success("Order Placed");
+        setIsSubmitting(true);
+        try {
+            await saveAddress();
+            await dispatch(placeOrder({ user, items: cart })).unwrap();
+            toast.success("Demo order placed — no payment charged");
             dispatch(setReadyToCheckOut(false));
             dispatch(clearCart());
             navigate("/");
-        }, 1000);
+        } catch (error) {
+            toast.error(typeof error === "string" ? error : "Unable to place order. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -169,11 +166,9 @@ const CheckoutForm = () => {
                             className="w-[97%] md:w-[97%] outline-none absolute left-2 bottom-2 bg-white z-10"
                             name="state"
                             onChange={onChange}
-                            defaultValue={
-                                user && user.address ? user.address.state : null
-                            }
+                            value={formData.state}
                         >
-                            <option disabled selected value></option>
+                            <option disabled value="">Select state</option>
                             {STATES.map((state) => (
                                 <option value={state} key={state}>
                                     {state}
@@ -197,7 +192,8 @@ const CheckoutForm = () => {
                     </div>
                 ) : null}
 
-                <h2 className="text-2xl font-bold ml-1 mt-5">Payment Method</h2>
+                <h2 className="text-2xl font-bold ml-1 mt-5">Demo Payment</h2>
+                <p className="mt-2 text-sm">Portfolio demo. No payment is collected or charged. Log in to save an order.</p>
                 <div className="single-input mt-5">
                     <div className="w-full h-12 border-[1px] rounded-md border-black p-4 relative">
                         <div className="absolute top-1 left-1">
@@ -287,8 +283,8 @@ const CheckoutForm = () => {
                         />
                     </div>
                 </div>
-                <button className="w-full h-16 mt-5 rounded-sm bg-black text-white uppercase">
-                    Place Order
+                <button disabled={isSubmitting} className="w-full h-16 mt-5 rounded-sm bg-black text-white uppercase">
+                    {isSubmitting ? "Placing order…" : "Place Demo Order"}
                 </button>
             </form>
         </div>

@@ -32,7 +32,10 @@ const getCurrentUser = async (token) => {
             Authorization: `Bearer ${token}`,
         },
     };
-    const res = await axios.get(`${API_URL}/getCurrentUser`, config);
+    const res = await axios.get(`${API_URL}/getCurrentUser`, config).catch(error => {
+        if (error.response?.status === 401) localStorage.removeItem("user");
+        throw error;
+    });
 
     if (res.data) {
         return res.data;

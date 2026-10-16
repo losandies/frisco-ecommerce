@@ -1,3 +1,4 @@
+import { useParams } from "react-router-dom";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/cart/cartSlice";
@@ -12,9 +13,13 @@ const ItemInfo = () => {
     const [selectedQuantity, setSelectedQuantity] = useState(1);
     const [selectedSize, setSelectedSize] = useState("");
 
-    const { selectedItem } = useSelector((state) => state.items);
+    const { id } = useParams();
+    const { items, isLoading } = useSelector((state) => state.items);
+    const selectedItem = items.find(item => item.id === Number(id));
 
     const dispatch = useDispatch();
+
+    if (!selectedItem) return <p role="status" className="p-10">{isLoading ? "Loading product…" : "Product not found"}</p>;
 
     const addItemToCart = () => {
         if (selectedSize === "") return toast.error("Please Select Your Size");
@@ -67,6 +72,7 @@ const ItemInfo = () => {
                                 selectedItem.subcategory === "hoodies" ? (
                                     clothingSizes.map((size) => (
                                         <button
+                                            key={size}
                                             className={`w-24 md:w-24 h-10 mr-2 mb-4 rounded-lg border-[1px] ${
                                                 selectedSize === size
                                                     ? "bg-black text-white"
@@ -82,6 +88,7 @@ const ItemInfo = () => {
                                 ) : selectedItem.category === "shoes" ? (
                                     shoeSizes.map((size) => (
                                         <button
+                                            key={size}
                                             className={`w-[6.93rem] md:w-24 md:mr-2 h-10 rounded-lg border-[1px] my-2 ${
                                                 selectedSize === size
                                                     ? "bg-black text-white"
@@ -95,6 +102,7 @@ const ItemInfo = () => {
                                 ) : selectedItem.subcategory === "pants" ? (
                                     pantsSizes.map((size) => (
                                         <button
+                                            key={size}
                                             className={`w-24 md:w-24 h-10 md:mr-2 rounded-lg border-[1px] my-2 ${
                                                 selectedSize === size
                                                     ? "bg-black text-white"
