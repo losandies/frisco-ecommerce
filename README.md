@@ -111,3 +111,14 @@ Set `DATABASE_URL`, a private `JWT_SECRET`, and the hosting platform's `PORT` th
 - Monetary values remain strings in the original schema; checkout calculates totals in integer cents. Decimal database fields and transaction-backed inventory would support a larger commerce system.
 - The backend audit is clean after dependency updates. The frontend still has audit findings in the Tailwind 3 build dependency chain; moving the styling system to Tailwind 4 is a separate migration. Re-run `npm audit` in each package before deployment.
 - Product and brand imagery is demo content. Confirm image usage rights before commercial use.
+
+## Original demo recordings
+
+These recordings show the earlier version of the desktop and mobile storefront. The screenshots above show the restored application.
+
+- [Desktop demo](https://github.com/losandies/frisco-ecommerce/assets/20804531/94eec3f7-31b0-4d10-b650-4d9d69cddd26)
+- [Mobile demo](https://github.com/losandies/frisco-ecommerce/assets/20804531/b1d8a620-5a24-4dd9-9d3e-8ed4e6d5bc92)
+
+## What I learned
+
+This project provided hands-on practice with Prisma, custom navigation menus, persisted Redux state, and responsive layouts.
