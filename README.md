@@ -1,49 +1,36 @@
-# Frisco Clothing Dept.
 
-A full-stack streetwear store with a 50-product catalog, a persistent shopping bag, and account-based checkout.
+## Description
 
-**Built with:** React, Redux Toolkit, Tailwind CSS, Node.js, Express, Prisma, and PostgreSQL.
+What we have here is an online store that I've built called Frisco. The application is functional whether you have an account or not; however, only users with active accounts may access the "My Account" page which includes order history and the ability to update saved shipping address. Aside from that, a user will be able to browse multiple clothing catelogs and add pieces to the bag as they please. Users can also select the quantity of the item they would like to order. As a user adds items to their bag, a new total cost is calculated. If a user decides that they no longer want to order a particular item, they can delete it from both the cart and checkout screen. The application features a sleek minimalistic design with many custom dropdown menus, a carousel for viewing clothing pieces, google maps api to display user's saved address and a fully built user authentication system.
 
-![Frisco storefront](docs/storefront.png)
+You can find the live demo [here](www.frisco-clothing-dept.onrender.com).
 
-## Features
+Here are videos displaying the functionality of the application (desktop and mobile):
 
-- Responsive product browsing with category filters and price sorting
-- Size selection and cart quantity controls
-- Account registration and login with JWT authentication and bcrypt
-- Saved shipping addresses and order history
-- Server-calculated order totals
-- Demo accounts for trying the shopping flow
+https://github.com/losandies/frisco-ecommerce/assets/20804531/94eec3f7-31b0-4d10-b650-4d9d69cddd26
 
-Checkout simulates placing an order; no payments are collected.
 
-## Run locally
+https://github.com/losandies/frisco-ecommerce/assets/20804531/b1d8a620-5a24-4dd9-9d3e-8ed4e6d5bc92
 
-Requires Node.js 22.12+ and Docker Compose, or a PostgreSQL database.
 
-```sh
-cp .env.example .env.local
-```
 
-Set a random `JWT_SECRET` in `.env.local`. If using your own PostgreSQL instance, update `DATABASE_URL` as well and skip the Docker command below.
+## Technology Used
 
-```sh
-npm run setup
-docker compose up -d --wait
-npm run db:migrate
-npm run db:seed
-npm run dev
-```
+- JWT Authentication
+- React with Redux Toolkit/Redux Persist
+- Tailwindcss with Daisy UI
+- Node.js with Express
+- PostgreSQL with Prisma
+- Render for hosting
 
-Open **http://127.0.0.1:5173**. Choose **Try Demo Account** on the login page to try checkout and order history.
+## What I Learned
 
-## Tests
+- Prisma
+- How to create custom dropdown menus
+- How to constantly rehydrate state with Redux Persist
+- How to create a more seameless and responsive experience
 
-```sh
-npm test
-npm run test:integration
-npx playwright install chromium
-npm run test:browser
-```
+## Things to improve
 
-Integration and browser tests require the database to be running and seeded. GitHub Actions runs the tests and production build.
+- Performance
+- Navigation
