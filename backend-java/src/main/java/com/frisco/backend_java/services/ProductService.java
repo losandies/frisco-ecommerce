@@ -2,6 +2,7 @@ package com.frisco.backend_java.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.frisco.backend_java.models.Product;
@@ -16,6 +17,6 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productRepository.findAll(Sort.by( "id").ascending());
     }
 }
