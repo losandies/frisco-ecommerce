@@ -37,7 +37,7 @@ public class UserService {
             }
 
             if(request.password().getBytes(StandardCharsets.UTF_8).length > 72) {
-                throw new InvalidPasswordLengthException("Password must be at most 72 UTF-8 bytes");
+                throw new InvalidPasswordLengthException("Password is too long. Please choose a shorter password.");
             }
             String passwordHash = passwordEncoder.encode(request.password());
 
@@ -46,15 +46,11 @@ public class UserService {
                 return new RegisterResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getCreatedAt());
                 
             } catch (DataIntegrityViolationException e) {
-                if(e.getCause() instanceof ConstraintViolationException violation) {
-                    if(violation.getConstraintName().equals("uk6dotkott2kjsp8vw4d0m25fb7")) {
+                if(e.getCause() instanceof ConstraintViolationException violation && "uk6dotkott2kjsp8vw4d0m25fb7".equals(violation.getConstraintName())) {
                         throw new EmailAlreadyExistsException("User already exists");
                     }
-                }
+                
                 throw e;
             }
-
-
-
     }
 }

@@ -56,6 +56,10 @@ public class User {
         return email;
     }
 
+    public String getHashedPassword() {
+        return password;
+    }
+
     public Instant getCreatedAt() {
         return createdAt;
     }
