@@ -1,7 +1,5 @@
 package com.frisco.backend_java.controllers;
 
-import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.frisco.backend_java.dto.CurrentUserResponse;
 import com.frisco.backend_java.dto.RegisterRequest;
 import com.frisco.backend_java.dto.RegisterResponse;
 import com.frisco.backend_java.services.UserService;
@@ -35,8 +34,10 @@ public class UserController {
     }
 
     @GetMapping("/getCurrentUser")
-    public Map<String, String> getCurrentUser(Authentication authentication) {
-        return Map.of("email", authentication.getName());
+    public ResponseEntity<CurrentUserResponse> getCurrentUser(Authentication authentication) {
+        CurrentUserResponse response = userService.getCurrentUser(authentication.getName());
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
 
