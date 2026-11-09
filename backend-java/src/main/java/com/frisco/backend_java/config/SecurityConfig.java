@@ -44,6 +44,13 @@ public class SecurityConfig {
                     
                 }));
 
+                http.logout(logout -> 
+                    logout
+                        .logoutUrl("/api/users/logout")
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                        }));
+
                 http.exceptionHandling(exceptions -> 
                     exceptions.authenticationEntryPoint((request, response, exception) -> {
                         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
