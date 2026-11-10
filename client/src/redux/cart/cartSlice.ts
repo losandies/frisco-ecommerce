@@ -1,43 +1,48 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import cartService from "./cartService";
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import type { CartItem, CartItemKey, CartState } from '../../types/cart';
+import cartService from './cartService';
 
-const initialState = {
+const initialState: CartState = {
     cart: [],
     amountOfItems: 0,
-    totalPrice: 0,
+    totalPrice: '0.00',
     orderPlaced: false,
     readyToCheckOut: false,
 };
 
 export const placeOrder = createAsyncThunk(
-    "cart/placeOrder",
+    'cart/placeOrder',
     async (orderInfo, thunkAPI) => {
         try {
             return await cartService.placeOrder(orderInfo);
         } catch (error) {
-            const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.error) ||
-                error.message ||
-                error.toString();
+            let message = 'Unable to place order';
+
+            if (axios.isAxiosError<{ error?: string }>(error)) {
+                message = error.response?.data?.error || error.message;
+            } else if (error instanceof Error) {
+                message = error.message;
+            }
+
             return thunkAPI.rejectWithValue(message);
         }
-    }
+    },
 );
 
 export const cartSlice = createSlice({
-    name: "cart",
+    name: 'cart',
     initialState,
     reducers: {
-        addToCart: (state, action) => {
+        addToCart: (state, action: PayloadAction<CartItem>) => {
             let alreadyAdded;
 
             if (
                 state.cart.some(
                     (item) =>
                         item.id === action.payload.id &&
-                        item.size === action.payload.size
+                        item.size === action.payload.size,
                 )
             ) {
                 alreadyAdded = true;
@@ -47,49 +52,58 @@ export const cartSlice = createSlice({
                 state.cart.push(action.payload);
             } else {
                 state.cart.forEach((item, index) => {
-                    if (item.id === action.payload.id && item.size === action.payload.size) {
+                    if (
+                        item.id === action.payload.id &&
+                        item.size === action.payload.size
+                    ) {
                         state.cart[index].quantity += action.payload.quantity;
                     }
                 });
             }
         },
-        removeFromCart: (state, action) => {
+        removeFromCart: (state, action: PayloadAction<CartItemKey>) => {
             const items = state.cart.filter(
                 (item) =>
                     item.id !== action.payload.id ||
-                    item.size !== action.payload.size
+                    item.size !== action.payload.size,
             );
             state.cart = items;
         },
         getCartTotalItems: (state) => {
-            const quantities = [];
+            const quantities: number[] = [];
             state.cart.forEach((item) => quantities.push(item.quantity));
 
             state.amountOfItems = quantities.reduce(
                 (acc, curr) => acc + curr,
-                0
+                0,
             );
         },
-        decreaseItemQuantity: (state, action) => {
+        decreaseItemQuantity: (state, action: PayloadAction<CartItemKey>) => {
             state.cart.forEach((item, index) => {
                 if (item.quantity > 1) {
-                    if (item.id === action.payload.id && item.size === action.payload.size) {
+                    if (
+                        item.id === action.payload.id &&
+                        item.size === action.payload.size
+                    ) {
                         state.cart[index].quantity -= 1;
                     }
                 }
             });
         },
-        increaseItemQuantity: (state, action) => {
+        increaseItemQuantity: (state, action: PayloadAction<CartItemKey>) => {
             state.cart.forEach((item, index) => {
-                if (item.id === action.payload.id && item.size === action.payload.size) {
+                if (
+                    item.id === action.payload.id &&
+                    item.size === action.payload.size
+                ) {
                     state.cart[index].quantity += 1;
                 }
             });
         },
         getCartTotalPrice: (state) => {
-            let prices = [];
+            let prices: number[] = [];
             state.cart.forEach((item) =>
-                prices.push(item.price * item.quantity)
+                prices.push(item.price * item.quantity),
             );
             const total = prices.reduce((acc, curr) => acc + curr, 0);
             state.totalPrice = total.toFixed(2);
@@ -97,9 +111,9 @@ export const cartSlice = createSlice({
         clearCart: (state) => {
             state.cart = [];
             state.amountOfItems = 0;
-            state.totalPrice = "0.00";
+            state.totalPrice = '0.00';
         },
-        setReadyToCheckOut: (state, action) => {
+        setReadyToCheckOut: (state, action: PayloadAction<boolean>) => {
             state.readyToCheckOut = action.payload;
         },
     },
