@@ -1,18 +1,56 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import type { RegisterRequest, RegisterResponse } from '../types/auth';
+import type { LoginRequest } from '../types/loginRequest';
 import type { Product } from '../types/product';
-
-const baseQuery = fetchBaseQuery({
-    baseUrl: '/api',
-});
+import type { CurrentUser } from '../types/user';
+import { baseQueryWithCsrf } from './baseQuery';
 
 export const apiSlice = createApi({
     reducerPath: 'api',
-    baseQuery,
+    baseQuery: baseQueryWithCsrf,
+    tagTypes: ['CurrentUser'],
     endpoints: (builder) => ({
         getProducts: builder.query<Product[], void>({
             query: () => '/products',
         }),
+        register: builder.mutation<RegisterResponse, RegisterRequest>({
+            query: ({ email, password, firstName, lastName }) => ({
+                url: '/users/register',
+                method: 'POST',
+                body: {
+                    email,
+                    password,
+                    firstName,
+                    lastName,
+                },
+            }),
+        }),
+        login: builder.mutation<void, LoginRequest>({
+            query: ({ email, password }) => ({
+                url: '/users/login',
+                method: 'POST',
+                body: new URLSearchParams({ email, password }),
+            }),
+            invalidatesTags: (_result, error) => (error ? [] : ['CurrentUser']),
+        }),
+        logout: builder.mutation<void, void>({
+            query: () => ({
+                url: '/users/logout',
+                method: 'POST',
+            }),
+            invalidatesTags: (_result, error) => (error ? [] : ['CurrentUser']),
+        }),
+        getCurrentUser: builder.query<CurrentUser, void>({
+            query: () => 'users/getCurrentUser',
+            providesTags: ['CurrentUser'],
+        }),
     }),
 });
 
-export const { useGetProductsQuery } = apiSlice;
+export const {
+    useGetProductsQuery,
+    useLoginMutation,
+    useGetCurrentUserQuery,
+    useRegisterMutation,
+    useLogoutMutation,
+} = apiSlice;
