@@ -50,9 +50,13 @@ export const itemsSlice = createSlice({
         builder
             .addCase(getItems.pending, (state) => {
                 state.isLoading = true;
+                state.isError = false;
+                state.message = "";
             })
             .addCase(getItems.fulfilled, (state, action) => {
                 state.isLoading = false;
+                state.isError = false;
+                state.message = "";
                 state.items = action.payload;
                 state.isSuccess = true;
             })
