@@ -47,7 +47,7 @@ public class AddressService {
 
         addressRepository.save(address);
 
-        return new AddressResponse(user.getId(), street, city, state, zipCode);
+        return new AddressResponse(street, city, state, zipCode);
         
     }
 }

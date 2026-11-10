@@ -9,13 +9,16 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.frisco.backend_java.dto.AddressResponse;
 import com.frisco.backend_java.dto.CurrentUserResponse;
 import com.frisco.backend_java.dto.RegisterRequest;
 import com.frisco.backend_java.dto.RegisterResponse;
 import com.frisco.backend_java.exceptions.CurrentUserNotFoundException;
 import com.frisco.backend_java.exceptions.EmailAlreadyExistsException;
 import com.frisco.backend_java.exceptions.InvalidPasswordLengthException;
+import com.frisco.backend_java.models.Address;
 import com.frisco.backend_java.models.User;
+import com.frisco.backend_java.repositories.AddressRepository;
 import com.frisco.backend_java.repositories.UserRepository;
 
 
@@ -23,10 +26,12 @@ import com.frisco.backend_java.repositories.UserRepository;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final AddressRepository addressRepository;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, AddressRepository addressRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.addressRepository = addressRepository;
     }
 
     public RegisterResponse register(RegisterRequest request) {
@@ -59,14 +64,30 @@ public class UserService {
 
     public CurrentUserResponse getCurrentUser(String email) {
 
-        Optional<User> user = userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> 
+                new CurrentUserNotFoundException("Please log in again"));
+                
 
-        if(user.isPresent()) {
-            User foundUser = user.get();
-            return new CurrentUserResponse(foundUser.getId(), foundUser.getFirstName(), foundUser.getLastName(), foundUser.getEmail(), foundUser.getCreatedAt());
-        } else {
-            throw new CurrentUserNotFoundException("Please log in again");
-        }
+        Optional<Address> userAddress = addressRepository.findByUser(user);
+
+        
+        return new CurrentUserResponse(
+            user.getId(),
+            user.getFirstName(),
+            user.getLastName(),
+            user.getEmail(),
+            userAddress.isPresent()
+                ? new AddressResponse(
+                    userAddress.get().getStreet(),
+                    userAddress.get().getCity(),
+                    userAddress.get().getState(),
+                    userAddress.get().getZipCode()
+                )
+                : null,
+            user.getCreatedAt()
+);
+        
 
     }
 }

@@ -7,6 +7,7 @@ public record CurrentUserResponse(UUID id,
 String firstName, 
 String lastName, 
 String email, 
+AddressResponse address,
 Instant createdAt) {
     
 }
