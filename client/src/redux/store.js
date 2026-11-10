@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
+import { apiSlice } from '../api/apiSlice';
 import cartReducer from './cart/cartSlice';
 import itemsReducer from './items/itemsSlice';
 import navigationReducer from './nav/navigationSlice';
@@ -24,6 +25,7 @@ export const store = configureStore({
             { ...persistConfig, key: 'nav' },
             navigationReducer,
         ),
+        [apiSlice.reducerPath]: apiSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
@@ -37,7 +39,7 @@ export const store = configureStore({
                     'persist/REGISTER',
                 ],
             },
-        }),
+        }).concat(apiSlice.middleware),
 });
 
 export const persistor = persistStore(store);
