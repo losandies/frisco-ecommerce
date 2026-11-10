@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.frisco.backend_java.dto.AddressResponse;
 import com.frisco.backend_java.dto.CurrentUserResponse;
 import com.frisco.backend_java.dto.RegisterRequest;
 import com.frisco.backend_java.dto.RegisterResponse;
+import com.frisco.backend_java.dto.UpdateAddressRequest;
+import com.frisco.backend_java.services.AddressService;
 import com.frisco.backend_java.services.UserService;
 
 import jakarta.validation.Valid;
@@ -21,9 +24,12 @@ import jakarta.validation.Valid;
 @RestController
 public class UserController {
     private final UserService userService;
+    private final AddressService addressService;
+    
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AddressService addressService) {
         this.userService = userService;
+        this.addressService = addressService;
     }
 
     @PostMapping("/register")
@@ -37,6 +43,13 @@ public class UserController {
     public ResponseEntity<CurrentUserResponse> getCurrentUser(Authentication authentication) {
         CurrentUserResponse response = userService.getCurrentUser(authentication.getName());
 
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+
+    @PostMapping("/updateAddress")
+    public ResponseEntity<AddressResponse> updateAddress(@Valid @RequestBody UpdateAddressRequest request, Authentication authentication) {
+        AddressResponse response = addressService.updateAddress(authentication.getName(), request);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
     
