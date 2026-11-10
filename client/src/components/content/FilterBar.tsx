@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { FaSort } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../redux/hooks';
 
-const FilterBar = ({ onSortChange }) => {
+type FilterBarProps = {
+    onSortChange: (direction: 'low' | 'high') => void;
+};
+const FilterBar = ({ onSortChange }: FilterBarProps) => {
     const [menuDisplay, setmenuDisplay] = useState(true);
     const [displayMenuStyle, setdisplayMenuStyle] = useState('');
 
-    const { category, subcategory } = useSelector((state) => state.nav);
+    const { category, subcategory } = useAppSelector((state) => state.nav);
 
     const showMenu = () => {
         setmenuDisplay(!menuDisplay);
@@ -18,7 +21,7 @@ const FilterBar = ({ onSortChange }) => {
         return menuDisplay;
     };
 
-    const capitalizeFirstLetter = (word) => {
+    const capitalizeFirstLetter = (word: string) => {
         const firstLetter = subcategory.charAt(0).toUpperCase();
         const remainingLetters = word.slice(1);
 

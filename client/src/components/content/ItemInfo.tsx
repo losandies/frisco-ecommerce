@@ -6,7 +6,9 @@ import { useGetProductsQuery } from '../../api/apiSlice';
 import { addToCart } from '../../redux/cart/cartSlice';
 
 const clothingSizes = ['sm', 'md', 'lg', 'xl'];
-const shoeSizes = [7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13].map(String);
+const shoeSizes = [7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12, 12.5, 13].map(
+    String,
+);
 const pantsSizes = [28, 30, 32, 34, 36, 38, 42, 44, 46].map(String);
 const accessorySize = '1SZ';
 
@@ -33,7 +35,7 @@ const ItemInfo = () => {
     const isShoes = selectedItem.category === 'shoes';
     const isPants = selectedItem.subcategory === 'pants';
 
-    let availableSizes = [];
+    let availableSizes: string[] = [];
     let sizeButtonSpacing = 'mr-2 my-2';
 
     if (isClothing) {
@@ -62,7 +64,7 @@ const ItemInfo = () => {
         toast.success('Item Added To Cart');
     };
 
-    const selectNewSize = (size) => {
+    const selectNewSize = (size: string) => {
         setSelectedSize(size);
         setSelectedQuantity(1);
     };
@@ -104,13 +106,21 @@ const ItemInfo = () => {
                                         key={size}
                                         aria-pressed={selectedSize === size}
                                         className={`h-10 rounded-lg border border-black ${
-                                            isShoes ? 'w-[6.93rem] md:w-24' : 'w-24'
+                                            isShoes
+                                                ? 'w-[6.93rem] md:w-24'
+                                                : 'w-24'
                                         } ${sizeButtonSpacing} ${
-                                            selectedSize === size ? 'bg-black text-white' : ''
+                                            selectedSize === size
+                                                ? 'bg-black text-white'
+                                                : ''
                                         }`}
                                         onClick={() => selectNewSize(size)}
                                     >
-                                        <span className={isClothing ? 'uppercase' : ''}>
+                                        <span
+                                            className={
+                                                isClothing ? 'uppercase' : ''
+                                            }
+                                        >
                                             {size}
                                         </span>
                                     </button>
@@ -123,7 +133,7 @@ const ItemInfo = () => {
                                     className={
                                         selectedQuantity === 1
                                             ? 'disabled'
-                                            : null
+                                            : undefined
                                     }
                                     onClick={() => {
                                         if (selectedQuantity != 1) {

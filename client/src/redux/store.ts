@@ -1,13 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import { apiSlice } from '../api/apiSlice';
 import cartReducer from './cart/cartSlice';
 import navigationReducer from './nav/navigationSlice';
 import userReducer from './user/userSlice';
 const storage = {
-    getItem: (key) => Promise.resolve(localStorage.getItem(key)),
-    setItem: (key, value) => Promise.resolve(localStorage.setItem(key, value)),
-    removeItem: (key) => Promise.resolve(localStorage.removeItem(key)),
+    getItem: (key: string) => Promise.resolve(localStorage.getItem(key)),
+    setItem: (key: string, value: string) =>
+        Promise.resolve(localStorage.setItem(key, value)),
+    removeItem: (key: string) => Promise.resolve(localStorage.removeItem(key)),
 };
 
 const persistConfig = {
@@ -15,16 +16,15 @@ const persistConfig = {
     storage,
 };
 
+const rootReducer = combineReducers({
+    user: userReducer,
+    cart: persistReducer({ ...persistConfig, key: 'cart' }, cartReducer),
+    nav: persistReducer({ ...persistConfig, key: 'nav' }, navigationReducer),
+    [apiSlice.reducerPath]: apiSlice.reducer,
+});
+
 export const store = configureStore({
-    reducer: {
-        user: userReducer,
-        cart: persistReducer({ ...persistConfig, key: 'cart' }, cartReducer),
-        nav: persistReducer(
-            { ...persistConfig, key: 'nav' },
-            navigationReducer,
-        ),
-        [apiSlice.reducerPath]: apiSlice.reducer,
-    },
+    reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
@@ -39,5 +39,8 @@ export const store = configureStore({
             },
         }).concat(apiSlice.middleware),
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);

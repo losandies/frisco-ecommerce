@@ -4,8 +4,10 @@ import { useGetProductsQuery } from '../../api/apiSlice';
 import FilterBar from './FilterBar';
 import Item from './Item';
 
+type SortDirection = 'low' | 'high' | null;
+
 const ItemList = () => {
-    const [sortDirection, setSortDirection] = useState(null);
+    const [sortDirection, setSortDirection] = useState<SortDirection>(null);
     const { data: items = [], isLoading, isError } = useGetProductsQuery();
     const { subcategory = '' } = useParams();
 
