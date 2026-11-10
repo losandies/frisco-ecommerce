@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import { apiSlice } from '../api/apiSlice';
 import cartReducer from './cart/cartSlice';
-import itemsReducer from './items/itemsSlice';
 import navigationReducer from './nav/navigationSlice';
 import userReducer from './user/userSlice';
 const storage = {
@@ -19,7 +18,6 @@ const persistConfig = {
 export const store = configureStore({
     reducer: {
         user: userReducer,
-        items: persistReducer({ ...persistConfig, key: 'items' }, itemsReducer),
         cart: persistReducer({ ...persistConfig, key: 'cart' }, cartReducer),
         nav: persistReducer(
             { ...persistConfig, key: 'nav' },

@@ -1,39 +1,39 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import FilterBar from "./FilterBar";
-import Item from "./Item";
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useGetProductsQuery } from '../../api/apiSlice';
+import FilterBar from './FilterBar';
+import Item from './Item';
 
 const ItemList = () => {
-    const { items, sortDirection } = useSelector((state) => state.items);
-    const { subcategory = "" } = useParams();
+    const [sortDirection, setSortDirection] = useState(null);
+    const { data: items = [], isLoading, isError } = useGetProductsQuery();
+    const { subcategory = '' } = useParams();
+
+    if (isLoading) {
+        return <p role='status'>Loading products…</p>;
+    }
+
+    if (isError) {
+        return <p role='alert'>Unable to load products. Please try again.</p>;
+    }
 
     const selectedCategory = items.filter(
-        (item) => item.subcategory === subcategory.toLowerCase()
+        (item) => item.subcategory === subcategory.toLowerCase(),
     );
 
-    const sortItems = (sortDirection) =>
-        sortDirection === "high"
-            ? selectedCategory
-                  .sort((a, b) =>
-                      Number(a.price) < Number(b.price) ? 1 : -1
-                  )
-                  .map((item) => <Item key={item.id} item={item} />)
-            : sortDirection === "low"
-            ? selectedCategory
-                  .sort((a, b) =>
-                      Number(a.price) > Number(b.price) ? 1 : -1
-                  )
-                  .map((item) => <Item key={item.id} item={item} />)
-            : selectedCategory.map((item) => (
-                  <Item key={item.id} item={item} />
-              ));
+    if (sortDirection === 'high') {
+        selectedCategory.sort((a, b) => b.price - a.price);
+    } else if (sortDirection === 'low') {
+        selectedCategory.sort((a, b) => a.price - b.price);
+    }
 
     return (
-        <div className="h-full w-full flex flex-col justify-center px-10 md:pt-12 mb-[100px]">
-            <FilterBar />
-            <div className="items-container place-items-center grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full h-full mt-10 md:mb-[200px]">
-                {sortItems(sortDirection)}
+        <div className='h-full w-full flex flex-col justify-center px-10 md:pt-12 mb-[100px]'>
+            <FilterBar onSortChange={setSortDirection} />
+            <div className='items-container place-items-center grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full h-full mt-10 md:mb-[200px]'>
+                {selectedCategory.map((item) => (
+                    <Item key={item.id} item={item} />
+                ))}
             </div>
         </div>
     );

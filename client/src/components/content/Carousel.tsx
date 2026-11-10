@@ -1,15 +1,12 @@
 import { useRef } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useGetProductsQuery } from '../../api/apiSlice';
-import { selectItem } from '../../redux/items/itemsSlice';
 
 export default function Carousel() {
     const { data: items = [], isLoading, isError } = useGetProductsQuery();
 
     const track = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     if (isLoading) return <p role='status'>Loading collection…</p>;
     if (isError)
@@ -62,7 +59,6 @@ export default function Carousel() {
                         key={item.id}
                         className='shrink-0 w-[30%] md:w-[19%] snap-start text-left'
                         onClick={() => {
-                            dispatch(selectItem(item));
                             navigate(
                                 `/${item.category}/${item.subcategory}/item/${item.id}`,
                             );
