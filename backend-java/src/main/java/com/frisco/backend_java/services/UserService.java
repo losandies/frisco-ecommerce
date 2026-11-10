@@ -8,9 +8,11 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.frisco.backend_java.dto.AddressResponse;
 import com.frisco.backend_java.dto.CurrentUserResponse;
+import com.frisco.backend_java.dto.OrderResponse;
 import com.frisco.backend_java.dto.RegisterRequest;
 import com.frisco.backend_java.dto.RegisterResponse;
 import com.frisco.backend_java.exceptions.CurrentUserNotFoundException;
@@ -20,6 +22,7 @@ import com.frisco.backend_java.models.Address;
 import com.frisco.backend_java.models.User;
 import com.frisco.backend_java.repositories.AddressRepository;
 import com.frisco.backend_java.repositories.UserRepository;
+import com.frisco.backend_java.repositories.OrderRepository;
 
 
 @Service 
@@ -27,11 +30,13 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final AddressRepository addressRepository;
+    private final OrderRepository orderRepository;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, AddressRepository addressRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, AddressRepository addressRepository, OrderRepository orderRepository) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.addressRepository = addressRepository;
+        this.orderRepository = orderRepository;
     }
 
     public RegisterResponse register(RegisterRequest request) {
@@ -62,6 +67,7 @@ public class UserService {
             }
     }
 
+    @Transactional(readOnly = true)
     public CurrentUserResponse getCurrentUser(String email) {
 
         User user = userRepository.findByEmail(email)
@@ -85,6 +91,8 @@ public class UserService {
                     userAddress.get().getZipCode()
                 )
                 : null,
+            orderRepository.findAllByUser_IdOrderByCreatedAtDesc(user.getId()).stream()
+                .map(OrderResponse::from).toList(),
             user.getCreatedAt()
 );
         

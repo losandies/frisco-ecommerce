@@ -20,6 +20,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestControllerAdvice 
 public class GlobalExceptionHandler {
+    @ExceptionHandler(ProductUnavailableException.class)
+    public ResponseEntity<Map<String, String>> handleProductUnavailable(ProductUnavailableException exception) {
+        return ResponseEntity.badRequest().body(Map.of("error", exception.getMessage()));
+    }
+
     @ExceptionHandler(EmailAlreadyExistsException.class) 
     public ResponseEntity<Map<String, String>> handleEmailAlreadyExists(EmailAlreadyExistsException exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", exception.getMessage()));
