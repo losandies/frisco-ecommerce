@@ -4,7 +4,7 @@ const { spawn } = require('node:child_process');
 const path = require('node:path');
 const children = [
     spawn(process.execPath, ['--watch', 'server.js'], { stdio: 'inherit', cwd: path.join(__dirname, '..') }),
-    spawn(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['run', 'client', '--prefix', 'client'], { stdio: 'inherit', cwd: path.join(__dirname, '..') }),
+    spawn(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['run', 'client', '--prefix', '../../client'], { stdio: 'inherit', cwd: path.join(__dirname, '..') }),
 ];
 let stopping = false;
 function stop(code = 0) {

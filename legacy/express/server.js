@@ -15,8 +15,8 @@ app.use('/api/items', require('./routes/itemRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 app.use('/api', (req, res) => res.status(404).json({ error: 'API route not found' }));
 if (['production', 'staging'].includes(process.env.NODE_ENV)) {
-    app.use(express.static(path.join(__dirname, 'client/dist')));
-    app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'client/dist/index.html')));
+    app.use(express.static(path.join(__dirname, '../../client/dist')));
+    app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../../client/dist/index.html')));
 }
 app.use((error, req, res, next) => {
     console.error(error.message);

@@ -30,6 +30,6 @@ test('every seeded product has an image and a valid price', () => {
     assert.equal(items.length, 50);
     for (const item of items) {
         assert.ok(Number(item.price) > 0, item.name);
-        assert.ok(fs.existsSync(path.join(__dirname, '../client/public/assets', item.imgPath)), item.imgPath);
+        assert.ok(fs.existsSync(path.join(__dirname, '../../../client/public/assets', item.imgPath)), item.imgPath);
     }
 });
