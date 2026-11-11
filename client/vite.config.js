@@ -9,16 +9,8 @@ export default defineConfig({
         strictPort: true,
         port: 5173,
         proxy: {
-            '/api/products': {
-                target: 'http://127.0.0.1:8080',
-            },
-            '/api/csrf': {
-                target: 'http://127.0.0.1:8080',
-            },
             '/api': {
-                target: `http://127.0.0.1:${process.env.PORT || 5001}`,
-                changeOrigin: true,
-                secure: false,
+                target: 'http://127.0.0.1:8080',
             },
         },
     },

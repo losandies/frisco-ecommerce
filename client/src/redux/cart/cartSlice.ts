@@ -1,9 +1,6 @@
-import type { LegacyOrder, PlaceOrderInfo } from "../../types/legacyApi";
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 import type { CartItem, CartItemKey, CartState } from '../../types/cart';
-import cartService from './cartService';
 
 const initialState: CartState = {
     cart: [],
@@ -12,25 +9,6 @@ const initialState: CartState = {
     orderPlaced: false,
     readyToCheckOut: false,
 };
-
-export const placeOrder = createAsyncThunk<LegacyOrder, PlaceOrderInfo, { rejectValue: string }>(
-    'cart/placeOrder',
-    async (orderInfo, thunkAPI) => {
-        try {
-            return await cartService.placeOrder(orderInfo);
-        } catch (error) {
-            let message = 'Unable to place order';
-
-            if (axios.isAxiosError<{ error?: string }>(error)) {
-                message = error.response?.data?.error || error.message;
-            } else if (error instanceof Error) {
-                message = error.message;
-            }
-
-            return thunkAPI.rejectWithValue(message);
-        }
-    },
-);
 
 export const cartSlice = createSlice({
     name: 'cart',

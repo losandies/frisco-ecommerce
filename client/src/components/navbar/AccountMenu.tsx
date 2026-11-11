@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import defaultAvatar from '../../../src/assets/default-avatar.jpg';
+import defaultAvatar from '../../assets/default-avatar.jpg';
 import type { CurrentUser } from '../../types/user';
 
 type AccountMenuProps = {

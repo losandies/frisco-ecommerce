@@ -49,7 +49,7 @@ const CartItem = ({ item }: CartItemProps) => {
                             -
                         </button>
                         <input
-                            className='text-center caret-transparent cursor-default h-[22px] w-[10px] md:w-5'
+                            className='product-quantity text-center caret-transparent cursor-default h-[22px] w-[10px] md:w-5'
                             type='number'
                             value={item.quantity}
                             min='1'

@@ -3,11 +3,11 @@ import { useEffect } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
+import defaultAvatar from '../../assets/default-avatar.jpg';
+import logo from '../../assets/logo.jpeg';
 import { getCartTotalItems } from '../../redux/cart/cartSlice';
 import { resetMenu, toggleMenu } from '../../redux/nav/navigationSlice';
 import { sizes } from '../../screenSizes';
-import defaultAvatar from '/assets/default-avatar.jpg';
-import logo from '/assets/logo.jpeg';
 
 import { toast } from 'react-toastify';
 import { apiSlice, useLogoutMutation } from '../../api/apiSlice';

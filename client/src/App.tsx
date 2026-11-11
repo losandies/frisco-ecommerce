@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,23 +13,15 @@ import Login from './pages/Login';
 import MyAccount from './pages/MyAccount';
 import Register from './pages/Register';
 import { getCartTotalItems } from './redux/cart/cartSlice';
-import { getCurrentUser } from './redux/user/userSlice';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
 
 function App() {
-    const { amountOfItems, cart } = useAppSelector((state) => state.cart);
-    const { user } = useAppSelector((state) => state.user);
-
+    const { cart } = useAppSelector((state) => state.cart);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(getCartTotalItems());
-    }, [amountOfItems, cart]);
-
-    useEffect(() => {
-        if (user) {
-            dispatch(getCurrentUser(user.token));
-        }
-    }, []);
+    }, [dispatch, cart]);
 
     return (
         <div className='h-full w-full'>

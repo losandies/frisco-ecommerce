@@ -3,7 +3,6 @@ import { persistReducer, persistStore } from 'redux-persist';
 import { apiSlice } from '../api/apiSlice';
 import cartReducer from './cart/cartSlice';
 import navigationReducer from './nav/navigationSlice';
-import userReducer from './user/userSlice';
 const storage = {
     getItem: (key: string) => Promise.resolve(localStorage.getItem(key)),
     setItem: (key: string, value: string) =>
@@ -17,7 +16,6 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-    user: userReducer,
     cart: persistReducer({ ...persistConfig, key: 'cart' }, cartReducer),
     nav: persistReducer({ ...persistConfig, key: 'nav' }, navigationReducer),
     [apiSlice.reducerPath]: apiSlice.reducer,
