@@ -4,14 +4,14 @@ import OrderSummary from "../components/checkout/OrderSummary";
 import { useMediaQuery } from "react-responsive";
 import { sizes } from "../screenSizes";
 import AltTopBar from "../components/checkout/AltTopBar";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { getCurrentUser } from "../redux/user/userSlice";
 
 const CheckOut = () => {
     const isMobile = useMediaQuery({ maxWidth: sizes.md });
-    const { user } = useSelector((state) => state.user);
+    const { user } = useAppSelector((state) => state.user);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (user) {

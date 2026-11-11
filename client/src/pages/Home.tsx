@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import HomepageContent from "../components/content/HomepageContent";
 import NavBar from "../components/navbar/NavBar";
 import SideBar from "../components/sidebar/SideBar";
@@ -8,9 +8,9 @@ import { getCurrentUser, reset } from "../redux/user/userSlice";
 import PageContainer from "../components/misc/PageContainer";
 
 const Home = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const { user } = useSelector((state) => state.user);
+    const { user } = useAppSelector((state) => state.user);
 
     useEffect(() => {
         if (user) {

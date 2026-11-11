@@ -1,3 +1,4 @@
+import type { LegacyOrder, PlaceOrderInfo } from "../../types/legacyApi";
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -12,7 +13,7 @@ const initialState: CartState = {
     readyToCheckOut: false,
 };
 
-export const placeOrder = createAsyncThunk(
+export const placeOrder = createAsyncThunk<LegacyOrder, PlaceOrderInfo, { rejectValue: string }>(
     'cart/placeOrder',
     async (orderInfo, thunkAPI) => {
         try {

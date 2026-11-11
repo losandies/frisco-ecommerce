@@ -1,9 +1,12 @@
+import type { CartItem } from "../../types/cart";
 import React from "react";
 import ItemDivider from "../cart/ItemDivider";
 import { removeFromCart } from "../../redux/cart/cartSlice";
 import { useDispatch } from "react-redux";
 
-const CheckoutItem = ({ item }) => {
+type CheckoutItemProps = { item: CartItem };
+
+const CheckoutItem = ({ item }: CheckoutItemProps) => {
     const dispatch = useDispatch();
 
     return (

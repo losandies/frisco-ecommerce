@@ -1,6 +1,14 @@
 import React from "react";
 
-const Order = ({ order }) => {
+type OrderProps = {
+    order: {
+        id: string;
+        total: number | string;
+        items: { id: number; imgPath: string; size: string | number }[];
+    };
+};
+
+const Order = ({ order }: OrderProps) => {
     return (
         <div className="w-full h-52 border-2 rounded-md border-neutral-200 p-3 mb-5">
             <div className="w-full h-auto flex justify-between">

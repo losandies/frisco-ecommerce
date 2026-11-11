@@ -1,6 +1,11 @@
 import React from "react";
 
-const MyAccountNav = ({ setCurrentTab, currentTab }) => {
+type MyAccountNavProps = {
+    setCurrentTab: (tab: string) => void;
+    currentTab: string;
+};
+
+const MyAccountNav = ({ setCurrentTab, currentTab }: MyAccountNavProps) => {
     return (
         <div className="w-full h-[49px] justify-center items-center flex flex-col">
             <div className="h-12 w-full flex justify-center items-center">

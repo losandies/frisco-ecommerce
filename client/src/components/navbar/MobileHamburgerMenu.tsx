@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../redux/hooks";
 
 const MobileHamburgerMenu = () => {
-    const { menuOpen } = useSelector((state) => state.nav);
+    const { menuOpen } = useAppSelector((state) => state.nav);
 
     const [isFocused, setIsFocused] = useState(false);
     return (

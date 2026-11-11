@@ -1,12 +1,12 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Link } from "react-router-dom";
 import { setReadyToCheckOut } from "../../redux/cart/cartSlice";
 
 const AccountReminder = () => {
-    const { user } = useSelector((state) => state.user);
+    const { user } = useAppSelector((state) => state.user);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     return (
         <div

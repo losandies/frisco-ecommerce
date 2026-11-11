@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import {
     resetMenu,
@@ -7,15 +7,22 @@ import {
     toggleMenu,
 } from "../../redux/nav/navigationSlice";
 
-const MenuItem = ({ category, sub1, sub2, sub3 }) => {
+type MenuItemProps = {
+    category: string;
+    sub1: string;
+    sub2: string;
+    sub3: string;
+};
+
+const MenuItem = ({ category, sub1, sub2, sub3 }: MenuItemProps) => {
     const [isFocused, setIsFocused] = useState(false);
 
-    const { menuOpen } = useSelector((state) => state.nav);
+    const { menuOpen } = useAppSelector((state) => state.nav);
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const switchCategories = (category, subcategory) => {
+    const switchCategories = (category: string, subcategory: string) => {
         navigate(`/${category.toLowerCase()}/${subcategory.toLowerCase()}`);
         dispatch(switchPage({ category, subcategory }));
     };

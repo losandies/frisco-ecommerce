@@ -1,15 +1,22 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useNavigate } from "react-router-dom";
 import { switchPage } from "../../redux/nav/navigationSlice";
 
-const SideBarItem = ({ category, sub1, sub2, sub3 }) => {
+type SideBarItemProps = {
+    category: string;
+    sub1: string;
+    sub2: string;
+    sub3: string;
+};
+
+const SideBarItem = ({ category, sub1, sub2, sub3 }: SideBarItemProps) => {
     const [isHovered, setIsHovered] = useState(false);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const switchCategories = (category, subcategory) => {
+    const switchCategories = (category: string, subcategory: string) => {
         navigate(`/${category.toLowerCase()}/${subcategory.toLowerCase()}`);
         dispatch(switchPage({ category, subcategory }));
     };

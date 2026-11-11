@@ -1,3 +1,4 @@
+import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -10,7 +11,7 @@ export const navigationSlice = createSlice({
     name: "nav",
     initialState,
     reducers: {
-        switchPage: (state, action) => {
+        switchPage: (state, action: PayloadAction<{ category: string; subcategory: string }>) => {
             const { category, subcategory } = action.payload;
             state.category = category;
             state.subcategory = subcategory;

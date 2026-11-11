@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,10 +17,10 @@ import { getCartTotalItems } from './redux/cart/cartSlice';
 import { getCurrentUser } from './redux/user/userSlice';
 
 function App() {
-    const { amountOfItems, cart } = useSelector((state) => state.cart);
-    const { user } = useSelector((state) => state.user);
+    const { amountOfItems, cart } = useAppSelector((state) => state.cart);
+    const { user } = useAppSelector((state) => state.user);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(getCartTotalItems());

@@ -8,15 +8,19 @@ import AddressDisplay from "../components/account/address/AddressDisplay";
 import AccountInfoContainer from "../components/account/AccountInfoContainer";
 import { useEffect } from "react";
 import { getCurrentUser } from "../redux/user/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+
+type GeocodingResponse = {
+    results?: { geometry?: { location?: { lat: number; lng: number } } }[];
+};
 
 const MyAccount = () => {
     const [currentTab, setCurrentTab] = useState("profile");
-    const [latitude, setLat] = useState();
-    const [longitude, setLng] = useState();
+    const [latitude, setLat] = useState<number | undefined>();
+    const [longitude, setLng] = useState<number | undefined>();
 
-    const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.user);
+    const dispatch = useAppDispatch();
+    const { user } = useAppSelector((state) => state.user);
 
     useEffect(() => {
         if (user?.token) dispatch(getCurrentUser(user.token));
@@ -30,7 +34,7 @@ const MyAccount = () => {
         const params = new URLSearchParams({ address, key: mapsKey });
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?${params}`, { signal: controller.signal })
             .then(response => response.json())
-            .then(data => {
+            .then((data: GeocodingResponse) => {
                 const location = data.results?.[0]?.geometry?.location;
                 if (location) { setLat(location.lat); setLng(location.lng); }
             }).catch(() => { /* Address management remains available without a map. */ });

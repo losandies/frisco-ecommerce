@@ -1,15 +1,20 @@
 import React from "react";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
 
-const LoadedMap = ({ latitude, longitude }) => {
+type MapProps = {
+    latitude?: number;
+    longitude?: number;
+};
+
+const LoadedMap = ({ latitude, longitude }: MapProps) => {
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_API_KEY,
     });
 
     const center = {
-        lat: latitude,
-        lng: longitude,
+        lat: latitude!,
+        lng: longitude!,
     };
 
     const containerStyle = {
@@ -24,7 +29,7 @@ const LoadedMap = ({ latitude, longitude }) => {
     ) : null;
 };
 
-const Map = (props) => import.meta.env.VITE_GOOGLE_API_KEY && Number.isFinite(props.latitude) && Number.isFinite(props.longitude)
+const Map = (props: MapProps) => import.meta.env.VITE_GOOGLE_API_KEY && Number.isFinite(props.latitude) && Number.isFinite(props.longitude)
     ? <LoadedMap {...props} /> : <p className="text-sm text-neutral-500">Map preview is optional. Your saved address appears above.</p>;
 
 export default Map;

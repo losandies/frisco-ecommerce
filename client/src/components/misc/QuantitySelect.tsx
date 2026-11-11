@@ -1,13 +1,16 @@
+import type { CartItem } from "../../types/cart";
 import React from "react";
 import { useState } from "react";
 
-const QuantitySelect = ({ item }) => {
+type QuantitySelectProps = { item?: Pick<CartItem, "quantity"> };
+
+const QuantitySelect = ({ item }: QuantitySelectProps) => {
     const [selectedQuantity, setSelectedQuantity] = useState(1);
 
     return (
         <div className="w-[6.25rem] h-10 border-black border-[1px] flex justify-around rounded-lg">
             <button
-                className={selectedQuantity === 1 ? "disabled" : null}
+                className={selectedQuantity === 1 ? "disabled" : undefined}
                 onClick={() => {
                     if (selectedQuantity != 1) {
                         setSelectedQuantity(selectedQuantity - 1);
@@ -23,7 +26,7 @@ const QuantitySelect = ({ item }) => {
                 min="1"
                 max="5"
                 step="1"
-                readonly
+                readOnly
             />
             <button
                 onClick={() =>
