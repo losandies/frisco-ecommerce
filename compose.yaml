@@ -1,0 +1,32 @@
+services:
+    db:
+        image: postgres:17
+        environment:
+            POSTGRES_DB: frisco
+            POSTGRES_USER: frisco
+            POSTGRES_PASSWORD: frisco_local
+        volumes:
+            - docker_dev_db:/var/lib/postgresql/data
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U frisco -d frisco']
+            interval: 5s
+            timeout: 5s
+            retries: 10
+    backend:
+        image: frisco-backend:local
+        build:
+            context: ./backend-java
+        environment:
+            DB_URL: jdbc:postgresql://db:5432/frisco
+            DB_USERNAME: frisco
+            DB_PASSWORD: frisco_local
+            SPRING_JPA_SHOW_SQL: 'false'
+        ports:
+            - '127.0.0.1:8081:8080'
+        mem_limit: 512m
+        depends_on:
+            db:
+                condition: service_healthy
+
+volumes:
+    docker_dev_db:
