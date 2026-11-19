@@ -1,0 +1,26 @@
+# Replace __ORIGIN_SECRET__ before installing on EC2.
+# Keep the rendered configuration out of Git and readable only by root.
+server {
+    listen 443 ssl;
+    server_name frisco-shop.duckdns.org;
+
+    ssl_certificate /etc/nginx/ssl/frisco-fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/frisco.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+
+    if ($http_x_frisco_origin != "__ORIGIN_SECRET__") {
+        return 403;
+    }
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8080;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location / {
+        return 404;
+    }
+}
