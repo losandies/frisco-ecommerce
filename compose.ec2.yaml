@@ -2,7 +2,7 @@ name: frisco
 
 services:
     backend:
-        image: 775893835482.dkr.ecr.us-east-1.amazonaws.com/frisco-backend:v1
+        image: 775893835482.dkr.ecr.us-east-1.amazonaws.com/frisco-backend:${IMAGE_TAG:?IMAGE_TAG must be set}
         env_file:
             - /etc/frisco/backend.env
         environment:
