@@ -1,9 +1,6 @@
-data "aws_ssm_parameter" "backend_ami" {
-  name = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64"
-}
 
 resource "aws_instance" "backend" {
-  ami                         = data.aws_ssm_parameter.backend_ami.value
+  ami                         = "ami-0cc337c0f1a9da5ed"
   instance_type               = "t4g.micro"
   subnet_id                   = aws_subnet.public.id
   vpc_security_group_ids      = [aws_security_group.backend.id]

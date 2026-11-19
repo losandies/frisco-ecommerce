@@ -4,6 +4,12 @@ variable "db_password" {
   sensitive   = true
 }
 
+variable "origin_secret" {
+  description = "Shared secret between CloudFront and the backend"
+  type        = string
+  sensitive   = true
+}
+
 resource "aws_db_instance" "main" {
   identifier               = "frisco-dev"
   engine                   = "postgres"

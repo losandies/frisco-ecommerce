@@ -1,0 +1,20 @@
+name: frisco
+
+services:
+    backend:
+        image: 775893835482.dkr.ecr.us-east-1.amazonaws.com/frisco-backend:v1
+        env_file:
+            - /etc/frisco/backend.env
+        environment:
+            SERVER_ADDRESS: '0.0.0.0'
+        ports:
+            - '127.0.0.1:8080:8080'
+        mem_limit: 512m
+        restart: unless-stopped
+        security_opt:
+            - no-new-privileges:true
+        logging:
+            driver: json-file
+            options:
+                max-size: '10m'
+                max-file: '3'
