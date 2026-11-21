@@ -1,60 +1,29 @@
 # Frisco Clothing Dept.
 
-A full-stack clothing storefront migrated from Express/Prisma to Java 21 and
-Spring Boot, with a React/TypeScript frontend and an AWS deployment defined in Terraform.
+Frisco Clothing Dept. is a full-stack streetwear storefront. Browse the catalog, pick a size, and build a shopping bag. A demo account lets you save a shipping address, place a simulated order, and view your order history. Checkout records orders without collecting payment.
 
-**[Live storefront](https://dsf3uar9gd5k6.cloudfront.net)** ·
-[Deployment runbook](docs/DEPLOYMENT.md) · [Order API notes](docs/ORDER_MIGRATION.md)
+**[Try the live demo](https://dsf3uar9gd5k6.cloudfront.net/)**
 
-This is a portfolio demo. Checkout records orders but collects no payment.
+![Frisco Clothing Dept. storefront screenshot](docs/storefront.png)
 
-## Features
+## How it works
 
-- Product browsing, categories, price sorting, and size selection.
-- Persistent browser shopping bag, including across logout.
-- Registration and session-based login/logout with CSRF protection.
-- Account profile, saved shipping address, and order history.
-- Server-calculated order totals and purchase-time product/price snapshots.
+- **Storefront** uses React, TypeScript, Vite, React Router, Tailwind CSS, and DaisyUI. RTK Query handles API calls, and Redux Persist keeps the shopping bag across reloads and sign-outs.
+- **API** uses Java 21, Spring Boot, Spring Security, Bean Validation, and Spring Data JPA. Sign-in uses a server-side session with CSRF protection. The server calculates order totals using catalog prices and stores purchase-time product and price snapshots.
+- **Hosting** uses CloudFront as the public entry point. It serves the frontend from private S3 and proxies `/api/*` to Nginx on EC2. Nginx forwards requests to the Spring Boot container, which connects to private RDS PostgreSQL.
+- **Delivery** uses GitHub Actions for CI and ARM64 image publishing to ECR. The deployment workflow is manually triggered and uses Systems Manager to roll out a versioned image on EC2. The deploy script checks readiness and restores the previous image if the new one fails its checks.
 
-## Architecture
+The deployment workflow and production settings require AWS setup. The runbook covers setup, smoke checks, and the single-instance deployment tradeoffs. [Deployment runbook](docs/DEPLOYMENT.md)
 
-```mermaid
-flowchart LR
-    Browser -->|HTTPS| CloudFront
-    CloudFront -->|Static files, OAC| S3[Private S3 frontend]
-    CloudFront -->|/api/* HTTPS + origin header| Nginx[Nginx on EC2]
-    Nginx -->|Loopback port 8080| Backend[Spring Boot Docker container]
-    Backend -->|PostgreSQL TLS| RDS[Private RDS PostgreSQL]
-    Actions[GitHub Actions] -->|OIDC, publish Arm64 image| ECR[Private ECR]
-    ECR -->|Pull using EC2 role| Backend
-    Actions -->|Manual deployment through SSM| Backend
-```
+## Run locally
 
-The CI/CD additions and production hardening must be applied using the runbook;
-committing their definitions does not configure live AWS resources automatically.
-The DuckDNS hostname is a backend origin; visitors use the CloudFront URL above.
-
-## Stack
-
-- **Frontend:** React, TypeScript, Vite, Redux Toolkit/RTK Query, Redux Persist, Tailwind/DaisyUI.
-- **Backend:** Java 21, Spring Boot, Spring Security, Bean Validation, JPA/Hibernate, PostgreSQL.
-- **Delivery:** multi-stage Docker build, Compose, ECR, GitHub Actions, OIDC, Systems Manager.
-- **Infrastructure:** Terraform, S3, CloudFront, EC2, private RDS, IAM, Nginx/Let's Encrypt.
-
-## Run locally with Docker
-
-Requires Docker with Compose. From the repository root:
+Use Docker with Compose and Node.js 24, the version used in CI. Start the API and PostgreSQL from the repository root.
 
 ```sh
 docker compose up --build -d
-curl -sS http://127.0.0.1:8081/api/products | python3 -m json.tool
 ```
 
-This creates an isolated PostgreSQL 17 container and named volume. The backend is
-bound to `127.0.0.1:8081`; it does not use your installed PostgreSQL or AWS database.
-The committed `frisco_local` password is for this local container only.
-
-Run the frontend in a second terminal, proxying API calls to that backend:
+In a second terminal, start Vite with the Compose API as its proxy target.
 
 ```sh
 cd client
@@ -62,81 +31,43 @@ npm ci
 FRISCO_API_TARGET=http://127.0.0.1:8081 npm run dev
 ```
 
-Open the Vite URL printed in the terminal. Default API target remains
-`http://127.0.0.1:8080` for a Java backend running directly on the host.
+Open [http://127.0.0.1:5173](http://127.0.0.1:5173). The API seeds the product catalog when the database is empty. To enable the optional address map, set `VITE_GOOGLE_API_KEY` in `client/.env.local` using `client/.env.example` as a template.
 
-```sh
-docker compose down
-```
+Stop the containers with `docker compose down` from the repository root. The local PostgreSQL data persists in a named volume.
 
-Stopping the stack preserves its database volume. Avoid `down -v` unless you
-intend to delete local demo data. To rebuild the backend image, include `--build`.
+### Run the API directly
 
-## Run Java directly
-
-Provide a separate local PostgreSQL database. The defaults are `frisco_dev` on
-localhost:5432 and username `losandies`; override using `DB_URL`, `DB_USERNAME`, and
-`DB_PASSWORD`. The URL must use JDBC syntax.
+With Java 21 and a local PostgreSQL database, set `DB_URL` to a JDBC URL and set `DB_USERNAME` and `DB_PASSWORD` for that database.
 
 ```sh
 cd backend-java
 bash ./mvnw spring-boot:run
 ```
 
-The `prod` profile validates an already-existing schema and sets secure cookies;
-local development retains automatic schema updates. See the runbook before using
-production settings or connecting to RDS. Never use production credentials locally.
+Vite proxies to `http://127.0.0.1:8080` by default, so start the client with `npm run dev` for this setup.
 
-## Verification
+## Checks
 
-```sh
-cd backend-java
-bash ./mvnw -B verify
-```
+Run each command from the repository root.
 
-```sh
-cd client
-npm ci
-npm run typecheck
-npm run build
-```
-
-From the repository root:
-
-```sh
-python3 -m unittest discover -s infra/ec2/tests -v
-bash infra/ec2/smoke-test.sh
-```
-
-Backend integration tests use H2, not RDS; PostgreSQL-specific behavior still needs
-validation against PostgreSQL. Deployment regression tests mock the CLIs and do
-not change AWS. Public smoke checks are read-only and should run after applying
-production configuration. Authenticated checkout flows are also tested manually.
-
-## Repository
-
-| Path | Purpose |
+| Check | Command |
 | --- | --- |
-| `client/` | React/TypeScript application |
-| `backend-java/` | Spring Boot application, tests, Dockerfile |
-| `compose.yaml` | Isolated local backend/database stack |
-| `compose.ec2.yaml` | Versioned backend-only deployment using RDS |
-| `infra/terraform/` | Main AWS infrastructure and GitHub OIDC roles |
-| `infra/state-bootstrap/` | Private, encrypted, versioned state bucket |
-| `infra/ec2/` | Deployment scripts and secret-free host configuration templates |
-| `.github/workflows/` | CI, image publishing, manually triggered deployment |
-| `legacy/express/` | Original Express/Prisma implementation retained for reference |
+| Java build and tests | `(cd backend-java && bash ./mvnw -B verify)` |
+| Frontend type check and build | `(cd client && npm ci && npm run typecheck && npm run build)` |
+| Deployment script regression tests | `python3 -m unittest discover -s infra/ec2/tests -v` |
+| Read-only live API smoke checks | `bash infra/ec2/smoke-test.sh` |
 
-## Engineering decisions and limits
+The Java integration tests use H2. The Docker setup runs PostgreSQL for local end-to-end testing.
 
-Session cookies keep credentials out of browser storage. CloudFront provides one
-public origin for frontend and API, forwards session/CSRF data, and disables API
-caching. EC2 runs a non-root container with a memory limit and rotated logs.
-RDS is private and accepts database connections only from the backend group.
+## Repository layout
 
-The deployment script pulls an explicit immutable image tag, checks readiness, and
-restores the previous image on failure. This is a single-instance deployment:
-updates briefly interrupt service, sessions reset on Java restart, and image
-rollback cannot reverse schema changes. Full schema migrations, automatic host
-bootstrap, restore drills, and centralized monitoring remain follow-ups. The
-[runbook](docs/DEPLOYMENT.md) documents setup, operator steps, and evidence limits.
+| Path | Contents |
+| --- | --- |
+| [`client/`](client/) | Storefront and account UI |
+| [`backend-java/`](backend-java/) | Spring Boot API, tests, and Dockerfile |
+| [`infra/terraform/`](infra/terraform/) | AWS infrastructure and GitHub OIDC roles |
+| [`infra/ec2/`](infra/ec2/) | Deployment scripts, smoke checks, and host configuration templates |
+| [`.github/workflows/`](.github/workflows/) | CI, image publishing, and deployment workflows |
+| [`legacy/express/`](legacy/express/) | Original Express and Prisma implementation |
+
+[Order API and migration notes](docs/ORDER_MIGRATION.md)
