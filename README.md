@@ -1,4 +1,11 @@
 
+# Frisco Clothing Dept.
+
+The active application uses a React/TypeScript frontend in `client/` and a
+Spring Boot backend in `backend-java/`. The original Express backend and its
+historical tooling are archived in [legacy/express](legacy/express/README.md).
+The description below documents the original application.
+
 ## Description
 
 What we have here is an online store that I've built called Frisco. The application is functional whether you have an account or not; however, only users with active accounts may access the "My Account" page which includes order history and the ability to update saved shipping address. Aside from that, a user will be able to browse multiple clothing catelogs and add pieces to the bag as they please. Users can also select the quantity of the item they would like to order. As a user adds items to their bag, a new total cost is calculated. If a user decides that they no longer want to order a particular item, they can delete it from both the cart and checkout screen. The application features a sleek minimalistic design with many custom dropdown menus, a carousel for viewing clothing pieces, google maps api to display user's saved address and a fully built user authentication system.

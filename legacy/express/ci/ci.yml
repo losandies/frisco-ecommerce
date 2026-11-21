@@ -1,0 +1,37 @@
+name: Verify storefront
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: frisco
+          POSTGRES_PASSWORD: frisco_local
+          POSTGRES_DB: frisco
+        ports: ['5433:5432']
+        options: >-
+          --health-cmd "pg_isready -U frisco -d frisco"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://frisco:frisco_local@127.0.0.1:5433/frisco?schema=public
+      JWT_SECRET: ci-only-secret-not-for-deployment
+      PORT: 5001
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            client/package-lock.json
+      - run: npm run setup
+      - run: npm run db:migrate
+      - run: npm run db:seed
+      - run: npm test
+      - run: npm run test:integration
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser

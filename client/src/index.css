@@ -12,6 +12,11 @@ body,
 }
 
 @layer base {
+    .product-quantity {
+        appearance: textfield;
+        -moz-appearance: textfield;
+    }
+
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
         -webkit-appearance: none;
