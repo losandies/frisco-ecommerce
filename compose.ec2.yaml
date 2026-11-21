@@ -7,6 +7,18 @@ services:
             - /etc/frisco/backend.env
         environment:
             SERVER_ADDRESS: '0.0.0.0'
+            SPRING_PROFILES_ACTIVE: prod
+            SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+            SERVER_SERVLET_SESSION_COOKIE_SECURE: 'true'
+            SERVER_SERVLET_SESSION_COOKIE_HTTP_ONLY: 'true'
+            SERVER_SERVLET_SESSION_COOKIE_SAME_SITE: lax
+        volumes:
+            - type: bind
+              source: /etc/frisco/certs
+              target: /etc/frisco/certs
+              read_only: true
+              bind:
+                  create_host_path: false
         ports:
             - '127.0.0.1:8080:8080'
         mem_limit: 512m

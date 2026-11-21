@@ -1,0 +1,10 @@
+# Copy to backend.tf only after creating the bucket in ../state-bootstrap.
+# Initialize with the bucket name using -backend-config; see docs/DEPLOYMENT.md.
+terraform {
+  backend "s3" {
+    key          = "frisco/dev/terraform.tfstate"
+    region       = "us-east-1"
+    encrypt      = true
+    use_lockfile = true
+  }
+}

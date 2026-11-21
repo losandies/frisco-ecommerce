@@ -13,15 +13,18 @@ export IMAGE_TAG="${1:?Usage: deploy.sh IMAGE_TAG}"
 readonly AWS_REGION="us-east-1"
 readonly ECR_REGISTRY="775893835482.dkr.ecr.us-east-1.amazonaws.com"
 readonly COMPOSE_FILE="/opt/frisco/compose.yaml"
+readonly RDS_CA_FILE="/etc/frisco/certs/rds-ca-bundle.pem"
 
 # A running container may still be starting or unable to reach the database.
 # Retry the product endpoint; return 0 for success and 1 if readiness never succeeds.
 wait_for_backend() {
     for attempt in {1..30}; do
         # Treat HTTP errors as failures, bound request time, and discard the JSON body.
-        if curl --fail --silent --connect-timeout 2 --max-time 5 \
+        response_code="$(curl --silent --connect-timeout 2 --max-time 5 \
             http://127.0.0.1:8080/api/products \
-            --output /dev/null; then
+            --output /dev/null --write-out '%{http_code}')" || response_code="000"
+        # Require 200 specifically; a login redirect must not count as readiness.
+        if [[ "$response_code" == "200" ]]; then
             return 0
         fi
 
@@ -46,6 +49,26 @@ fi
 
 # Validate without printing resolved configuration, which includes credentials.
 docker compose -f "$COMPOSE_FILE" config --quiet
+
+# Fail before replacing a working container if the TLS prerequisites are missing.
+if [[ ! -r "$RDS_CA_FILE" ]]; then
+    echo "Install the RDS CA bundle with prepare-rds-tls.sh before deploying." >&2
+    exit 1
+fi
+
+# Parse Compose's resolved JSON in memory; never print the database URL or password.
+if ! docker compose -f "$COMPOSE_FILE" config --format json | python3 -c '
+import json, sys
+from urllib.parse import urlsplit, parse_qs
+config = json.load(sys.stdin)
+url = config["services"]["backend"].get("environment", {}).get("DB_URL", "")
+options = parse_qs(urlsplit(url.removeprefix("jdbc:")).query)
+sys.exit(0 if options.get("sslmode") == ["verify-full"] and
+         options.get("sslrootcert") == ["/etc/frisco/certs/rds-ca-bundle.pem"] else 1)
+'; then
+    echo "DB_URL must use sslmode=verify-full and the installed RDS CA bundle." >&2
+    exit 1
+fi
 
 # $(...) captures command output. -q returns only the running container's ID.
 previous_container_id="$(docker compose -f "$COMPOSE_FILE" ps -q backend)"

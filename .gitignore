@@ -8,3 +8,15 @@ client/dist/
 *.log
 test-results/
 playwright-report/
+
+# Terraform state can contain database passwords and origin credentials.
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfvars.json
+*.tfbackend
+crash.log
+__pycache__/
+*.pyc

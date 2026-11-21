@@ -60,3 +60,14 @@ jobs:
 
             - name: Build frontend
               run: npm run build
+
+    deployment:
+        name: Deployment script checks
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps:
+            - uses: actions/checkout@v7
+            - name: Check shell syntax
+              run: bash -n infra/ec2/deploy.sh && bash -n infra/ec2/prepare-rds-tls.sh && bash -n infra/ec2/smoke-test.sh
+            - name: Verify deployment failure and rollback behavior
+              run: python3 -m unittest discover -s infra/ec2/tests -v
