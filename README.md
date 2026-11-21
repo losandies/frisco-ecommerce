@@ -10,7 +10,7 @@ The description below documents the original application.
 
 What we have here is an online store that I've built called Frisco. The application is functional whether you have an account or not; however, only users with active accounts may access the "My Account" page which includes order history and the ability to update saved shipping address. Aside from that, a user will be able to browse multiple clothing catelogs and add pieces to the bag as they please. Users can also select the quantity of the item they would like to order. As a user adds items to their bag, a new total cost is calculated. If a user decides that they no longer want to order a particular item, they can delete it from both the cart and checkout screen. The application features a sleek minimalistic design with many custom dropdown menus, a carousel for viewing clothing pieces, google maps api to display user's saved address and a fully built user authentication system.
 
-You can find the live demo [here](www.frisco-clothing-dept.onrender.com).
+**[Try the live demo](https://dsf3uar9gd5k6.cloudfront.net/)**
 
 Here are videos displaying the functionality of the application (desktop and mobile):
 
